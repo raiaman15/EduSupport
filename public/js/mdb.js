@@ -1,6 +1,6 @@
 /*!
  * Material Design for Bootstrap 4
- * Version: MDB FREE: 4.0.1
+ * Version: MDB FREE: 4.0.0
  *
  *
  * Copyright: Material Design for Bootstrap
@@ -5216,9 +5216,7 @@ $(function () {
 Waves.attach('.btn, .btn-floating', ['waves-light']);
 Waves.attach('.view .mask', ['waves-light']);
 Waves.attach('.waves-light', ['waves-light']);
-Waves.attach('.navbar-nav a, .navbar form', ['waves-light']);
-Waves.attach('.navbar-brand', ['waves-light']);
-Waves.attach('.double-nav li', ['waves-light']);
+Waves.attach('.navbar > li, .navbar a, .navbar form', ['waves-light']);
 Waves.init();/* FORMS */
 
 (function ($) {

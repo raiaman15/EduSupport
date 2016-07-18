@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>PROJECT_X</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href="{{ URL::asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{ URL::asset('css/mbd.min.css')}}" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
@@ -16,7 +17,8 @@
                 width: 100%;
                 display: table;
                 font-weight: 100;
-                font-family: 'Lato';
+                color: white;
+                background-color: #0099CC;
             }
 
             .container {
@@ -38,8 +40,20 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">PROJECT_X</div>
             </div>
         </div>
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="{{ URL::asset('js/jquery-2.2.3.min.js')}}"></script>
+
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="{{ URL::asset('js/tether.min.js')}}"></script>
+
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js')}}"></script>
+
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="{{ URL::asset('js/mdb.min.js')}}"></script>
     </body>
 </html>

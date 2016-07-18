@@ -1,12 +1,26 @@
 /*!
+/*!
  * Material Design for Bootstrap 4
- * Version: MDB FREE: 4.0.1
+ * Version: MDB FREE 4.0.0 
  *
  *
  * Copyright: Material Design for Bootstrap
  * http://mdbootstrap.com/
  *
  * Read the license: http://mdbootstrap.com/license/
+ *
+ *
+ * Documentation: http://mdbootstrap.com/
+ *
+ * Getting started: http://mdbootstrap.com/getting-started/
+ *
+ * Tutorials: http://mdbootstrap.com/bootstrap-tutorial/
+ *
+ * Templates: http://mdbootstrap.com/templates/
+ *
+ * Support: http://mdbootstrap.com/forums/forum/support/
+ *
+ * Contact: office@mdbootstrap.com
  *
  * Atribution: Animate CSS, Twitter Bootstrap, Materialize CSS, Normalize CSS, Waves JS, WOW JS, Toastr, Chart.js , Hammer.js
  *
@@ -2631,20 +2645,11 @@ body {
   width: 100%;
 }
 
-.video-full {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  background-size: cover;
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 @font-face {
@@ -6315,10 +6320,6 @@ p.lead {
   color: #00C851;
 }
 
-button:focus {
-  outline: none !important;
-}
-
 .btn {
   border-radius: 0;
   border: 0;
@@ -6810,8 +6811,7 @@ label {
   margin-bottom: 1rem;
 }
 
-.form-control:disabled,
-.form-control[readonly] {
+.form-control:disabled, .form-control[readonly] {
   background-color: transparent;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -7015,32 +7015,9 @@ textarea.md-textarea {
   margin-right: 2rem;
 }
 
-i.btn-primary {
-  background: #4285F4 !important;
-}
-
-i.btn-default {
-  background: #2BBBAD !important;
-}
-
-i.btn-success {
-  background: #00C851 !important;
-}
-
-i.btn-info {
-  background: #33b5e5 !important;
-}
-
-i.btn-warning {
-  background: #FF8800 !important;
-}
-
-i.btn-danger {
-  background: #CC0000 !important;
-}
-
 .card {
   border: 0;
+  overflow: hidden;
 }
 
 .jumbotron {
