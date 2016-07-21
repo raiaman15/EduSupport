@@ -12,8 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.welcome');
 });
-Route::get('home', function () {
-    return view('home');
-});
+
+
+Route::auth();
+Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
+Route::get('home', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@index'
+]);
+
