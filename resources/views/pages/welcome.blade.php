@@ -36,7 +36,9 @@
 @section('content')
 <div class="container">
     <div class="content">
-        <div class="title">PROJECT_X</div>
+        <div class="title">PROJECT_X 
+        <a href="/home" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-rocket fa-4x" aria-hidden="true"></i></a>
+        </div>
     </div>
 </div>
 @stop
