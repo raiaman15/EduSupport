@@ -22,4 +22,8 @@ Route::get('home', [
     'middleware' => 'auth',
     'uses' => 'HomeController@index'
 ]);
+Route::post('add_more_info', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@add_more_info'
+]);
 

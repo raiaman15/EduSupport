@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('head')
-
+<style type="text/css">
+  #home,#study,#tutor,#faq,#about_us,#contact_us
+  {
+    padding-bottom:15%;
+  }
+</style>
 @stop
 
 @section('content')
@@ -30,10 +35,10 @@
           <a class="nav-link" id="tutor_link">TUTOR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="about_us_link">ABOUT US</a>
+          <a class="nav-link" id="faq_link">FAQ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="faq_link">FAQ</a>
+          <a class="nav-link" id="about_us_link">ABOUT US</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact_us_link">CONTACT US</a>
@@ -54,14 +59,81 @@
   </div>
 </nav>
 <!--/.Navbar-->
+<!-- Button trigger modal -->
+<button type="button" id="add_more_info" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display:none;">
+    add_more_info
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/add_more_info') }}">
+            {{ csrf_field() }}
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Kindly fill the following additional details.</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+            <!-- Main Form -->
+            <div class="md-form">
+                <i class="fa fa-calendar prefix"></i>
+                <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
+                <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
+            </div>
+            <div class="md-form">
+                <i class="fa fa-globe prefix"></i>
+                <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
+                <label for="user_country">Your country</label>
+            </div>
+            <div class="md-form">
+                <i class="fa fa-phone prefix"></i>
+                <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
+                <label for="user_contact">Your contact number </label>
+            </div>
+            <div class="md-form">
+                <i class="fa fa-university prefix"></i>
+                <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
+                <label for="user_university">Your university </label>
+            </div>
+            <div class="md-form">
+                <i class="fa fa-book prefix"></i>
+                <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
+                <label for="user_course">Your course </label>
+            </div>
+            <div class="md-form">
+                <i class="fa fa-hand-o-right prefix"></i>
+                <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
+                <label for="user_referred_by">Where did you heard about us?</label>
+            </div>
+            <fieldset class="form-group">
+                <input type="checkbox" id="contact_checkbox" checked> contact me through registered e-mail.</label>
+            </fieldset>
+          
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.Live preview-->
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
-        <h3 class="card-title">Welcome to Infroid</h3>
+        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
         <p class="card-text">
         At Infroid, we believe that technology is bound to change with time. However, the information must be preserved irrespective of the changing technology. We aim to maintain the data and data-driven services in familiar manner irrespective of rapidly changing IT industry. Along with that, our major involvement is in the domain of health-care. Various IT services do exist in the field of health-care. However, providing a single platform for basic health-care services is a tough task. We try to bring various small health-care related services on one platform. There is one more thing we work on, Droids. Imagine a human like robot whom you could interact with and rely upon to handle your daily tasks. Well, we are putting some effort to make this dream a reality.<br/>
         We value open-source technologies and prefer using these for the services we offer, thus reducing the overall cost and improving the quality of the product.
@@ -71,8 +143,8 @@
   </div>
 </div>
 
-<!-- NOTIFICATIONS -->
-<div class="container" id="notifications" style="display:none;">
+<!-- STUDY -->
+<div class="container" id="study" style="display:none;">
   <p align="center">Nothing to show right now.</p>
   <div class="row" style="display:none">
     <br/>
@@ -107,8 +179,8 @@
   </div>
 </div>
 
-<!-- SERVICES AUTOMATION -->
-<div class="container" id="services_automation" style="display:none;">
+<!-- TUTOR -->
+<div class="container" id="tutor" style="display:none;">
   <div class="row">
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -134,8 +206,8 @@
   </div>
 </div>
 
-<!-- SERVICES HEALTH-CARE -->
-<div class="container" id="services_healthcare" style="display:none;">
+<!-- FAQ -->
+<div class="container" id="faq" style="display:none;">
   <div class="row">
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -152,8 +224,8 @@
   </div>
 </div>
 
-<!-- SERVICES DROIDS (AUTONOMOUS) -->
-<div class="container" id="services_droids" style="display:none;">
+<!-- ABOUT US -->
+<div class="container" id="about_us" style="display:none;">
   <div class="row">
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -163,51 +235,6 @@
         By using the latest discoveries of medical science combined with continuously evolving computational devices, days are not far away that we will have our own droid.
         To make this a reality, a lot of research and collaboration is required. Infroid is committed to contribute its resources and services to make this dream a reality. In particular, we are making efforts to make the technology behind this open for all so that a droid might not be propitiatory device but can serve you as an independent natural human being.
         Our first aim is to provide a platform for the development of the 'Project Baby Droid'.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SERVICE TOKENS -->
-<div class="container" id="service_tokens" style="display:none;">
-  <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-6">
-      <div class="card card-block">
-        <h3 class="card-title">Raise new token</h3>
-        <p class="card-text">
-          <form>
-            <div class="md-form">
-                <i class="fa fa-envelope prefix"></i>
-                <input type="email" id="new_token_registered_email" class="form-control validate">
-                <label for="new_token_registered_email" data-error="incorrect format" data-success="correct format">Enter registered email</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-pencil prefix"></i>
-                <textarea type="text" id="new_token_description" class="md-textarea"></textarea>
-                <label for="new_token_description">How may we assist you?</label>
-            </div>
-            <fieldset class="form-group">
-                <input type="checkbox" id="new_token_checkbox" checked> contact me through registered e-mail.</label>
-            </fieldset>
-            <button type="submit" class="btn unique-color">Submit</button>
-          </form>
-        </p>
-      </div>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-6">
-      <div class="card card-block">
-        <h3 class="card-title">Track old token</h3>
-        <p class="card-text">
-          <form>
-            <div class="md-form">
-                <i class="fa fa-envelope prefix"></i>
-                <input type="email" id="old_token_registered_email" class="form-control validate">
-                <label for="old_token_registered_email" data-error="incorrect format" data-success="correct format">Enter registered email</label>
-            </div>
-            <button type="submit" class="btn unique-color">Submit</button>
-          </form>
         </p>
       </div>
     </div>
@@ -252,7 +279,6 @@
         <div class="card-block">
           <h3 class="card-title">Location <a href="https://goo.gl/maps/7ZLMFmgX1bv" target="_blank" class="btn unique-color" style="border-radius:30px;width:50px;height:50px;line-height:50px;border-radius: 50%;text-align:center;"><i class="fa fa-map-marker fa-2x"></i></a></h3>
           <p class="card-text">Flat No. 1405, Marygold Tower, Divine Meadows,<br/> Sector 108, Noida - 201301</p>
-          
         </div>
       </div>
     </div>
@@ -268,90 +294,91 @@
 @section('script')
 <!-- SCRIPTS -->
 <script>
+{{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
+@if ($show === 1)
+    $("#add_more_info").trigger("click");
+@endif
   $( "#home_link" ).click(function() {
     $( "#home_link" ).parent().addClass( "active" );
-    $( "#news_link" ).parent().removeClass("active");
-    $( "#services_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
+    $( "#study_link" ).parent().removeClass("active");
+    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#faq_link" ).parent().removeClass("active");
+    $( "#about_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#notifications" ).hide( "fast");
-    $( "#services" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
+    $( "#study" ).hide( "fast");
+    $( "#tutor" ).hide( "fast");
+    $( "#faq" ).hide( "fast");
+    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
-    $( "#services_automation" ).hide( "fast");
-    $( "#services_healthcare" ).hide( "fast");
-    $( "#services_droids" ).hide( "fast");
     $( "#home" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
-    
   });
   $( "#study_link" ).click(function() {
-    $( "#news_link" ).parent().addClass( "active" );
+    $( "#study_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#services_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
+    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#faq_link" ).parent().removeClass("active");
+    $( "#about_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#services" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
+    $( "#tutor" ).hide( "fast");
+    $( "#faq" ).hide( "fast");
+    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
-    $( "#services_automation" ).hide( "fast");
-    $( "#services_healthcare" ).hide( "fast");
-    $( "#services_droids" ).hide( "fast");
-    $( "#notifications" ).show( "fast");
+    $( "#study" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
   $( "#tutor_link" ).click(function() {
-    $( "#services_link" ).parent().addClass( "active" );
+    $( "#tutor_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#news_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
+    $( "#study_link" ).parent().removeClass("active");
+    $( "#faq_link" ).parent().removeClass("active");
+    $( "#about_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#notifications" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
+    $( "#study" ).hide( "fast");
+    $( "#faq" ).hide( "fast");
+    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
-    $( "#services_healthcare" ).hide( "fast");
-    $( "#services_droids" ).hide( "fast");
-    $( "#services_automation" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
-  $( "#about_us_link" ).click(function() {
-    $( "#services_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
-    $( "#news_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
-    $( "#notifications" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
-    $( "#services_automation" ).hide( "fast");
-    $( "#services_droids" ).hide( "fast");
-    $( "#services_healthcare" ).show( "fast");
+    $( "#tutor" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
   $( "#faq_link" ).click(function() {
-    $( "#services_link" ).parent().addClass( "active" );
+    $( "#faq_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#news_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
+    $( "#study_link" ).parent().removeClass("active");
+    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#about_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#notifications" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
+    $( "#study" ).hide( "fast");
+    $( "#tutor" ).hide( "fast");
+    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
-    $( "#services_automation" ).hide( "fast");
-    $( "#services_healthcare" ).hide( "fast");
-    $( "#services_droids" ).show( "fast");
+    $( "#faq" ).show( "fast");
+    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
+            $('.navbar-toggler').click();
+        }
+  });
+  $( "#about_us_link" ).click(function() {
+    $( "#about_us_link" ).parent().addClass( "active" );
+    $( "#home_link" ).parent().removeClass("active");
+    $( "#study_link" ).parent().removeClass("active");
+    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#faq_link" ).parent().removeClass("active");
+    $( "#contact_us_link" ).parent().removeClass("active");
+    $( "#home" ).hide( "fast");
+    $( "#study" ).hide( "fast");
+    $( "#tutor" ).hide( "fast");
+    $( "#faq" ).hide( "fast");
+    $( "#contact_us" ).hide( "fast");
+    $( "#about_us" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
@@ -359,16 +386,15 @@
   $( "#contact_us_link" ).click(function() {
     $( "#contact_us_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#news_link" ).parent().removeClass("active");
-    $( "#services_link" ).parent().removeClass("active");
-    $( "#service_tokens_link" ).parent().removeClass("active");
+    $( "#study_link" ).parent().removeClass("active");
+    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#faq_link" ).parent().removeClass("active");
+    $( "#about_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#notifications" ).hide( "fast");
-    $( "#services" ).hide( "fast");
-    $( "#service_tokens" ).hide( "fast");
-    $( "#services_automation" ).hide( "fast");
-    $( "#services_healthcare" ).hide( "fast");
-    $( "#services_droids" ).hide( "fast");
+    $( "#study" ).hide( "fast");
+    $( "#tutor" ).hide( "fast");
+    $( "#faq" ).hide( "fast");
+    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();

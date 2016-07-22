@@ -27,16 +27,13 @@
         display: inline-block;
     }
 
-    .title {
-        font-size: 96px;
-    }
 </style>
 @stop
 
 @section('content')
 <div class="container">
     <div class="content">
-        <div class="title">PROJECT_X 
+        <div><h1 class="h1-responsive"><big>PROJECT_X</big></h1>
         <a href="/home" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-rocket fa-4x" aria-hidden="true"></i></a>
         </div>
     </div>
