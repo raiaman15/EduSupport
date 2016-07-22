@@ -38,6 +38,8 @@
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="{{ URL::asset('js/mdb.min.js')}}"></script>
+
+        @yield('script')
     </body>
 </html>
 

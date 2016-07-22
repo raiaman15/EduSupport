@@ -76,7 +76,7 @@ class AuthController extends Controller
     {
         if ($user = $this->activationService->activateUser($token)) {
             auth()->login($user);
-            return redirect($this->redirectPath());
+            return redirect('/home');
         }
         abort(404);
     }

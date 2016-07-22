@@ -1,21 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!--Navbar-->
+<nav class="navbar navbar-dark unique-color">
+
+  <!-- Collapse button-->
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx2">
+    <i class="fa fa-bars"></i>
+  </button>
+  <div class="container">
+  <big>
+    <!--Collapse content-->
+    <div class="collapse navbar-toggleable-xs" id="collapseEx2">
+      <!--Navbar Brand-->
+      <a class="navbar-brand" href="http://project_x.app">PROJECT_X</a>
+    </div>
+    <!--/.Collapse content-->
+  </big>
+  </div>
+</nav>
+<!--/.Navbar-->
+
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card">
+                <div class="card-header" align="center">
+                    REGISTER
+                </div>
+                <div class="card-block">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
-
+                        <br/>
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" required="required">
+                            <label for="name">Complete name</label>
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}"></div>
+                            <div>
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -23,13 +46,13 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
+                        <br/>
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="email" id="email" class="form-control validate" name="email" value="{{ old('email') }}" required="required">
+                            <label for="email" data-error="wrong format">Your email ID</label>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}"></div>
+                            <div>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -37,13 +60,13 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
+                        <br/>
+                        <div class="md-form">
+                            <i class="fa fa-key prefix"></i>
+                            <input type="password" id="password" class="form-control validate" name="password" value="{{ old('email') }}" required="required">
+                            <label for="password" data-error="wrong format">Password</label>
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}"></div>
+                            <div>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -51,13 +74,13 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
+                        <br/>
+                        <div class="md-form">
+                            <i class="fa fa-key prefix"></i>
+                            <input type="password" id="password-confirm" class="form-control validate" name="password_confirmation" value="{{ old('email') }}" required="required">
+                            <label for="password-confirm" data-error="wrong format">Re-type Password</label>
+                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}"></div>
+                            <div>
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -65,12 +88,13 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Register
+                        <br/>
+                        <div class="form-group" align="center">
+                            <div>
+                                <button type="submit" class="btn unique-color">
+                                    <i class="fa fa-btn fa-user-plus"></i> Register
                                 </button>
+                                <a class="btn btn-link unique-color white-text" href="{{ url('/login') }}"><i class="fa fa-btn fa-user"></i> Already registered?</a>
                             </div>
                         </div>
                     </form>

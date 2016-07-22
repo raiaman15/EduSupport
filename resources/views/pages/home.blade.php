@@ -41,9 +41,13 @@
       </ul>
       <!--Search form-->
       <form class="form-inline">
-        <i class="fa fa-search fa-inverse prefix"></i>
-        <input class="form-control" type="text">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link white-text" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+        </li>
+      </ul>
       </form>
+
     </div>
     <!--/.Collapse content-->
   </big>
@@ -259,8 +263,9 @@
     <p style="width:100%;text-align:center;color:white;" class="text-fluid"><small><small>© {{ date("Y") }} Infroid. All rights reserved.</small></small></p>
   </div>
 </nav>
+@stop
 
-
+@section('script')
 <!-- SCRIPTS -->
 <script>
   $( "#home_link" ).click(function() {
