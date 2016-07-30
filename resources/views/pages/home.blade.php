@@ -4,7 +4,7 @@
 <style type="text/css">
   #home,#study,#tutor,#faq,#about_us,#contact_us
   {
-    padding-bottom:15%;
+    padding-bottom:50px;
   }
 </style>
 @stop
@@ -135,8 +135,7 @@
       <div class="card card-block">
         <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
         <p class="card-text">
-        At Infroid, we believe that technology is bound to change with time. However, the information must be preserved irrespective of the changing technology. We aim to maintain the data and data-driven services in familiar manner irrespective of rapidly changing IT industry. Along with that, our major involvement is in the domain of health-care. Various IT services do exist in the field of health-care. However, providing a single platform for basic health-care services is a tough task. We try to bring various small health-care related services on one platform. There is one more thing we work on, Droids. Imagine a human like robot whom you could interact with and rely upon to handle your daily tasks. Well, we are putting some effort to make this dream a reality.<br/>
-        We value open-source technologies and prefer using these for the services we offer, thus reducing the overall cost and improving the quality of the product.
+        Some text here
         </p>
       </div>
     </div>
@@ -145,37 +144,16 @@
 
 <!-- STUDY -->
 <div class="container" id="study" style="display:none;">
-  <p align="center">Nothing to show right now.</p>
-  <div class="row" style="display:none">
-    <br/>
-    <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="row">
+  <br/>
+    <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
-        <h3 class="card-title">Notification title</h3>
-        <p class="card-text">Description</p>
+        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+        <p class="card-text">
+        Some text here
+        </p>
       </div>
     </div>
-
-    <div class="col-sm-12 col-md-6 col-lg-4">
-      <div class="card card-block">
-        <h3 class="card-title">Notification title</h3>
-        <p class="card-text">Description</p>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-md-6 col-lg-4">
-      <div class="card card-block">
-        <h3 class="card-title">Notification title</h3>
-        <p class="card-text">Description</p>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-md-6 col-lg-4">
-      <div class="card card-block">
-        <h3 class="card-title">Notification title</h3>
-        <p class="card-text">Description</p>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -185,21 +163,9 @@
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
-        <h3 class="card-title">Automation</h3>
-        <p class="card-text">At Infroid, we value data. We know that every single bit of data is significant to the organizations they belong to. However, managing this data could be a troublesome job. Let it be manual data or even digital data, those days are long gone when one could wait for you to go manually pull off that records file from your record room or manually search it across numerous devices. Centralized digital data is the only solution that could help user get all the information they require at the time they need in just a few clicks. Talking technically, we do leverage the power of cloud computing as well as traditional custom server to provide you the best experience and privacy economically.<br/>
-        Key variants of our automation service:<br/>
-        <b>
-        <ul>
-          <li>Automation on Cloud</li>
-          <li>Automation on Client server (Infroid Managed)</li>
-          <li>Automation on Client server (Client Managed)</li>
-          <li>Automation on Client Intranet (very small scale)</li>
-        </ul>
-        </b>
-        At Infroid, we take care of automation at all scales i.e. small scale digitization to large scale organization automation. Our key <i>mantra</i> behind each automation task that we carry out is the user experience.<br/>
-        We give concrete attention to the following points:<br/><br/>
-        <p align="center"><b>Ease of Usage, Reliability, Multi-Platform Support, Seamless user experience</b></p>
-        For us, automation is <i>anything that does not require human intervention to do some task</i>. Practically, the existing systems need some kind of human intervention. We try to be truly autonomous with our systems thus which makes them better than many of the existing automation solutions.
+        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+        <p class="card-text">
+        Some text here
         </p>
       </div>
     </div>
@@ -212,12 +178,9 @@
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
-        <h3 class="card-title">Health-care</h3>
-        <p class="card-text">Health-care is one of the primary concern, and we at Infroid feel no different. However, it could be clearly seen that a lot is yet to be done in this sector. Today, we have made significant progress in medical science, still we see people across globe finding it difficult to manage their own health. Reasons are many, for some, money may be the reason and for others time could be the reason. Some might be unaware of the progress of medical science and the potential it has in today's date while some might not even be knowing that they are already suffering from some disease. Some have become so reluctant towards the life that they keep ignoring their diseases while some might be over-concerned towards their health, which inhibits them to perform other tasks efficiently in life.
-
-        We, at Infroid have come up with numerous services that might help each and every individual to enhance their health. Let it be a poor individual, who do not even have a smart-phone to those who are suffering due to excessive overdose of royal life.
-
-         At Infroid, we believe that technology is bound to change with time. However, the information and knowledge obtained from past must be preserved. We aim to maintain the data driven services irrespective of technological changes. Along with that, our major involvements are in the domain of health-care and unmanned droids.
+        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+        <p class="card-text">
+        Some text here
         </p>
       </div>
     </div>
@@ -230,11 +193,9 @@
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
-        <h3 class="card-title">Droids</h3>
-        <p class="card-text">From the science fictions to our day to day lives, technology have become an indispensable part. These developments in robotics are stopping nowhere soon and we are about to witness an era of droids (a sci-fi term used to denote human like robots). Let it be a companion or assistant, a care-taker or anything else, droids will soon be a reality.
-        By using the latest discoveries of medical science combined with continuously evolving computational devices, days are not far away that we will have our own droid.
-        To make this a reality, a lot of research and collaboration is required. Infroid is committed to contribute its resources and services to make this dream a reality. In particular, we are making efforts to make the technology behind this open for all so that a droid might not be propitiatory device but can serve you as an independent natural human being.
-        Our first aim is to provide a platform for the development of the 'Project Baby Droid'.
+        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+        <p class="card-text">
+        Some text here
         </p>
       </div>
     </div>
@@ -284,9 +245,9 @@
     </div>
   </div>
 </div>
-<nav class="navbar navbar-fixed-bottom navbar-dark unique-color" style="max-height:10%;">
+<nav class="navbar navbar-fixed-bottom navbar-dark unique-color" style="min-height:40px;max-height:40px;">
   <div class="container">
-    <p style="width:100%;text-align:center;color:white;" class="text-fluid"><small><small>© {{ date("Y") }} Infroid. All rights reserved.</small></small></p>
+    <p style="width:100%;text-align:center;color:white;font-size:10pt;" class="text-fluid">© {{ date("Y") }} Infroid. All rights reserved.</p>
   </div>
 </nav>
 @stop
