@@ -130,15 +130,39 @@
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
+  <div class="card-group">
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
   <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
         <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
         <p class="card-text">
         Some text here
         </p>
       </div>
-    </div>
   </div>
 </div>
 
@@ -206,7 +230,7 @@
 <div class="container" id="contact_us" style="display:none;">
   <div class="row">
   <br/>
-    <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="card-group">
       <div class="card card-block">
         <h3 class="card-title">Contact us</h3>
         <p class="card-text">
@@ -233,12 +257,10 @@
           </form>
         </p>
       </div>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-6">
       <div class="card">
         <img class="img-fluid" src="{{ asset('img/background/2.jpg') }}" style="min-width:100%; min-height:auto; background-height:auto; background-width:100%;"  alt="Card image cap">
-        <div class="card-block">
-          <h3 class="card-title">Location <a href="https://goo.gl/maps/7ZLMFmgX1bv" target="_blank" class="btn unique-color" style="border-radius:30px;width:50px;height:50px;line-height:50px;border-radius: 50%;text-align:center;"><i class="fa fa-map-marker fa-2x"></i></a></h3>
+        <div class="card-block" width="100%">
+          <h3 class="card-title" width="100%" align="left">Location <a href="https://goo.gl/maps/7ZLMFmgX1bv" target="_blank" class="btn unique-color" style="border-radius:30px;width:50px;height:50px;line-height:50px;border-radius: 50%;text-align:center;"><i class="fa fa-map-marker fa-2x"></i></a></h3>
           <p class="card-text">Flat No. 1405, Marygold Tower, Divine Meadows,<br/> Sector 108, Noida - 201301</p>
         </div>
       </div>
