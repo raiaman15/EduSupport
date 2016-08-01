@@ -22,7 +22,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_X</a>
+      <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
       <!--Links-->
       <ul class="nav navbar-nav">
         <li class="nav-item active">
@@ -35,10 +35,7 @@
           <a class="nav-link" id="tutor_link">TUTOR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="faq_link">FAQ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="about_us_link">ABOUT US</a>
+          <a class="nav-link" id="why_us_link">WHY US</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact_us_link">CONTACT US</a>
@@ -46,11 +43,12 @@
       </ul>
       <!--Search form-->
       <form class="form-inline">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link white-text" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
-        </li>
-      </ul>
+          <button title="EDIT PROFILE" type="button" id="add_more_info" class="btn unique-color" data-toggle="modal" data-target="#myModal" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+              <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
+          </button>
+          <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
+            <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
+          </a>
       </form>
 
     </div>
@@ -60,9 +58,7 @@
 </nav>
 <!--/.Navbar-->
 <!-- Button trigger modal -->
-<button type="button" id="add_more_info" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display:none;">
-    add_more_info
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -111,9 +107,6 @@
                 <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
                 <label for="user_referred_by">Where did you heard about us?</label>
             </div>
-            <fieldset class="form-group">
-                <input type="checkbox" id="contact_checkbox" checked> contact me through registered e-mail.</label>
-            </fieldset>
           
             </div>
             <!--Footer-->
@@ -169,15 +162,32 @@
 <!-- STUDY -->
 <div class="container" id="study" style="display:none;">
   <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
-      </div>
+  <div class="card-group">
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
     </div>
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
   </div>
 </div>
 
@@ -196,23 +206,8 @@
   </div>
 </div>
 
-<!-- FAQ -->
-<div class="container" id="faq" style="display:none;">
-  <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ABOUT US -->
-<div class="container" id="about_us" style="display:none;">
+<!-- WHY US -->
+<div class="container" id="why_us" style="display:none;">
   <div class="row">
   <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -229,31 +224,48 @@
 <!-- CONTACT US -->
 <div class="container" id="contact_us" style="display:none;">
   <div class="row">
-  <br/>
     <div class="card-group">
       <div class="card card-block">
         <h3 class="card-title">Contact us</h3>
         <p class="card-text">
-          <form>
+          <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}">
+            {{ csrf_field() }}
             <div class="md-form">
                 <i class="fa fa-user prefix"></i>
-                <input type="text" id="contact_fullname" class="form-control">
-                <label for="contact_fullname">Type your name</label>
+                <input type="text" id="contact_fullname" name="contact_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
+                <label for="contact_fullname" class="disabled">Your name</label>
             </div>
             <div class="md-form">
                 <i class="fa fa-envelope prefix"></i>
-                <input type="email" id="contact_email" class="form-control validate">
-                <label for="contact_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp">Type your email</label>
+                <input type="email" id="contact_email" name="contact_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
+                <label for="contact_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
             </div>
             <div class="md-form">
                 <i class="fa fa-pencil prefix"></i>
-                <textarea type="text" id="new_token_description" class="md-textarea"></textarea>
+                <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
                 <label for="contact_description">How may we assist you?</label>
+                <div>
+                    @if ($errors->has('new_token_description'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('new_token_description') }}</strong>
+                        </span>
+                    @endif
+                </div>
             </div>
-            <fieldset class="form-group">
-                <input type="checkbox" id="contact_checkbox" checked> contact me through registered e-mail.</label>
-            </fieldset>
-            <button type="submit" class="btn unique-color">Submit</button>
+            <div class="form-group" align="center">
+                {!! app('captcha')->display(); !!}
+                <div>
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block">
+                            <strong>Kindly select the checkbox above.</strong>
+                            <br/><small>This is necessary to ensure that you are not a bot.</small>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="md-form" align="center">
+                <button type="submit" class="btn unique-color">Submit</button>
+            </div>
           </form>
         </p>
       </div>
@@ -261,7 +273,7 @@
         <img class="img-fluid" src="{{ asset('img/background/2.jpg') }}" style="min-width:100%; min-height:auto; background-height:auto; background-width:100%;"  alt="Card image cap">
         <div class="card-block" width="100%">
           <h3 class="card-title" width="100%" align="left">Location <a href="https://goo.gl/maps/7ZLMFmgX1bv" target="_blank" class="btn unique-color" style="border-radius:30px;width:50px;height:50px;line-height:50px;border-radius: 50%;text-align:center;"><i class="fa fa-map-marker fa-2x"></i></a></h3>
-          <p class="card-text">Flat No. 1405, Marygold Tower, Divine Meadows,<br/> Sector 108, Noida - 201301</p>
+          <p class="card-text">Flat No. 1405,<br/>Marygold Tower, Divine Meadows,<br/>Sector 108, Noida - 201301</p>
         </div>
       </div>
     </div>
@@ -285,13 +297,11 @@
     $( "#home_link" ).parent().addClass( "active" );
     $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
-    $( "#faq_link" ).parent().removeClass("active");
-    $( "#about_us_link" ).parent().removeClass("active");
+    $( "#why_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
-    $( "#faq" ).hide( "fast");
-    $( "#about_us" ).hide( "fast");
+    $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
     $( "#home" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
@@ -302,13 +312,11 @@
     $( "#study_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
-    $( "#faq_link" ).parent().removeClass("active");
-    $( "#about_us_link" ).parent().removeClass("active");
+    $( "#why_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
-    $( "#faq" ).hide( "fast");
-    $( "#about_us" ).hide( "fast");
+    $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
     $( "#study" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
@@ -319,49 +327,29 @@
     $( "#tutor_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
-    $( "#faq_link" ).parent().removeClass("active");
-    $( "#about_us_link" ).parent().removeClass("active");
+    $( "#why_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
-    $( "#faq" ).hide( "fast");
-    $( "#about_us" ).hide( "fast");
+    $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
     $( "#tutor" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
-  $( "#faq_link" ).click(function() {
-    $( "#faq_link" ).parent().addClass( "active" );
+  
+  $( "#why_us_link" ).click(function() {
+    $( "#why_us_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
-    $( "#about_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
-    $( "#about_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
-    $( "#faq" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
-  $( "#about_us_link" ).click(function() {
-    $( "#about_us_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
-    $( "#study_link" ).parent().removeClass("active");
-    $( "#tutor_link" ).parent().removeClass("active");
-    $( "#faq_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
-    $( "#study" ).hide( "fast");
-    $( "#tutor" ).hide( "fast");
-    $( "#faq" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
-    $( "#about_us" ).show( "fast");
+    $( "#why_us" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
@@ -371,13 +359,11 @@
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
-    $( "#faq_link" ).parent().removeClass("active");
-    $( "#about_us_link" ).parent().removeClass("active");
+    $( "#why_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
-    $( "#faq" ).hide( "fast");
-    $( "#about_us" ).hide( "fast");
+    $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();

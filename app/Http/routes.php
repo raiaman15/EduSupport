@@ -26,4 +26,9 @@ Route::post('add_more_info', [
     'middleware' => 'auth',
     'uses' => 'HomeController@add_more_info'
 ]);
+Route::post('contact_send_mail', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@contact_send_mail'
+]);
+
 

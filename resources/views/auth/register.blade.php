@@ -89,7 +89,19 @@
                             </div>
                         </div>
                         <br/>
-                        <div class="form-group" align="center">
+                        <div class="md-form" align="center">
+                            {!! app('captcha')->display(); !!}
+                            <div>
+                                @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block">
+                                        <strong>Kindly select the checkbox above.</strong>
+                                        <br/><small>This is necessary to ensure that you are not a bot.</small>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="md-form" align="center">
                             <div>
                                 <button type="submit" class="btn unique-color">
                                     <i class="fa fa-btn fa-user-plus"></i> Register
