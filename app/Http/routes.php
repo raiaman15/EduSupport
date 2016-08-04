@@ -30,5 +30,5 @@ Route::post('contact_send_mail', [
     'middleware' => 'auth',
     'uses' => 'HomeController@contact_send_mail'
 ]);
-
+Route::get('admin_dashboard', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@dashboard']);
 

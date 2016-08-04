@@ -22,23 +22,33 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
+      <a class="navbar-brand" href="http://nehruplace-store.in"><big>ADMIN_PROJECT_X</big></a>
       <!--Links-->
       <ul class="nav navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" id="home_link">HOME</a>
+          <a title="HOME" id="home_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-home" aria-hidden="true"></i></small>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="study_link">STUDY</a>
+          <a title="MESSAGE" id="message_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-envelope" aria-hidden="true"></i></small>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="tutor_link">TUTOR</a>
+          <a title="ASSIGN" id="assign_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-user-plus" aria-hidden="true"></i></small>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="why_us_link">WHY US</a>
+          <a title="SETTINGS" id="setting_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-gears" aria-hidden="true"></i></small>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact_us_link">CONTACT US</a>
+          <a title="DISCUSSION" id="discussion_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-coffee" aria-hidden="true"></i></small>
+          </a>
         </li>
       </ul>
       <!--Search form-->
@@ -123,43 +133,11 @@
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
-  <div class="card-group">
-    <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-    <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-    <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
-        <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-</div>
-  <br/>
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
-      </div>
   </div>
 </div>
 
-<!-- STUDY -->
+
+<!-- MESSAGE -->
 <div class="container" id="study" style="display:none;">
   <div class="row">
   <div class="card-group">
@@ -191,7 +169,7 @@
   </div>
 </div>
 
-<!-- TUTOR -->
+<!-- ASSIGN -->
 <div class="container" id="tutor" style="display:none;">
   <div class="row">
   <br/>
@@ -206,7 +184,7 @@
   </div>
 </div>
 
-<!-- WHY US -->
+<!-- SETTINGS -->
 <div class="container" id="why_us" style="display:none;">
   <div class="row">
   <br/>
@@ -221,7 +199,7 @@
   </div>
 </div>
 
-<!-- CONTACT US -->
+<!-- DISCUSSION -->
 <div class="container" id="contact_us" style="display:none;">
   <div class="row">
     <div class="card-group">
@@ -289,10 +267,6 @@
 @section('script')
 <!-- SCRIPTS -->
 <script>
-{{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
-@if ($show === 1)
-    $("#add_more_info").trigger("click");
-@endif
   $( "#home_link" ).click(function() {
     $( "#home_link" ).parent().addClass( "active" );
     $( "#study_link" ).parent().removeClass("active");
@@ -308,7 +282,7 @@
             $('.navbar-toggler').click();
         }
   });
-  $( "#study_link" ).click(function() {
+  $( "#message_link" ).click(function() {
     $( "#study_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
@@ -323,7 +297,7 @@
             $('.navbar-toggler').click();
         }
   });
-  $( "#tutor_link" ).click(function() {
+  $( "#assign_link" ).click(function() {
     $( "#tutor_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
@@ -339,7 +313,7 @@
         }
   });
   
-  $( "#why_us_link" ).click(function() {
+  $( "#setting_link" ).click(function() {
     $( "#why_us_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
@@ -354,7 +328,7 @@
             $('.navbar-toggler').click();
         }
   });
-  $( "#contact_us_link" ).click(function() {
+  $( "#discussion_link" ).click(function() {
     $( "#contact_us_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
