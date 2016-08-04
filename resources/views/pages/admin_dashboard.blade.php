@@ -68,8 +68,6 @@
 </nav>
 <!--/.Navbar-->
 <!-- Button trigger modal -->
-
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -133,6 +131,19 @@
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
+  <!--Panel-->
+  <div class="card">
+      <div class="card-block" align="center">
+          <h4 class="card-title"><u>SERVER STATUS</u></h4>
+          <p class="card-text">
+            <div id="temps_div" align="center"></div>
+            @gaugechart('Temps', 'temps_div')
+          </p>
+          <a class="btn btn-primary">SERVER LOGS</a>
+
+      </div>
+  </div>
+  <!--/.Panel-->
   </div>
 </div>
 
