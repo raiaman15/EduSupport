@@ -158,6 +158,7 @@ return [
 
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        Netshell\Paypal\PaypalServiceProvider::class,
 
     ],
 
@@ -204,6 +205,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Paypal' => Netshell\Paypal\Facades\Paypal::class,
 
     ],
 
