@@ -31,7 +31,6 @@
 @stop
 
 @section('content')
-{!! $ env x='() { :;}; echo vulnerable' bash -c "echo this is a test" !!}
 <div class="container">
     <div class="content">
         <div><h1 class="h1-responsive"><big>PROJECT_X</big></h1>
