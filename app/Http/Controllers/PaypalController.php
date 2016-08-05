@@ -76,7 +76,7 @@ class PaypalController extends Controller
 	    $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
 
 	    
-	    print_r($executePayment);
+	    dd($executePayment);
 	}
 
 	public function getCancel()
