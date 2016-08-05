@@ -9,6 +9,9 @@
   @-moz-document url-prefix() {
   fieldset { display: table-cell; }
   }
+  .g-recaptcha {
+      transform:scale(0.70);
+  }
 </style>
 @stop
 

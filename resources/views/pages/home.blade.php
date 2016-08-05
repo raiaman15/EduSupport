@@ -6,6 +6,9 @@
   {
     padding-bottom:50px;
   }
+  .g-recaptcha {
+      transform:scale(0.70);
+  }
 </style>
 @stop
 
@@ -162,32 +165,85 @@
 <!-- STUDY -->
 <div class="container" id="study" style="display:none;">
   <div class="row">
-  <div class="card-group">
-    <div class="card">
+    <div class="card-group">
+      <div class="card card-block">
+        <h3 class="card-title" align="center">Seek Assistance</h3>
+        <p class="card-text">
+          <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="md-form">
+              <i class="fa fa-user prefix"></i>
+              <input type="text" id="assistance_fullname" name="assistance_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
+              <label for="assistance_fullname" class="disabled">Your name</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-envelope prefix"></i>
+              <input type="email" id="assistance_email" name="assistance_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
+              <label for="assistance_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-book prefix"></i>
+              <input type="email" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required">
+              <label for="assistance_subject">Subject in which you need assistance</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-pencil prefix"></i>
+              <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
+              <label for="contact_description">How may we assist you?</label>
+              <div>
+                @if ($errors->has('new_token_description'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('new_token_description') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            <div class="md-form" style="padding-bottom:20px;">
+              <i class="fa fa-file-text prefix"></i>
+              <input type="file" name="assistance_document" id="assistance_document" multiple>
+              <label for="contact_description" style="margin-top:10px;"><small>Upload supporting documents (pdf/word/jpg format only)</small></label>
+            </div>
+            <div class="md-form" align="center">
+              <button type="submit" class="btn unique-color">Submit</button>
+            </div>
+          </form>
+        </p>
+      </div>
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">About Seek Assistance</h4>
+          <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist you with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers value your time and thus try to take less time and deliver quality assistance.</p>
+          <p class="card-text"><small class="text-muted">₹500 - ₹2000 per assistance based on requirement.</small></p>
         </div>
+      </div>
     </div>
-    <div class="card">
+    <div class="card-group">
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">Course Guide</h4>
+          <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
+          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
+        </div>
+      </div>
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">Career Guide</h4>
+          <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
+          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
         </div>
-    </div>
-    <div class="card">
+      </div>
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">Job Guide</h4>
+          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to further enhance your productivity.</p>
+          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
         </div>
+      </div>
     </div>
-</div>
   </div>
 </div>
 
@@ -226,7 +282,7 @@
   <div class="row">
     <div class="card-group">
       <div class="card card-block">
-        <h3 class="card-title">Contact us</h3>
+        <h3 class="card-title" align="center">Contact us</h3>
         <p class="card-text">
           <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}">
             {{ csrf_field() }}

@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.39",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "anhskohbo/no-captcha": "2.*",
-        "khill/lavacharts" : "3.0.*"
+        "khill/lavacharts" : "3.0.*",
+        "netshell/paypal": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

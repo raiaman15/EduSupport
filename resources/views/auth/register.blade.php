@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('head')
+<style type="text/css">
+  .g-recaptcha {
+      transform:scale(0.70);
+  }
+</style>
+@stop
+
 @section('content')
 
 <!--Navbar-->
