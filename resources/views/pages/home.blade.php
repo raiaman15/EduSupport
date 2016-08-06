@@ -148,7 +148,7 @@
   <div class="row">
   <div id="message"></div>
     <div class="card-group">
-      <div class="card card-block">
+      <div id="seek_assistance_card" class="card card-block">
         <h3 class="card-title" align="center">Seek Assistance</h3>
         <p class="card-text">
           <form id="seek_assistance" class="form-horizontal" role="form" method="POST" action="{{ url('/seek_assistance') }}" enctype="multipart/form-data">
@@ -165,25 +165,18 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="email" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
+              <input type="text" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
               <label for="assistance_subject">Subject in which you need assistance</label>
             </div>
             <div class="md-form">
               <i class="fa fa-pencil prefix"></i>
               <textarea type="text" id="assistance_description" name="assistance_description" class="md-textarea"></textarea>
               <label for="assistance_description">How may we assist you?</label>
-              <div>
-                @if ($errors->has('assistance_description'))
-                <span class="help-block">
-                  <strong>{{ $errors->first('assistance_description') }}</strong>
-                </span>
-                @endif
-              </div>
             </div>
             <div class="md-form" style="padding-bottom:20px;">
               <i class="fa fa-file-text prefix"></i>
               <input type="file" name="assistance_document[]" id="assistance_document" multiple>
-              <label for="contact_description" style="margin-top:10px;"><small>Upload supporting documents (pdf/word/jpg format only)</small></label>
+              <label for="assistance_document" style="margin-top:10px;"><small>Upload supporting documents (pdf/doc/docx/jpg/png format only)</small></label>
             </div>
             <div class="md-form" align="center">
               <button type="submit" class="btn unique-color">Submit</button>
@@ -206,7 +199,7 @@
         <div class="card-block">
           <h4 class="card-title">Course Guide</h4>
           <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
-          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
+          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -214,7 +207,7 @@
         <div class="card-block">
           <h4 class="card-title">Career Guide</h4>
           <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
-          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
+          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -222,7 +215,7 @@
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
           <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to further enhance your productivity.</p>
-          <p class="card-text"><small class="text-muted"><a href="#">ACTIVATE</a> Just ₹5000 for one course.</small></p>
+          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
     </div>
@@ -232,13 +225,79 @@
 <!-- TUTOR -->
 <div class="container" id="tutor" style="display:none;">
   <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+  <div id="message"></div>
+    <div class="card-group">
+      <div id="provide_assistance_card" class="card card-block">
+        <h3 class="card-title" align="center">Provide Assistance</h3>
         <p class="card-text">
-        Some text here
+          <form id="provide_assistance" class="form-horizontal" role="form" method="POST" action="{{ url('/provide_assistance') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="md-form">
+              <i class="fa fa-user prefix"></i>
+              <input type="text" id="p_assistance_fullname" name="p_assistance_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
+              <label for="p_assistance_fullname" class="disabled">Your name</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-envelope prefix"></i>
+              <input type="email" id="p_assistance_email" name="p_assistance_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
+              <label for="p_assistance_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-book prefix"></i>
+              <input type="text" id="p_assistance_subject" name="p_assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
+              <label for="p_assistance_subject">Subject in which you provide assistance</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-pencil prefix"></i>
+              <textarea type="text" id="p_assistance_description" name="p_assistance_description" class="md-textarea"></textarea>
+              <label for="p_assistance_description">What is your qualification?</label>
+            </div>
+            <div class="md-form" style="padding-bottom:20px;">
+              <i class="fa fa-file-text prefix"></i>
+              <input type="file" name="p_assistance_document[]" id="p_assistance_document" multiple>
+              <label for="p_assistance_document" style="margin-top:10px;"><small>Upload your highest degrees certificate (pdf/doc/docx/jpg/png format only)</small></label>
+            </div>
+            <div class="md-form" align="center">
+              <button type="submit" class="btn unique-color">ENROLL</button>
+            </div>
+          </form>
         </p>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">About Provide Assistance</h4>
+          <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist our student clients with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers is bound to value client's time and thus try to take less time and deliver quality assistance.</p>
+        </div>
+        <div class="card-footer default-color-dark white-text" style="border-radius:0;">
+            <p class="card-text"><small>Earn ₹400 - ₹1600 per assistance based on client's requirement.</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">Course Guide</h4>
+          <p class="card-text" align="justify">Our course guides will keep suggesting various details related to client's course. They might suggest client which extra knowledge they should have based on your course. They might also suggest various short term courses based on client's main course to further enhance their knowledge.</p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">Career Guide</h4>
+          <p class="card-text" align="justify">Our career guides will keep suggesting various details related to client's career. They might suggest client which extra skills they should have based on their current course or career. They might also suggest various short term or long term courses based on client's main career to further enhance their skills.</p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">Job Guide</h4>
+          <p class="card-text" align="justify">Our job guides will keep suggesting various details related to client's job. They might suggest client which extra certifications they should have based on their career or current job. They might also suggest various short term or long term or certification courses based on client's job profile to enhance their productivity.</p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+        </div>
       </div>
     </div>
   </div>
@@ -330,6 +389,8 @@
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
+    $('#message').addClass("alert alert-warning");
+    $('#message').html("You need to complete your profile details in order to use the Seek Assistance service");
 @endif
   $( "#home_link" ).click(function() {
     $( "#home_link" ).parent().addClass( "active" );
@@ -419,7 +480,16 @@
   function transferComplete(data){
       response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          document.getElementById('message').innerHTML = "Successfully Uploaded Files!";
+          $('#message').removeClass("alert alert-warning");
+          $('#message').addClass("alert alert-success");
+          $('#message').html(response.message);
+          $('#seek_assistance')[0].reset();
+          $('#seek_assistance_card').hide( "fast");
+      }
+      else {
+          $('#message').removeClass("alert alert-success");
+          $('#message').addClass("alert alert-warning");
+          $('#message').html(response.message);
       }
   }
 </script>

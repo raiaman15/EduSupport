@@ -13,11 +13,11 @@ class SeekAssistances extends Migration
     public function up()
     {
         Schema::create('seek_assistances', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
             $table->string('subject');
             $table->text('description');
-            $table->string('filename');
             $table->integer('file_count');
             $table->string('country');
             $table->string('university');
