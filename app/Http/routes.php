@@ -29,6 +29,10 @@ Route::post('contact_send_mail', [
     'middleware' => 'auth',
     'uses' => 'HomeController@contact_send_mail'
 ]);
+Route::post('seek_assistance', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@seek_assistance'
+]);
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);

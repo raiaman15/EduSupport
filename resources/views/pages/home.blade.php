@@ -15,161 +15,143 @@
 @section('content')
 <!--Navbar-->
 <nav class="navbar navbar-dark unique-color">
-
-  <!-- Collapse button-->
   <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx2">
     <i class="fa fa-bars"></i>
   </button>
   <div class="container">
-  <big>
-    <!--Collapse content-->
-    <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-      <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
-      <!--Links-->
-      <ul class="nav navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" id="home_link">HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="study_link">STUDY</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="tutor_link">TUTOR</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="why_us_link">WHY US</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="contact_us_link">CONTACT US</a>
-        </li>
-      </ul>
-      <!--Search form-->
-      <form class="form-inline">
+    <big>
+      <div class="collapse navbar-toggleable-xs" id="collapseEx2">
+        <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" id="home_link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="study_link">STUDY</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tutor_link">TUTOR</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="why_us_link">WHY US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact_us_link">CONTACT US</a>
+          </li>
+        </ul>
+        <form class="form-inline">
           <button title="EDIT PROFILE" type="button" id="add_more_info" class="btn unique-color" data-toggle="modal" data-target="#myModal" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-              <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
+            <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
           </button>
           <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
             <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
           </a>    
-      </form>
-
-    </div>
-    <!--/.Collapse content-->
-  </big>
+        </form>
+      </div>
+    </big>
   </div>
 </nav>
-<!--/.Navbar-->
-<!-- Button trigger modal -->
 
-
-<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <!--Content-->
-        <div class="modal-content">
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/add_more_info') }}">
-            {{ csrf_field() }}
-            <!--Header-->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Kindly fill the following additional details.</h4>
-            </div>
-            <!--Body-->
-            <div class="modal-body">
-            <!-- Main Form -->
-            <div class="md-form">
-                <i class="fa fa-calendar prefix"></i>
-                <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
-                <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-globe prefix"></i>
-                <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
-                <label for="user_country">Your country</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-phone prefix"></i>
-                <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
-                <label for="user_contact">Your contact number </label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-university prefix"></i>
-                <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
-                <label for="user_university">Your university </label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-book prefix"></i>
-                <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
-                <label for="user_course">Your course </label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-hand-o-right prefix"></i>
-                <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
-                <label for="user_referred_by">Where did you heard about us?</label>
-            </div>
-          
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </form>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form class="form-horizontal" role="form" method="POST" action="{{ url('/add_more_info') }}">
+        {{ csrf_field() }}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Kindly fill the following additional details.</h4>
         </div>
-        <!--/.Content-->
+        <div class="modal-body">
+          <div class="md-form">
+            <i class="fa fa-calendar prefix"></i>
+            <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
+            <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-globe prefix"></i>
+            <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
+            <label for="user_country">Your country</label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-phone prefix"></i>
+            <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
+            <label for="user_contact">Your contact number </label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-university prefix"></i>
+            <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
+            <label for="user_university">Your university </label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-book prefix"></i>
+            <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
+            <label for="user_course">Your course </label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-hand-o-right prefix"></i>
+            <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
+            <label for="user_referred_by">Where did you heard about us?</label>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-<!-- /.Live preview-->
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
-  <div class="card-group">
-    <div class="card">
+    <div class="card-group">
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">Card title</h4>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
-    </div>
-    <div class="card">
+      </div>
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">Card title</h4>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
-    </div>
-    <div class="card">
+      </div>
+      <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h4 class="card-title">Card title</h4>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
-    </div>
-</div>
-  <br/>
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
       </div>
+    </div>
+    <br/>
+    <div class="card card-block">
+      <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+      <p class="card-text">
+        Some text here
+      </p>
+    </div>
   </div>
 </div>
 
 <!-- STUDY -->
 <div class="container" id="study" style="display:none;">
   <div class="row">
+  <div id="message"></div>
     <div class="card-group">
       <div class="card card-block">
         <h3 class="card-title" align="center">Seek Assistance</h3>
         <p class="card-text">
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}" enctype="multipart/form-data">
+          <form id="seek_assistance" class="form-horizontal" role="form" method="POST" action="{{ url('/seek_assistance') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="md-form">
               <i class="fa fa-user prefix"></i>
@@ -183,24 +165,24 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="email" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required">
+              <input type="email" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
               <label for="assistance_subject">Subject in which you need assistance</label>
             </div>
             <div class="md-form">
               <i class="fa fa-pencil prefix"></i>
-              <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
-              <label for="contact_description">How may we assist you?</label>
+              <textarea type="text" id="assistance_description" name="assistance_description" class="md-textarea"></textarea>
+              <label for="assistance_description">How may we assist you?</label>
               <div>
-                @if ($errors->has('new_token_description'))
+                @if ($errors->has('assistance_description'))
                 <span class="help-block">
-                  <strong>{{ $errors->first('new_token_description') }}</strong>
+                  <strong>{{ $errors->first('assistance_description') }}</strong>
                 </span>
                 @endif
               </div>
             </div>
             <div class="md-form" style="padding-bottom:20px;">
               <i class="fa fa-file-text prefix"></i>
-              <input type="file" name="assistance_document" id="assistance_document" multiple>
+              <input type="file" name="assistance_document[]" id="assistance_document" multiple>
               <label for="contact_description" style="margin-top:10px;"><small>Upload supporting documents (pdf/word/jpg format only)</small></label>
             </div>
             <div class="md-form" align="center">
@@ -299,7 +281,7 @@
             <div class="md-form">
                 <i class="fa fa-pencil prefix"></i>
                 <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
-                <label for="contact_description">How may we assist you?</label>
+                <label for="new_token_description">How may we assist you?</label>
                 <div>
                     @if ($errors->has('new_token_description'))
                         <span class="help-block">
@@ -425,5 +407,20 @@
             $('.navbar-toggler').click();
         }
   });
+  var form = document.getElementById('seek_assistance');
+  var request = new XMLHttpRequest();
+  form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(form);
+      request.open('post', '/seek_assistance');
+      request.addEventListener("load", transferComplete);
+      request.send(formdata);
+  });
+  function transferComplete(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+          document.getElementById('message').innerHTML = "Successfully Uploaded Files!";
+      }
+  }
 </script>
 @stop

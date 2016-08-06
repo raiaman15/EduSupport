@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Storage;
 use Validator;
 use App\User;
 use App\Token;
+use App\Seek_assistance;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -58,10 +60,10 @@ class HomeController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator_send_mail(array $data)
     {
         return Validator::make($data, [
-            'new_token_description' => 'required|min:50|max:300',
+            'new_token_description' => 'required|min:50|max:300|alpha_dash',
             'g-recaptcha-response' => 'required|captcha',
         ]);
     }
@@ -69,14 +71,12 @@ class HomeController extends Controller
     public function contact_send_mail(Request $request)
     {
         if (Auth::check()) {
-            $validator = $this->validator($request->all());
-
+            $validator = $this->validator_send_mail($request->all());
             if ($validator->fails()) {
                 $this->throwValidationException(
                     $request, $validator
                 );
             }
-
             //saving the message in DB
             $token = new Token;
             $token->name=Auth::user()->name;
@@ -88,5 +88,33 @@ class HomeController extends Controller
         }
         else
             return view('pages.welcome');
+    }
+
+    protected function validator_seek_assistance(array $data)
+    {
+        return Validator::make($data, [
+            'assistance_subject' => 'required|alpha_dash'
+            'assistance_description' => 'required|min:50|max:300|alpha_dash',
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+    }
+
+    public function seek_assistance(Request $request)
+    {
+        $seek = new Seek_assistance;
+        $seek->name=Auth::user()->name;
+        $seek->email=Auth::user()->email;
+        $seek->country=Auth::user()->country;
+        $seek->university=Auth::user()->university;
+        $seek->course=Auth::user()->course;
+        $files = $request->file('assistance_document');
+        if(!empty($files)):
+            $count=0;
+            foreach($files as $file):
+                $count++;
+                Storage::put($file->getClientOriginalName(), file_get_contents($file));
+            endforeach;
+        endif;
+        return \Response::json(array('success' => true));
     }
 }
