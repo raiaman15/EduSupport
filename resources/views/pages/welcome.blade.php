@@ -33,8 +33,10 @@
 @section('content')
 <div class="container">
     <div class="content">
-        <div><h1 class="h1-responsive"><big>PROJECT_X</big></h1>
-        <a href="/home" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-rocket fa-4x" aria-hidden="true"></i></a>
+        <div><h1 class="h1-responsive"><big><big><big><big>PROJECT_X</big></big></big></big></h1>
+        <a href="/home" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-rocket fa-4x" aria-hidden="true"></i></a>USER<br/>
+        <a href="/admin_dashboard" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-lock fa-4x" aria-hidden="true"></i></a>ADMIN<br/>
+        <a href="/payPremium" class="btn unique-color" style="width:100px;height:100px;line-height:125px;border-radius: 50%;text-align:center;vertical-align:middle;"><i class="fa fa-paypal fa-4x" aria-hidden="true"></i></a>PAYPAL<br/>
         </div>
     </div>
 </div>

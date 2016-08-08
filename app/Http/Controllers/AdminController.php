@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Token;
+use App\Seek_assistance;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -56,7 +58,9 @@ class AdminController extends Controller
                 'majorTicks' => ['Safe','Critical']
             ]);
 
-            return view('pages.admin_dashboard');
+            $tokens = Token::paginate(10);
+            $seek_assistances = Seek_assistance::paginate(10);
+            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances);
         }
         else
             return view('pages.welcome');

@@ -37,11 +37,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a title="MESSAGE" id="message_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-envelope" aria-hidden="true"></i></small>
-          </a>
-        </li>
-        <li class="nav-item">
           <a title="ASSIGN" id="assign_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-user-plus" aria-hidden="true"></i></small>
           </a>
@@ -49,11 +44,6 @@
         <li class="nav-item">
           <a title="SETTINGS" id="setting_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-gears" aria-hidden="true"></i></small>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a title="DISCUSSION" id="discussion_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-coffee" aria-hidden="true"></i></small>
           </a>
         </li>
       </ul>
@@ -137,86 +127,75 @@
 <!-- HOME -->
 <div class="container" id="home">
   <div class="row">
-  <!--Panel-->
-  <div class="card">
-      <div class="card-block" align="center">
-          <h4 class="card-title"><u>SERVER STATUS</u></h4>
-          <p class="card-text">
-            <div id="temps_div" align="center"></div>
-            @gaugechart('Temps', 'temps_div')
-          </p>
-          <a class="btn btn-primary">SERVER LOGS</a>
-
+    <div class="card-group">
+      <div class="card">
+        <div class="card-block" align="center">
+            <p class="card-text">
+              <div id="temps_div" align="center"></div>
+              @gaugechart('Temps', 'temps_div')
+            </p>
+        </div>
       </div>
-  </div>
-  <!--/.Panel-->
-  </div>
-</div>
-
-
-<!-- MESSAGE -->
-<div class="container" id="study" style="display:none;">
-  <div class="row">
-    <div class="card">
-      <div class="table-responsive">
-        <table class="table table-bordered table-sm table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <div class="card-group">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm table-hover">
+            <thead>
+              <tr>
+                <th>Sender</th>
+                <th>Message</th>
+                <th>Sent at</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($tokens as $token)
+                <tr><td>{{ $token->name }}<br/><small class="text-muted">{{ $token->email }}</small></td><td><small><small>{{ $token->description }}</small></small></td><td><small>{{ $token->updated_at }}</small></td><td></td></tr>
+              @endforeach
+              <tr><td colspan="4" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- ASSIGN -->
 <div class="container" id="tutor" style="display:none;">
   <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
+    <div class="card-group">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm table-hover">
+            <thead>
+              <tr>
+                <th>Sender</th>
+                <th>Institution</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Sent at</th>
+                <th>Assign to</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($seek_assistances as $seek_assistance)
+                <tr>
+                  <td>{{ $seek_assistance->name }}<br/><small class="text-muted">{{ $seek_assistance->email }}</small></td>
+                  <td>{{ $seek_assistance->university }}<br/><small class="text-muted">{{ $seek_assistance->country }}</small></td>
+                  <td>{{ $seek_assistance->subject }}<br/><small class="text-muted">{{ $seek_assistance->course }}</small></td>
+                  <td><small><small>{{ $seek_assistance->description }}</small></small></td>
+                  <td><small>{{ $seek_assistance->updated_at }}</small></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              @endforeach
+              <tr><td colspan="4" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -225,7 +204,6 @@
 <!-- SETTINGS -->
 <div class="container" id="why_us" style="display:none;">
   <div class="row">
-  <br/>
     <div class="col-sm-12 col-md-12 col-lg-12">
       <div class="card card-block">
         <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
@@ -237,64 +215,6 @@
   </div>
 </div>
 
-<!-- DISCUSSION -->
-<div class="container" id="contact_us" style="display:none;">
-  <div class="row">
-    <div class="card-group">
-      <div class="card card-block">
-        <h3 class="card-title">Contact us</h3>
-        <p class="card-text">
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}">
-            {{ csrf_field() }}
-            <div class="md-form">
-                <i class="fa fa-user prefix"></i>
-                <input type="text" id="contact_fullname" name="contact_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
-                <label for="contact_fullname" class="disabled">Your name</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-envelope prefix"></i>
-                <input type="email" id="contact_email" name="contact_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
-                <label for="contact_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-pencil prefix"></i>
-                <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
-                <label for="contact_description">How may we assist you?</label>
-                <div>
-                    @if ($errors->has('new_token_description'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('new_token_description') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group" align="center">
-                {!! app('captcha')->display(); !!}
-                <div>
-                    @if ($errors->has('g-recaptcha-response'))
-                        <span class="help-block">
-                            <strong>Kindly select the checkbox above.</strong>
-                            <br/><small>This is necessary to ensure that you are not a bot.</small>
-                        </span>
-                    @endif
-                </div>
-            </div>
-            <div class="md-form" align="center">
-                <button type="submit" class="btn unique-color">Submit</button>
-            </div>
-          </form>
-        </p>
-      </div>
-      <div class="card">
-        <img class="img-fluid" src="{{ asset('img/background/2.jpg') }}" style="min-width:100%; min-height:auto; background-height:auto; background-width:100%;"  alt="Card image cap">
-        <div class="card-block" width="100%">
-          <h3 class="card-title" width="100%" align="left">Location <a href="https://goo.gl/maps/7ZLMFmgX1bv" target="_blank" class="btn unique-color" style="border-radius:30px;width:50px;height:50px;line-height:50px;border-radius: 50%;text-align:center;"><i class="fa fa-map-marker fa-2x"></i></a></h3>
-          <p class="card-text">Flat No. 1405,<br/>Marygold Tower, Divine Meadows,<br/>Sector 108, Noida - 201301</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <nav class="navbar navbar-fixed-bottom navbar-dark unique-color" style="min-height:40px;max-height:40px;">
   <div class="container">
     <p style="width:100%;text-align:center;color:white;font-size:10pt;" class="text-fluid">© {{ date("Y") }} Infroid. All rights reserved.</p>
@@ -307,44 +227,22 @@
 <script>
   $( "#home_link" ).click(function() {
     $( "#home_link" ).parent().addClass( "active" );
-    $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
     $( "#why_us_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
     $( "#why_us" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
     $( "#home" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
-  $( "#message_link" ).click(function() {
-    $( "#study_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
-    $( "#tutor_link" ).parent().removeClass("active");
-    $( "#why_us_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
-    $( "#tutor" ).hide( "fast");
-    $( "#why_us" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
-    $( "#study" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
+  
   $( "#assign_link" ).click(function() {
     $( "#tutor_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#study_link" ).parent().removeClass("active");
     $( "#why_us_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#study" ).hide( "fast");
     $( "#why_us" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
     $( "#tutor" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
@@ -354,29 +252,10 @@
   $( "#setting_link" ).click(function() {
     $( "#why_us_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
     $( "#why_us" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
-  $( "#discussion_link" ).click(function() {
-    $( "#contact_us_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
-    $( "#study_link" ).parent().removeClass("active");
-    $( "#tutor_link" ).parent().removeClass("active");
-    $( "#why_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
-    $( "#study" ).hide( "fast");
-    $( "#tutor" ).hide( "fast");
-    $( "#why_us" ).hide( "fast");
-    $( "#contact_us" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }

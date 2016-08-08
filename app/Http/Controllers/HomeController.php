@@ -63,7 +63,7 @@ class HomeController extends Controller
     protected function validator_send_mail(array $data)
     {
         return Validator::make($data, [
-            'new_token_description' => 'required|min:50|max:300|alpha_dash',
+            'new_token_description' => 'required|min:50|max:1000',
             'g-recaptcha-response' => 'required|captcha',
         ]);
     }

@@ -146,7 +146,7 @@
 <!-- STUDY -->
 <div class="container" id="study" style="display:none;">
   <div class="row">
-  <div id="message"></div>
+  <div id="message" style="margin-bottom:0;"></div>
     <div class="card-group">
       <div id="seek_assistance_card" class="card card-block">
         <h3 class="card-title" align="center">Seek Assistance</h3>
@@ -214,7 +214,7 @@
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
-          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to further enhance your productivity.</p>
+          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
           <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
@@ -305,14 +305,35 @@
 
 <!-- WHY US -->
 <div class="container" id="why_us" style="display:none;">
-  <div class="row">
-  <br/>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
+  <div class="row" align="center">
+    <div class="card-group">
+      <div class="card">
+          <div class="card-block">
+              <h4 class="card-title">Our Aim</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card">
+          <div class="card-block">
+              <h4 class="card-title">Pros</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+      <div class="card">
+          <div class="card-block">
+              <h4 class="card-title">Cons</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card">
+          <div class="card-block">
+              <h4 class="card-title">Services we offer</h4>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
       </div>
     </div>
   </div>
@@ -328,40 +349,40 @@
           <form class="form-horizontal" role="form" method="POST" action="{{ url('/contact_send_mail') }}">
             {{ csrf_field() }}
             <div class="md-form">
-                <i class="fa fa-user prefix"></i>
-                <input type="text" id="contact_fullname" name="contact_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
-                <label for="contact_fullname" class="disabled">Your name</label>
+              <i class="fa fa-user prefix"></i>
+              <input type="text" id="contact_fullname" name="contact_fullname" class="form-control" value="{{ Auth::user()->name }}" disabled>
+              <label for="contact_fullname" class="disabled">Your name</label>
             </div>
             <div class="md-form">
-                <i class="fa fa-envelope prefix"></i>
-                <input type="email" id="contact_email" name="contact_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
-                <label for="contact_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
+              <i class="fa fa-envelope prefix"></i>
+              <input type="email" id="contact_email" name="contact_email" class="form-control validate" value="{{ Auth::user()->email }}" disabled>
+              <label for="contact_email" data-error="incorrect format" data-success="corrent format" aria-describedby="emailHelp" class="disabled">Your email</label>
             </div>
             <div class="md-form">
-                <i class="fa fa-pencil prefix"></i>
-                <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
-                <label for="new_token_description">How may we assist you?</label>
-                <div>
-                    @if ($errors->has('new_token_description'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('new_token_description') }}</strong>
-                        </span>
-                    @endif
-                </div>
+              <i class="fa fa-pencil prefix"></i>
+              <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
+              <label for="new_token_description">How may we assist you?</label>
+              <div>
+                @if ($errors->has('new_token_description'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('new_token_description') }}</strong>
+                </span>
+                @endif
+              </div>
             </div>
             <div class="form-group" align="center">
-                {!! app('captcha')->display(); !!}
-                <div>
-                    @if ($errors->has('g-recaptcha-response'))
-                        <span class="help-block">
-                            <strong>Kindly select the checkbox above.</strong>
-                            <br/><small>This is necessary to ensure that you are not a bot.</small>
-                        </span>
-                    @endif
-                </div>
+              {!! app('captcha')->display(); !!}
+              <div>
+                @if ($errors->has('g-recaptcha-response'))
+                <span class="help-block">
+                  <strong>Kindly select the checkbox above.</strong>
+                  <br/><small>This is necessary to ensure that you are not a bot.</small>
+                </span>
+                @endif
+              </div>
             </div>
             <div class="md-form" align="center">
-                <button type="submit" class="btn unique-color">Submit</button>
+              <button type="submit" class="btn unique-color">Submit</button>
             </div>
           </form>
         </p>
@@ -389,7 +410,7 @@
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
-    $('#message').addClass("alert alert-warning");
+    $('#message').addClass("alert alert-danger");
     $('#message').html("You need to complete your profile details in order to use the Seek Assistance service");
 @endif
   $( "#home_link" ).click(function() {
@@ -475,12 +496,23 @@
       var formdata = new FormData(form);
       request.open('post', '/seek_assistance');
       request.addEventListener("load", transferComplete);
+      request.onprogress = function (e) {
+          if (e.lengthComputable) {
+              console.log(e.loaded+  " / " + e.total)
+          }
+      }
+      request.onloadstart = function (e) {
+          console.log("start")
+      }
+      request.onloadend = function (e) {
+          console.log("end")
+      }
       request.send(formdata);
   });
   function transferComplete(data){
       response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          $('#message').removeClass("alert alert-warning");
+          $('#message').removeClass("alert alert-danger");
           $('#message').addClass("alert alert-success");
           $('#message').html(response.message);
           $('#seek_assistance')[0].reset();
@@ -488,7 +520,7 @@
       }
       else {
           $('#message').removeClass("alert alert-success");
-          $('#message').addClass("alert alert-warning");
+          $('#message').addClass("alert alert-danger");
           $('#message').html(response.message);
       }
   }
