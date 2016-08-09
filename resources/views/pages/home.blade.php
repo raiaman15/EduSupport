@@ -24,9 +24,6 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" id="home_link">HOME</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" id="study_link">STUDY</a>
           </li>
           <li class="nav-item">
@@ -104,49 +101,14 @@
     </div>
   </div>
 </div>
-<!-- HOME -->
-<div class="container" id="home">
-  <div class="row">
-    <div class="card-group">
-      <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">Card title</h4>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-    </div>
-    <br/>
-    <div class="card card-block">
-      <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-      <p class="card-text">
-        Some text here
-      </p>
-    </div>
-  </div>
-</div>
 
 <!-- STUDY -->
-<div class="container" id="study" style="display:none;">
+<div class="container" id="study">
   <div class="row">
-  <div id="message" style="margin-bottom:0;"></div>
+  <blockquote id="help_message_seek_assistance" class="blockquote bq-danger" style="display:none;margin-bottom:0;">
+    <p class="bq-title" id="message_seek_assistance"></p>
+  </blockquote>
+  <div  ></div>
     <div class="card-group">
       <div id="seek_assistance_card" class="card card-block">
         <h3 class="card-title" align="center">Seek Assistance</h3>
@@ -184,14 +146,43 @@
           </form>
         </p>
       </div>
-      <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title">About Seek Assistance</h4>
-          <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist you with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers value your time and thus try to take less time and deliver quality assistance.</p>
-          <p class="card-text"><small class="text-muted">₹500 - ₹2000 per assistance based on requirement.</small></p>
+      @if (count($seeked_assistances) >= 1)
+        <div class="card card-block">
+          <h3 class="card-title" align="center">Previous Requests</h3>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>SUBJECT</th>
+                  <th>DESCRIPTION</th>
+                  <th>PAYMENT</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($seeked_assistances as $seeked_assistance)
+                  <tr>
+                    <td>{{ $seeked_assistance->subject }}<br/><small class="text-muted">{{ $seeked_assistance->university }}</small></td>
+                    <td><small><small>{{ $seeked_assistance->description }}</small></small></td>
+                    <td align="center" style="vertical-align:middle;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Pay</td>
+                    <td></td>
+                  </tr>
+                @endforeach
+                <tr><td colspan="4" align="center"><nav>{{ $seeked_assistances->links() }}</nav></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      @else
+        <div class="card">
+          <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">About Seek Assistance</h4>
+            <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist you with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers value your time and thus try to take less time and deliver quality assistance.</p>
+            <p class="card-text"><small class="text-muted">₹500 - ₹2000 per assistance based on requirement.</small></p>
+          </div>
+        </div>
+      @endif
     </div>
     <div class="card-group">
       <div class="card">
@@ -225,7 +216,9 @@
 <!-- TUTOR -->
 <div class="container" id="tutor" style="display:none;">
   <div class="row">
-  <div id="message"></div>
+  <blockquote class="blockquote bq-danger" style="display:none;margin-bottom:0;">
+    <p class="bq-title" id="message_provide_assistance"></p>
+  </blockquote>
     <div class="card-group">
       <div id="provide_assistance_card" class="card card-block">
         <h3 class="card-title" align="center">Provide Assistance</h3>
@@ -255,7 +248,7 @@
             <div class="md-form" style="padding-bottom:20px;">
               <i class="fa fa-file-text prefix"></i>
               <input type="file" name="p_assistance_document[]" id="p_assistance_document" multiple>
-              <label for="p_assistance_document" style="margin-top:10px;"><small>Upload your highest degrees certificate (pdf/doc/docx/jpg/png format only)</small></label>
+              <label for="p_assistance_document" style="margin-top:10px;"><small>Upload your <b>resume</b> and <b>highest degrees certificate</b> (pdf/doc/docx/jpg/png format only)</small></label>
             </div>
             <div class="md-form" align="center">
               <button type="submit" class="btn unique-color">ENROLL</button>
@@ -263,6 +256,10 @@
           </form>
         </p>
       </div>
+      @if (count($provided_assistances) >= 1)
+          I have some record!
+          <nav>{{ $provided_assistances->links() }}</nav>
+      @else
       <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
@@ -270,9 +267,10 @@
           <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist our student clients with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers is bound to value client's time and thus try to take less time and deliver quality assistance.</p>
         </div>
         <div class="card-footer default-color-dark white-text" style="border-radius:0;">
-            <p class="card-text"><small>Earn ₹400 - ₹1600 per assistance based on client's requirement.</small></p>
+            <p class="card-text"><small>Earn ₹400 to ₹1600 per assistance based on client's requirement.</small></p>
         </div>
       </div>
+      @endif
     </div>
     <div class="card-group">
       <div class="card">
@@ -280,7 +278,7 @@
         <div class="card-block">
           <h4 class="card-title">Course Guide</h4>
           <p class="card-text" align="justify">Our course guides will keep suggesting various details related to client's course. They might suggest client which extra knowledge they should have based on your course. They might also suggest various short term courses based on client's main course to further enhance their knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -288,7 +286,7 @@
         <div class="card-block">
           <h4 class="card-title">Career Guide</h4>
           <p class="card-text" align="justify">Our career guides will keep suggesting various details related to client's career. They might suggest client which extra skills they should have based on their current course or career. They might also suggest various short term or long term courses based on client's main career to further enhance their skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR CAREER GUIDE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -296,7 +294,7 @@
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
           <p class="card-text" align="justify">Our job guides will keep suggesting various details related to client's job. They might suggest client which extra certifications they should have based on their career or current job. They might also suggest various short term or long term or certification courses based on client's job profile to enhance their productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client. <a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR JOB GUIDE</a></small></p>
         </div>
       </div>
     </div>
@@ -413,28 +411,11 @@
     $('#message').addClass("alert alert-danger");
     $('#message').html("You need to complete your profile details in order to use the Seek Assistance service");
 @endif
-  $( "#home_link" ).click(function() {
-    $( "#home_link" ).parent().addClass( "active" );
-    $( "#study_link" ).parent().removeClass("active");
-    $( "#tutor_link" ).parent().removeClass("active");
-    $( "#why_us_link" ).parent().removeClass("active");
-    $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#study" ).hide( "fast");
-    $( "#tutor" ).hide( "fast");
-    $( "#why_us" ).hide( "fast");
-    $( "#contact_us" ).hide( "fast");
-    $( "#home" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
   $( "#study_link" ).click(function() {
     $( "#study_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
     $( "#why_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
     $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
@@ -445,11 +426,9 @@
   });
   $( "#tutor_link" ).click(function() {
     $( "#tutor_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
     $( "#why_us_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
     $( "#why_us" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
@@ -461,11 +440,9 @@
   
   $( "#why_us_link" ).click(function() {
     $( "#why_us_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
     $( "#contact_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
     $( "#contact_us" ).hide( "fast");
@@ -476,11 +453,9 @@
   });
   $( "#contact_us_link" ).click(function() {
     $( "#contact_us_link" ).parent().addClass( "active" );
-    $( "#home_link" ).parent().removeClass("active");
     $( "#study_link" ).parent().removeClass("active");
     $( "#tutor_link" ).parent().removeClass("active");
     $( "#why_us_link" ).parent().removeClass("active");
-    $( "#home" ).hide( "fast");
     $( "#study" ).hide( "fast");
     $( "#tutor" ).hide( "fast");
     $( "#why_us" ).hide( "fast");
@@ -495,7 +470,7 @@
       e.preventDefault();
       var formdata = new FormData(form);
       request.open('post', '/seek_assistance');
-      request.addEventListener("load", transferComplete);
+      request.addEventListener("load", seekTransferComplete);
       request.onprogress = function (e) {
           if (e.lengthComputable) {
               console.log(e.loaded+  " / " + e.total)
@@ -509,18 +484,51 @@
       }
       request.send(formdata);
   });
-  function transferComplete(data){
+  function seekTransferComplete(data){
       response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          $('#message').removeClass("alert alert-danger");
-          $('#message').addClass("alert alert-success");
-          $('#message').html(response.message);
+          $('#message_seek_assistance').parent().removeClass("bq-danger");
+          $('#message_seek_assistance').parent().addClass("bq-success");
+          $('#message_seek_assistance').html(response.message);
+          $('#help_message_seek_assistance').show( "fast");
           $('#seek_assistance')[0].reset();
           $('#seek_assistance_card').hide( "fast");
       }
       else {
-          $('#message').removeClass("alert alert-success");
-          $('#message').addClass("alert alert-danger");
+          $('#message_seek_assistance').html(response.message);
+      }
+  }
+  var form = document.getElementById('provide_assistance');
+  var request = new XMLHttpRequest();
+  form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(form);
+      request.open('post', '/provide_assistance');
+      request.addEventListener("load", provideTransferComplete);
+      request.onprogress = function (e) {
+          if (e.lengthComputable) {
+              console.log(e.loaded+  " / " + e.total)
+          }
+      }
+      request.onloadstart = function (e) {
+          console.log("start")
+      }
+      request.onloadend = function (e) {
+          console.log("end")
+      }
+      request.send(formdata);
+  });
+  function provideTransferComplete(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+          $('#message_provide_assistance').parent().removeClass("bq-danger");
+          $('#message_provide_assistance').parent().addClass("bq-success");
+          $('#message_provide_assistance').html(response.message);
+          $('#message_provide_assistance').parent().show( "fast");
+          $('#seek_assistance')[0].reset();
+          $('#seek_assistance_card').hide( "fast");
+      }
+      else {
           $('#message').html(response.message);
       }
   }

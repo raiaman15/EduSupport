@@ -8,6 +8,7 @@ use Validator;
 use App\User;
 use App\Token;
 use App\Seek_assistance;
+use App\Provide_assistance;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,9 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return view('pages.home');
+            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->paginate(5);
+            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->paginate(5);
+            return view('pages.home')->with('seeked_assistances',$seek_assistances)->with('provided_assistances',$provide_assistances);
         }
         else
             return view('pages.welcome');
@@ -108,6 +111,55 @@ class HomeController extends Controller
     }
 
     public function seek_assistance(Request $request)
+    {
+        $files = $request->file('assistance_document');
+        if(count($files)>5) //MAX 5 file upload
+            {return \Response::json(array('success' => false , 'message' => "Too many files. Maximum 5 files allowed."));}
+        $validator = $this->validator_seek_assistance($request->all());
+        if ($validator->fails()) {
+            return \Response::json(array('success' => false , 'message' => $validator->messages()->toJson()));
+        }
+        $seek = new Seek_assistance;
+        $seek->name=Auth::user()->name;
+        $seek->email=Auth::user()->email;
+        $seek->subject=$request->input('assistance_subject');
+        $seek->description=$request->input('assistance_description');
+        $seek->file_count=count($files);
+        $seek->country=Auth::user()->country;
+        $seek->university=Auth::user()->university;
+        $seek->course=Auth::user()->course;
+        $seek->save();
+        $seek1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
+        if(!empty($files)):
+            $count=0;
+            foreach($files as $file):
+                $count++;
+                Storage::put($seek1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+            endforeach;
+        endif;
+        
+        return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Pay the service fee to start recieving assistance."));
+    }
+
+    protected function validator_provide_assistance(array $data)
+    {
+        return Validator::make($data, [
+            'assistance_subject' => 'required',
+            'assistance_description' => 'required|min:10|max:1000',
+            'assistance_document.*' => 'required|mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
+        ],
+        [
+            'assistance_subject.required' => 'Subject and subject codes are required',
+            'assistance_description.required' => 'Assistance description is required',
+            'assistance_description.min' => 'Assistance description should be more than 10 charecters',
+            'assistance_description.max' => 'Assistance description should be less than 1000 charecters',
+            'assistance_document.*.mimes' => 'File format not supported, use only pdf/doc/docx/jpg/png files',
+            'assistance_document.*.mimes' => 'File size must be less than 5 MB.',
+            'assistance_document.*.required' => 'Resume and Highest degree cetificate are mandatory. Please upload them.',
+        ]);
+    }
+
+    public function provide_assistance(Request $request)
     {
         $files = $request->file('assistance_document');
         if(count($files)>5) //MAX 5 file upload
