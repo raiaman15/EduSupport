@@ -212,6 +212,7 @@
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
+    $('#help_message_seek_assistance').show( "fast");
     $('#help_message_seek_assistance').removeClass("bq-danger");
     $('#help_message_seek_assistance').addClass("bq-success");
     $('#message_seek_assistance').html("You need to complete your profile details in order to use the Seek Assistance service");

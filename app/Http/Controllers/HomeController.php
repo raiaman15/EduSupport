@@ -78,7 +78,7 @@ class HomeController extends Controller
             if(!empty($request->course)){$user->course = $request->course;}
             if(!empty($request->referred_by)){$user->referred_by = $request->referred_by;}
             $user->save();
-            return redirect('/home');
+            return redirect('/study');
         }
         else
             return view('pages.welcome');
@@ -114,7 +114,7 @@ class HomeController extends Controller
             $token->description=$request->input('new_token_description');
             $token->save();
             
-            return redirect('/home');
+            return redirect('/contact_us');
         }
         else
             return view('pages.welcome');
