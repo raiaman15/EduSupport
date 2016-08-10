@@ -213,8 +213,8 @@
 @if ($show === 1)
     $("#add_more_info").trigger("click");
     $('#help_message_seek_assistance').show( "fast");
-    $('#help_message_seek_assistance').removeClass("bq-danger");
-    $('#help_message_seek_assistance').addClass("bq-success");
+    $('#help_message_seek_assistance').removeClass("bq-success");
+    $('#help_message_seek_assistance').addClass("bq-danger");
     $('#message_seek_assistance').html("You need to complete your profile details in order to use the Seek Assistance service");
 @endif
   var form = document.getElementById('seek_assistance');
