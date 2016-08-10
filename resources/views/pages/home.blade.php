@@ -106,14 +106,15 @@
 <div class="container" id="study">
   <div class="row">
   <blockquote id="help_message_seek_assistance" class="blockquote bq-danger" style="display:none;margin-bottom:0;">
-    <p class="bq-title" id="message_seek_assistance"></p>
+    <p id="message_seek_assistance_title" class="bq-title"></p>
+    <p id="message_seek_assistance"></p>
   </blockquote>
   <div  ></div>
     <div class="card-group">
       <div id="seek_assistance_card" class="card card-block">
         <h3 class="card-title" align="center">Seek Assistance</h3>
         <p class="card-text">
-          <form id="seek_assistance" class="form-horizontal" role="form" method="POST" action="{{ url('/seek_assistance') }}" enctype="multipart/form-data">
+          <form id="seek_assistance" name="seek_assistance" class="form-horizontal" role="form" method="POST" action="{{ url('/seek_assistance') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="md-form">
               <i class="fa fa-user prefix"></i>
@@ -127,7 +128,7 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="text" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
+              <input type="text" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required">
               <label for="assistance_subject">Subject in which you need assistance</label>
             </div>
             <div class="md-form">
@@ -147,32 +148,16 @@
         </p>
       </div>
       @if (count($seeked_assistances) >= 1)
-        <div class="card card-block">
-          <h3 class="card-title" align="center">Previous Requests</h3>
-          <div class="table-responsive">
-            <table class="table table-sm table-hover">
-              <thead>
-                <tr>
-                  <th>SUBJECT</th>
-                  <th>DESCRIPTION</th>
-                  <th>PAYMENT</th>
-                  <th>STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($seeked_assistances as $seeked_assistance)
-                  <tr>
-                    <td>{{ $seeked_assistance->subject }}<br/><small class="text-muted">{{ $seeked_assistance->university }}</small></td>
-                    <td><small><small>{{ $seeked_assistance->description }}</small></small></td>
-                    <td align="center" style="vertical-align:middle;"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Pay</td>
-                    <td></td>
-                  </tr>
-                @endforeach
-                <tr><td colspan="4" align="center"><nav>{{ $seeked_assistances->links() }}</nav></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <ul class="card list-group">
+          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Previous Assistances</h3></li>
+          @foreach ($seeked_assistances as $seeked_assistance)
+            <li class="list-group-item">
+              <small>SUBJECT : {{ $seeked_assistance->subject }}</small><br/>
+              <small>DESCRIPTION : {{ $seeked_assistance->description }}</small>
+            </li>
+          @endforeach
+          <li class="list-group-item" align="center"><nav>{{ $seeked_assistances->links() }}</nav></li>
+        </ul>
       @else
         <div class="card">
           <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
@@ -190,7 +175,7 @@
         <div class="card-block">
           <h4 class="card-title">Course Guide</h4>
           <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -198,7 +183,7 @@
         <div class="card-block">
           <h4 class="card-title">Career Guide</h4>
           <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -206,7 +191,7 @@
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
           <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Just ₹5000 for one course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
     </div>
@@ -216,8 +201,9 @@
 <!-- TUTOR -->
 <div class="container" id="tutor" style="display:none;">
   <div class="row">
-  <blockquote class="blockquote bq-danger" style="display:none;margin-bottom:0;">
-    <p class="bq-title" id="message_provide_assistance"></p>
+  <blockquote id="help_message_provide_assistance" class="blockquote bq-danger" style="display:none;margin-bottom:0;">
+    <p id="message_provide_assistance_title" class="bq-title"></p>
+    <p id="message_provide_assistance"></p>
   </blockquote>
     <div class="card-group">
       <div id="provide_assistance_card" class="card card-block">
@@ -237,7 +223,7 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="text" id="p_assistance_subject" name="p_assistance_subject" class="form-control validate" placeholder="SUBJECT NAME - SUBJECT CODE" required="required">
+              <input type="text" id="p_assistance_subject" name="p_assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required">
               <label for="p_assistance_subject">Subject in which you provide assistance</label>
             </div>
             <div class="md-form">
@@ -408,8 +394,9 @@
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
-    $('#message').addClass("alert alert-danger");
-    $('#message').html("You need to complete your profile details in order to use the Seek Assistance service");
+    $('#help_message_seek_assistance').removeClass("bq-danger");
+    $('#help_message_seek_assistance').addClass("bq-success");
+    $('#message_seek_assistance').html("You need to complete your profile details in order to use the Seek Assistance service");
 @endif
   $( "#study_link" ).click(function() {
     $( "#study_link" ).parent().addClass( "active" );
@@ -485,17 +472,27 @@
       request.send(formdata);
   });
   function seekTransferComplete(data){
-      response = JSON.parse(data.currentTarget.response);
+      var response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          $('#message_seek_assistance').parent().removeClass("bq-danger");
-          $('#message_seek_assistance').parent().addClass("bq-success");
+          $('#help_message_seek_assistance').removeClass("bq-danger");
+          $('#help_message_seek_assistance').addClass("bq-success");
+          $('#message_seek_assistance_title').html("<i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i> SUBMISSION SUCCESFUL");
           $('#message_seek_assistance').html(response.message);
           $('#help_message_seek_assistance').show( "fast");
           $('#seek_assistance')[0].reset();
           $('#seek_assistance_card').hide( "fast");
       }
       else {
-          $('#message_seek_assistance').html(response.message);
+          $('#help_message_seek_assistance').removeClass("bq-success");
+          $('#help_message_seek_assistance').addClass("bq-danget");
+          $('#message_seek_assistance_title').html("<i class=\"fa fa-exclamation-circle\" aria-hidden=\"true\"></i> SUBMISSION FAILED");
+          var message = JSON.parse(response.message);
+          var out="";
+          jQuery.each(message, function(i, val) {
+            out += val + '<br/>';
+          });
+          $('#message_seek_assistance').html(out);
+          $('#help_message_seek_assistance').show( "fast");
       }
   }
   var form = document.getElementById('provide_assistance');
@@ -519,18 +516,46 @@
       request.send(formdata);
   });
   function provideTransferComplete(data){
-      response = JSON.parse(data.currentTarget.response);
+      var response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          $('#message_provide_assistance').parent().removeClass("bq-danger");
-          $('#message_provide_assistance').parent().addClass("bq-success");
+          $('#help_message_provide_assistance').removeClass("bq-danger");
+          $('#help_message_provide_assistance').addClass("bq-success");
+          $('#message_provide_assistance_title').html("<i class=\"fa fa-check-circle-o\" aria-hidden=\"true\"></i> SUBMISSION SUCCESFUL");
+          
           $('#message_provide_assistance').html(response.message);
-          $('#message_provide_assistance').parent().show( "fast");
+          $('#help_message_provide_assistance').show( "fast");
           $('#seek_assistance')[0].reset();
           $('#seek_assistance_card').hide( "fast");
       }
       else {
-          $('#message').html(response.message);
+          $('#help_message_provide_assistance').removeClass("bq-success");
+          $('#help_message_provide_assistance').addClass("bq-danger");
+          $('#message_provide_assistance_title').html("<i class=\"fa fa-exclamation-circle\" aria-hidden=\"true\"></i> SUBMISSION FAILED");
+          var message = JSON.parse(response.message);
+          var out="";
+          jQuery.each(message, function(i, val) {
+            out += val + '<br/>';
+          });
+          $('#message_provide_assistance').html(out);
+          $('#help_message_provide_assistance').show( "fast");
       }
   }
+  $(function()
+  {
+     $( "#assistance_subject" ).autocomplete({
+      source: "search/autocomplete",
+      minLength: 3,
+      select: function(event, ui) {
+        $('#assistance_subject').val(ui.item.value);
+      }
+    });
+     $( "#p_assistance_subject" ).autocomplete({
+      source: "search/autocomplete",
+      minLength: 3,
+      select: function(event, ui) {
+        $('#assistance_subject').val(ui.item.value);
+      }
+    });
+  });
 </script>
 @stop

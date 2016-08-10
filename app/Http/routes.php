@@ -17,9 +17,21 @@ Route::get('/', function () {
 
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
-Route::get('home', [
+Route::get('study', [
     'middleware' => 'auth',
-    'uses' => 'HomeController@index'
+    'uses' => 'HomeController@display_study'
+]);
+Route::get('tutor', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@display_tutor'
+]);
+Route::get('why_us', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@display_why_us'
+]);
+Route::get('contact_us', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@display_contact_us'
 ]);
 Route::post('add_more_info', [
     'middleware' => 'auth',
@@ -32,6 +44,10 @@ Route::post('contact_send_mail', [
 Route::post('seek_assistance', [
     'middleware' => 'auth',
     'uses' => 'HomeController@seek_assistance'
+]);
+Route::post('provide_assistance', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@provide_assistance'
 ]);
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);

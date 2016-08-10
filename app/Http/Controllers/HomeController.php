@@ -29,12 +29,39 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function display_study()
     {
         if (Auth::check()) {
-            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->paginate(5);
-            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->paginate(5);
-            return view('pages.home')->with('seeked_assistances',$seek_assistances)->with('provided_assistances',$provide_assistances);
+            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->paginate(3);
+            return view('pages.study')->with('seeked_assistances',$seek_assistances);
+        }
+        else
+            return view('pages.welcome');
+    }
+
+    public function display_tutor()
+    {
+        if (Auth::check()) {
+            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->paginate(3);
+            return view('pages.tutor')->with('provided_assistances',$provide_assistances);
+        }
+        else
+            return view('pages.welcome');
+    }
+
+    public function display_why_us()
+    {
+        if (Auth::check()) {
+            return view('pages.why_us');
+        }
+        else
+            return view('pages.welcome');
+    }
+
+    public function display_contact_us()
+    {
+        if (Auth::check()) {
+            return view('pages.contact_us');
         }
         else
             return view('pages.welcome');
@@ -101,20 +128,21 @@ class HomeController extends Controller
             'assistance_document.*' => 'mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
         ],
         [
-            'assistance_subject.required' => 'Subject and subject codes are required',
-            'assistance_description.required' => 'Assistance description is required',
-            'assistance_description.min' => 'Assistance description should be more than 10 charecters',
-            'assistance_description.max' => 'Assistance description should be less than 1000 charecters',
+            'assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',
+            'assistance_description.required' => 'Please fill How may we assist you?',
+            'assistance_description.min' => 'Kindly elaborate How may we assist you? Minimum 10 charecters required.',
+            'assistance_description.max' => 'Kindly shorten How may we assist you? Maximum 1000 charecters allowed.',
+            'assistance_document.*.required' => 'Resume and Highest degree cetificate is mandatory. Please upload them.',
             'assistance_document.*.mimes' => 'File format not supported, use only pdf/doc/docx/jpg/png files',
-            'assistance_document.*.mimes' => 'File size must be less than 5 MB.',
+            'assistance_document.*.max' => 'Each file must be less than 5 MB.',
         ]);
     }
 
     public function seek_assistance(Request $request)
-    {
+    {   
         $files = $request->file('assistance_document');
-        if(count($files)>5) //MAX 5 file upload
-            {return \Response::json(array('success' => false , 'message' => "Too many files. Maximum 5 files allowed."));}
+        if((count($files)-1)>5) //MAX 5 file upload
+            {return \Response::json(array('success' => false , 'message' => "{\"assistance_document\":[\"Too many files. Maximum 5 files allowed.\"]}"));}
         $validator = $this->validator_seek_assistance($request->all());
         if ($validator->fails()) {
             return \Response::json(array('success' => false , 'message' => $validator->messages()->toJson()));
@@ -124,19 +152,23 @@ class HomeController extends Controller
         $seek->email=Auth::user()->email;
         $seek->subject=$request->input('assistance_subject');
         $seek->description=$request->input('assistance_description');
-        $seek->file_count=count($files);
         $seek->country=Auth::user()->country;
         $seek->university=Auth::user()->university;
         $seek->course=Auth::user()->course;
         $seek->save();
         $seek1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
-        if(!empty($files)):
-            $count=0;
+        $count=0;
+        if((!empty($files))&&((count($files)-1)>0)):
             foreach($files as $file):
-                $count++;
-                Storage::put($seek1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                if((!empty($file))&&(!is_null($file)))
+                {
+                    $count++;
+                    Storage::put('s'.$seek1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                }   
             endforeach;
         endif;
+        $seek1->file_count=$count;
+        $seek1->save();
         
         return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Pay the service fee to start recieving assistance."));
     }
@@ -144,49 +176,53 @@ class HomeController extends Controller
     protected function validator_provide_assistance(array $data)
     {
         return Validator::make($data, [
-            'assistance_subject' => 'required',
-            'assistance_description' => 'required|min:10|max:1000',
-            'assistance_document.*' => 'required|mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
+            'p_assistance_subject' => 'required',
+            'p_assistance_description' => 'required|min:10|max:1000',
+            'p_assistance_document.*' => 'required|mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
         ],
         [
-            'assistance_subject.required' => 'Subject and subject codes are required',
-            'assistance_description.required' => 'Assistance description is required',
-            'assistance_description.min' => 'Assistance description should be more than 10 charecters',
-            'assistance_description.max' => 'Assistance description should be less than 1000 charecters',
-            'assistance_document.*.mimes' => 'File format not supported, use only pdf/doc/docx/jpg/png files',
-            'assistance_document.*.mimes' => 'File size must be less than 5 MB.',
-            'assistance_document.*.required' => 'Resume and Highest degree cetificate are mandatory. Please upload them.',
+            'p_assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',
+            'p_assistance_description.required' => 'Please fill What is your qualification?',
+            'p_assistance_description.min' => 'Kindly elaborate What is your qualification? Minimum 10 charecters required.',
+            'p_assistance_description.max' => 'Kindly shorten What is your qualification? Maximum 1000 charecters allowed.',
+            'p_assistance_document.*.required' => 'Resume and Highest degree cetificate is mandatory. Please upload them.',
+            'p_assistance_document.*.mimes' => 'File format not supported, use only pdf/doc/docx/jpg/png files.',
+            'p_assistance_document.*.max' => 'File size must be less than 5 MB.',
         ]);
     }
 
     public function provide_assistance(Request $request)
     {
-        $files = $request->file('assistance_document');
+        $files = $request->file('p_assistance_document');
         if(count($files)>5) //MAX 5 file upload
-            {return \Response::json(array('success' => false , 'message' => "Too many files. Maximum 5 files allowed."));}
-        $validator = $this->validator_seek_assistance($request->all());
+            {return \Response::json(array('success' => false , 'message' => "{\"p_assistance_document\":[\"Too many files. Maximum 5 files allowed.\"]}"));}
+        $validator = $this->validator_provide_assistance($request->all());
         if ($validator->fails()) {
             return \Response::json(array('success' => false , 'message' => $validator->messages()->toJson()));
         }
-        $seek = new Seek_assistance;
-        $seek->name=Auth::user()->name;
-        $seek->email=Auth::user()->email;
-        $seek->subject=$request->input('assistance_subject');
-        $seek->description=$request->input('assistance_description');
-        $seek->file_count=count($files);
-        $seek->country=Auth::user()->country;
-        $seek->university=Auth::user()->university;
-        $seek->course=Auth::user()->course;
-        $seek->save();
-        $seek1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
-        if(!empty($files)):
-            $count=0;
+        $provide = new Provide_assistance;
+        $provide->name=Auth::user()->name;
+        $provide->email=Auth::user()->email;
+        $provide->subject=$request->input('p_assistance_subject');
+        $provide->description=$request->input('p_assistance_description');
+        $provide->country=Auth::user()->country;
+        $provide->university=Auth::user()->university;
+        $provide->course=Auth::user()->course;
+        $provide->save();
+        $provide1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
+        $count=0;
+        if((!empty($files))&&((count($files)-1)>0)):
             foreach($files as $file):
-                $count++;
-                Storage::put($seek1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                if((!empty($file))&&(!is_null($file)))
+                {
+                    $count++;
+                    Storage::put('p'.$provide1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                }   
             endforeach;
         endif;
+        $provide1->file_count=$count;
+        $provide1->save();
         
-        return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Pay the service fee to start recieving assistance."));
+        return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Please wait until we verify and approve your request."));
     }
 }

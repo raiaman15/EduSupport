@@ -58,8 +58,8 @@ class AdminController extends Controller
                 'majorTicks' => ['Safe','Critical']
             ]);
 
-            $tokens = Token::paginate(10);
-            $seek_assistances = Seek_assistance::paginate(10);
+            $tokens = Token::paginate(5);
+            $seek_assistances = Seek_assistance::paginate(5);
             return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances);
         }
         else

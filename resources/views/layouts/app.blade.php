@@ -30,6 +30,9 @@
         <!-- JQuery -->
         <script type="text/javascript" src="{{ URL::asset('js/jquery-2.2.3.min.js')}}"></script>
 
+        <!-- JQuery UI -->
+        <script type="text/javascript" src="{{ URL::asset('js/jquery-ui.min.js')}}"></script>
+
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="{{ URL::asset('js/tether.min.js')}}"></script>
 
