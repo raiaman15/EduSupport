@@ -132,7 +132,6 @@ class HomeController extends Controller
             'assistance_description.required' => 'Please fill How may we assist you?',
             'assistance_description.min' => 'Kindly elaborate How may we assist you? Minimum 10 charecters required.',
             'assistance_description.max' => 'Kindly shorten How may we assist you? Maximum 1000 charecters allowed.',
-            'assistance_document.*.required' => 'Resume and Highest degree cetificate is mandatory. Please upload them.',
             'assistance_document.*.mimes' => 'File format not supported, use only pdf/doc/docx/jpg/png files',
             'assistance_document.*.max' => 'Each file must be less than 5 MB.',
         ]);
@@ -140,8 +139,9 @@ class HomeController extends Controller
 
     public function seek_assistance(Request $request)
     {   
-        $files = $request->file('assistance_document');
-        if((count($files)-1)>5) //MAX 5 file upload
+        $documents = $request->file('assistance_document');
+        //return \Response::json(array('success' => false , 'message' => "{\"assistance_document\":[\" ".count($documents)." \"]}"));
+        if(count($documents)>5) //MAX 5 file upload
             {return \Response::json(array('success' => false , 'message' => "{\"assistance_document\":[\"Too many files. Maximum 5 files allowed.\"]}"));}
         $validator = $this->validator_seek_assistance($request->all());
         if ($validator->fails()) {
@@ -158,19 +158,42 @@ class HomeController extends Controller
         $seek->save();
         $seek1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
         $count=0;
-        if((!empty($files))&&((count($files)-1)>0)):
-            foreach($files as $file):
-                if((!empty($file))&&(!is_null($file)))
+        $files="";
+        if((!empty($documents))&&((count($documents))>0)):
+            foreach($documents as $document):
+                if((!empty($document))&&(!is_null($document)))
                 {
                     $count++;
-                    Storage::put('s'.$seek1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                    $filename='s_'.($seek1->id).$count.'.'.$document->guessClientExtension();
+                    $icon="";
+                    if(($document->guessClientExtension()=='jpeg')||($document->guessClientExtension()=='png'))
+                        {$icon="fa-file-image-o";}
+                    elseif(($document->guessClientExtension()=='doc')||($document->guessClientExtension()=='docx'))
+                        {$icon="fa-file-word-o";}
+                    elseif(($document->guessClientExtension()=='pdf'))
+                        {$icon="fa-file-pdf-o";}
+                    else
+                        {$icon="fa-file-o";}
+                    $files = $files.'|'.$filename.':'.$icon;
+                    Storage::delete($filename);
+                    Storage::put($filename, file_get_contents($document));
                 }   
             endforeach;
         endif;
-        $seek1->file_count=$count;
+        $seek1->files=$files;
         $seek1->save();
         
         return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Pay the service fee to start recieving assistance."));
+    }
+
+    public function seek_assistance_detail()
+    {
+        if (Auth::check()) {
+            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->paginate(3);
+            return view('pages.study')->with('seeked_assistances',$seek_assistances);
+        }
+        else
+            return view('pages.welcome');
     }
 
     protected function validator_provide_assistance(array $data)
@@ -193,8 +216,8 @@ class HomeController extends Controller
 
     public function provide_assistance(Request $request)
     {
-        $files = $request->file('p_assistance_document');
-        if(count($files)>5) //MAX 5 file upload
+        $documents = $request->file('p_assistance_document');
+        if(count($documents)>5) //MAX 5 file upload
             {return \Response::json(array('success' => false , 'message' => "{\"p_assistance_document\":[\"Too many files. Maximum 5 files allowed.\"]}"));}
         $validator = $this->validator_provide_assistance($request->all());
         if ($validator->fails()) {
@@ -209,20 +232,49 @@ class HomeController extends Controller
         $provide->university=Auth::user()->university;
         $provide->course=Auth::user()->course;
         $provide->save();
-        $provide1 = Seek_assistance::where('email', Auth::user()->email)->get()->last();
+        $provide1 = Provide_assistance::where('email', Auth::user()->email)->get()->last();
         $count=0;
-        if((!empty($files))&&((count($files)-1)>0)):
-            foreach($files as $file):
-                if((!empty($file))&&(!is_null($file)))
+        $files="";
+        if((!empty($documents))&&((count($documents))>0)):
+            foreach($documents as $document):
+                if((!empty($document))&&(!is_null($document)))
                 {
                     $count++;
-                    Storage::put('p'.$provide1->id.$count.'.'.$file->guessClientExtension(), file_get_contents($file));
+                    $filename='p_'.($provide1->id).$count.'.'.$document->guessClientExtension();
+                    $icon="";
+                    if(($document->guessClientExtension()=='jpeg')||($document->guessClientExtension()=='png'))
+                        {$icon="fa-file-image-o";}
+                    elseif(($document->guessClientExtension()=='doc')||($document->guessClientExtension()=='docx'))
+                        {$icon="fa-file-word-o";}
+                    elseif(($document->guessClientExtension()=='pdf'))
+                        {$icon="fa-file-pdf-o";}
+                    else
+                        {$icon="fa-file-o";}
+                    $files = $files.'|'.$filename.':'.$icon;
+                    Storage::delete($filename);
+                    Storage::put($filename, file_get_contents($document));
                 }   
             endforeach;
         endif;
-        $provide1->file_count=$count;
+        $provide1->files=$files;
         $provide1->save();
         
         return \Response::json(array('success' => true , 'message' => "Request is successfully submitted. Please wait until we verify and approve your request."));
+    }
+
+    public function provide_assistance_detail()
+    {
+        if (Auth::check()) {
+            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->paginate(3);
+            return view('pages.tutor')->with('provided_assistances',$provide_assistances);
+        }
+        else
+            return view('pages.welcome');
+    }
+
+    public function download($filename){
+        $mime = Storage::mimeType($filename);
+        $file = Storage::get($filename);
+        return (\Response($file, 200))->header('Content-Type', $mime);
     }
 }

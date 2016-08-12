@@ -18,10 +18,14 @@ class ProvideAssistances extends Migration
             $table->string('email');
             $table->string('subject');
             $table->text('description');
-            $table->integer('file_count');
+            $table->string('files');
             $table->string('country');
             $table->string('university');
             $table->string('course');
+            $table->boolean('admin_approved')->default(false);
+            $table->boolean('earn_approved')->default(false);
+            $table->string('status')->default("WAITING FOR ADMIN APPROVAL");
+            $table->double('earn_amount', 10, 2)->default(0.00);; // 1 Crore
             $table->rememberToken();
             $table->timestamps();
         });

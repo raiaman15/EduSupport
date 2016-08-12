@@ -24,10 +24,10 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDY</a>
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDENT</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">TUTOR</a>
+            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>
@@ -149,8 +149,36 @@
         </p>
       </div>
       @if (count($provided_assistances) >= 1)
-          I have some record!
-          <nav>{{ $provided_assistances->links() }}</nav>
+        <ul class="card list-group">
+          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Previous Assistances</h3></li>
+          @foreach ($provided_assistances as $provided_assistance)
+            <li class="list-group-item" align="justify">
+              @if ($provided_assistance->admin_approved)
+                <span class="pull-xs-right"><a href="{{ url('/provide_assistance_detail') }}" class="btn btn-primary-outline btn-sm" style="width:30px;height:30px;line-height:10px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;"><i class="fa fa-external-link-square fa-lg" aria-hidden="true"></i></a></span>
+                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">EARN <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+              @else
+                <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn-sm disabled" style="width:30px;height:30px;line-height:10px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;"><i class="fa fa-exclamation-circle fa-lg" aria-hidden="true"></i></a></span>
+              @endif
+              <h5 class="list-group-item-heading">{{ $provided_assistance->subject }}</h5>
+              <br/>
+              <small>{{ substr($provided_assistance->description, 0, 200) }}...</small>
+              <hr/>
+              @if ($provided_assistance->files !== "")
+                <?php $files = explode("|", $provided_assistance->files);$count=0;?>
+                <h6 class="list-group-item-heading">ATTACHED FILES
+                  @foreach ($files as $file)
+                    @if ($file !== "")
+                      <?php $filepart = explode(":", $file);$count++;?>
+                      <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>{{$count}}</small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
+                    @endif
+                  @endforeach
+                </h6>
+              @endif
+              <span class="label btn-secondary-outline label-pill pull-xs" style="min-width:100%;">{{ $provided_assistance->status }} </span>
+            </li>
+          @endforeach
+          <li class="list-group-item" align="center"><nav>{{ $provided_assistances->links() }}</nav></li>
+        </ul>
       @else
       <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
@@ -187,6 +215,32 @@
           <h4 class="card-title">Job Guide</h4>
           <p class="card-text" align="justify">Our job guides will keep suggesting various details related to client's job. They might suggest client which extra certifications they should have based on their career or current job. They might also suggest various short term or long term or certification courses based on client's job profile to enhance their productivity.</p>
           <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR JOB GUIDE</a></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">G M A T Guide</h4>
+          <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">G A T E Guide</h4>
+          <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">C A T Guide</h4>
+          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>
       </div>
     </div>

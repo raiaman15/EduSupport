@@ -24,10 +24,10 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDY</a>
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDENT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">TUTOR</a>
+            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>

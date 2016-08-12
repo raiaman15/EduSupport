@@ -24,10 +24,10 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDY</a>
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDENT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">TUTOR</a>
+            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>
@@ -152,9 +152,26 @@
         <ul class="card list-group">
           <li class="list-group-item" align="center"><h3 class="card-title" align="center">Previous Assistances</h3></li>
           @foreach ($seeked_assistances as $seeked_assistance)
-            <li class="list-group-item">
-              <small>SUBJECT : {{ $seeked_assistance->subject }}</small><br/>
-              <small>DESCRIPTION : {{ $seeked_assistance->description }}</small>
+            <li class="list-group-item" align="justify">
+              <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="width:30px;height:30px;line-height:10px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;"><i class="fa fa-external-link-square fa-lg" aria-hidden="true"></i></a></span>
+              <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">PAY <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+              <h5 class="list-group-item-heading">{{ $seeked_assistance->subject }}</h5>
+              <br/>
+              <hr/>
+              <small>{{ substr($seeked_assistance->description, 0, 200) }}...</small>
+              <hr/>
+              @if ($seeked_assistance->files !== "")
+                <?php $files = explode("|", $seeked_assistance->files);$count=0;?>
+                <h6 class="list-group-item-heading">ATTACHED FILES
+                  @foreach ($files as $file)
+                    @if ($file !== "")
+                      <?php $filepart = explode(":", $file);$count++;?>
+                      <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>{{$count}}</small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
+                    @endif
+                  @endforeach
+                </h6>
+              @endif
+              <span class="label btn-secondary-outline label-pill pull-xs" style="min-width:100%;">Payment link is getting ready </span>
             </li>
           @endforeach
           <li class="list-group-item" align="center"><nav>{{ $seeked_assistances->links() }}</nav></li>
@@ -191,6 +208,32 @@
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
+          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">G M A T Guide</h4>
+          <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">G A T E Guide</h4>
+          <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
+        <div class="card-block">
+          <h4 class="card-title">C A T Guide</h4>
           <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
           <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
         </div>

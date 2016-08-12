@@ -18,7 +18,7 @@ class SeekAssistances extends Migration
             $table->string('email');
             $table->string('subject');
             $table->text('description');
-            $table->integer('file_count');
+            $table->string('files');
             $table->string('country');
             $table->string('university');
             $table->string('course');

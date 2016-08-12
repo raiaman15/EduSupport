@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+        return redirect('/login')->with('status', 'We sent you an activation code. It generally takes a few minutes. Kindly check your email.');
     }
 
     public function authenticated(Request $request, $user)
@@ -67,7 +67,7 @@ class AuthController extends Controller
         if (!$user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code. It generally takes a few minutes. Kindly check your email.');
         }
         return redirect()->intended($this->redirectPath());
     }
@@ -76,7 +76,7 @@ class AuthController extends Controller
     {
         if ($user = $this->activationService->activateUser($token)) {
             auth()->login($user);
-            return redirect('/home');
+            return redirect('/study');
         }
         abort(404);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Token;
 use App\Seek_assistance;
+use App\Provide_assistance;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
@@ -58,9 +59,10 @@ class AdminController extends Controller
                 'majorTicks' => ['Safe','Critical']
             ]);
 
-            $tokens = Token::paginate(5);
-            $seek_assistances = Seek_assistance::paginate(5);
-            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances);
+            $tokens = Token::paginate(10);
+            $seek_assistances = Seek_assistance::paginate(10);
+            $provide_assistances = Provide_assistance::where('admin_approved', false)->paginate(10);
+            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances);
         }
         else
             return view('pages.welcome');

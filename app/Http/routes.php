@@ -45,9 +45,21 @@ Route::post('seek_assistance', [
     'middleware' => 'auth',
     'uses' => 'HomeController@seek_assistance'
 ]);
+Route::get('seek_assistance_detail', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@seek_assistance_detail'
+]);
 Route::post('provide_assistance', [
     'middleware' => 'auth',
     'uses' => 'HomeController@provide_assistance'
+]);
+Route::get('provide_assistance_detail', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@provide_assistance_detail'
+]);
+Route::get('download/{filename}', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@download'
 ]);
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);

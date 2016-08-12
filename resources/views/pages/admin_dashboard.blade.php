@@ -37,8 +37,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a title="ASSIGN" id="assign_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+          <a title="ASSIST STUDENT" id="assist_student_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-user-plus" aria-hidden="true"></i></small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a title="VERIFY TUTOR" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-user-secret" aria-hidden="true"></i></small>
           </a>
         </li>
         <li class="nav-item">
@@ -138,34 +143,45 @@
       </div>
     </div>
     <div class="card-group">
-      <div class="card">
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm table-hover">
-            <thead>
-              <tr>
-                <th>Sender</th>
-                <th>Message</th>
-                <th>Sent at</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($tokens as $token)
-                <tr><td>{{ $token->name }}<br/><small class="text-muted">{{ $token->email }}</small></td><td><small><small>{{ $token->description }}</small></small></td><td><small>{{ $token->updated_at }}</small></td><td></td></tr>
-              @endforeach
-              <tr><td colspan="4" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
-            </tbody>
-          </table>
+      @if(count($tokens)>0)
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>Sender</th>
+                  <th>Message</th>
+                  <th>Sent at</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($tokens as $token)
+                  <tr><td>{{ $token->name }}<br/><small class="text-muted">{{ $token->email }}</small></td><td><small><small>{{ $token->description }}</small></small></td><td><small>{{ $token->updated_at }}</small></td><td></td></tr>
+                @endforeach
+                @if($token->links())
+                <tr><td colspan="7" align="center"><nav>{{ $token->links() }}</nav></td></tr>
+              @endif
+              </tbody>
+            </table>
+          </div>  
         </div>
-      </div>
+      @else
+        <div class="card card-block">
+          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <p class="card-text">
+            No one tried to contact us. 
+          </p>
+        </div>
+      @endif
     </div>
   </div>
 </div>
 
-<!-- ASSIGN -->
-<div class="container" id="tutor" style="display:none;">
+<!-- ASSIST STUDENT -->
+<div class="container" id="assist_student" style="display:none;">
   <div class="row">
-    <div class="card-group">
+    @if(count($seek_assistances)>0)
       <div class="card">
         <div class="table-responsive">
           <table class="table table-bordered table-sm table-hover">
@@ -192,25 +208,104 @@
                   <td></td>
                 </tr>
               @endforeach
-              <tr><td colspan="4" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
+              @if($seek_assistances->links())
+                <tr><td colspan="7" align="center"><nav>{{ $seek_assistances->links() }}</nav></td></tr>
+              @endif
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+    @else
+      <div class="card card-block">
+          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <p class="card-text">
+            No one seeked for assistance. 
+          </p>
+        </div>
+    @endif
+  </div>
+</div>
+
+<!-- VERIFY TUTOR -->
+<div class="container" id="verify_tutor" style="display:none;">
+  <div class="row">
+    @if(count($provide_assistances)>0)
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm table-hover">
+            <thead>
+              <tr>
+                <th>TUTOR</th>
+                <th>SPECIALIZATION</th>
+                <th>QUALIFICATION</th>
+                <th>ATTACHED DOCUMENTS</th>
+                <th>APPROVE</th>
+                <th>DELETE</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($provide_assistances as $provide_assistance)
+                <tr>
+                  <td align="center" style="vertical-align:middle;">
+                    {{ $provide_assistance->name }}<br/>
+                    <small class="text-muted">
+                      <i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i> {{ $provide_assistance->email }}<br/>
+                      <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i> {{ $provide_assistance->updated_at }}
+                    </small>
+                  </td>
+                  <td align="center" style="vertical-align:middle;">{{ $provide_assistance->subject }}<br/><small class="text-muted">{{ $provide_assistance->course }}, {{ $provide_assistance->university }}, {{ $provide_assistance->country }}</small></td>
+                  <td align="justify" style="vertical-align:middle;"><small>{{ $provide_assistance->description }}</small></td>
+                  <td align="center" style="vertical-align:middle;">
+                    @if ($provide_assistance->files !== "")
+                      <?php $files = explode("|", $provide_assistance->files);$count=0;?>
+                      <h6 class="list-group-item-heading">
+                        @foreach ($files as $file)
+                          @if ($file !== "")
+                            <?php $filepart = explode(":", $file);$count++;?>
+                            <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>{{$count}}</small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
+                          @endif
+                        @endforeach
+                      </h6>
+                    @endif
+                  </td>
+                  <td align="center" style="vertical-align:middle;">
+                    <a title="LOGOUT" class="btn btn-success white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/logout">
+                      <small><i class="fa fa-check fa-lg" aria-hidden="true"></i></small>
+                    </a>
+                  </td>
+                  <td align="center" style="vertical-align:middle;">
+                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/logout">
+                      <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
+                    </a>
+                  </td>
+                </tr>
+              @endforeach
+              @if($tokens->links())
+                <tr><td colspan="7" align="center"><nav>{{ $provide_assistances->links() }}</nav></td></tr>
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
+    @else
+      <div class="card card-block">
+          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <p class="card-text">
+            No one applied as tutor. 
+          </p>
+        </div>
+    @endif
   </div>
 </div>
 
 <!-- SETTINGS -->
-<div class="container" id="why_us" style="display:none;">
+<div class="container" id="setting" style="display:none;">
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="card card-block">
-        <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
-        <p class="card-text">
-        Some text here
-        </p>
-      </div>
+    <div class="card card-block">
+      <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+      <p class="card-text">
+      Some text here
+      </p>
     </div>
   </div>
 </div>
@@ -227,35 +322,55 @@
 <script>
   $( "#home_link" ).click(function() {
     $( "#home_link" ).parent().addClass( "active" );
-    $( "#tutor_link" ).parent().removeClass("active");
-    $( "#why_us_link" ).parent().removeClass("active");
-    $( "#tutor" ).hide( "fast");
-    $( "#why_us" ).hide( "fast");
+    $( "#assist_student_link" ).parent().removeClass("active");
+    $( "#verify_tutor_link" ).parent().removeClass("active");
+    $( "#setting_link" ).parent().removeClass("active");
+    $( "#assist_student" ).hide( "fast");
+    $( "#verify_tutor" ).hide( "fast");
+    $( "#setting" ).hide( "fast");
     $( "#home" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
   
-  $( "#assign_link" ).click(function() {
-    $( "#tutor_link" ).parent().addClass( "active" );
+  $( "#assist_student_link" ).click(function() {
+    $( "#assist_student_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#why_us_link" ).parent().removeClass("active");
+    $( "#verify_tutor_link" ).parent().removeClass("active");
+    $( "#setting_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#why_us" ).hide( "fast");
-    $( "#tutor" ).show( "fast");
+    $( "#verify_tutor" ).hide( "fast");
+    $( "#setting" ).hide( "fast");
+    $( "#assist_student" ).show( "fast");
+    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
+            $('.navbar-toggler').click();
+        }
+  });
+
+  $( "#verify_tutor_link" ).click(function() {
+    $( "#verify_tutor_link" ).parent().addClass( "active" );
+    $( "#home_link" ).parent().removeClass("active");
+    $( "#assist_student_link" ).parent().removeClass("active");
+    $( "#setting_link" ).parent().removeClass("active");
+    $( "#home" ).hide( "fast");
+    $( "#assist_student" ).hide( "fast");
+    $( "#setting" ).hide( "fast");
+    $( "#verify_tutor" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
   });
   
   $( "#setting_link" ).click(function() {
-    $( "#why_us_link" ).parent().addClass( "active" );
+    $( "#setting_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
-    $( "#tutor_link" ).parent().removeClass("active");
+    $( "#assist_student_link" ).parent().removeClass("active");
+    $( "#verify_tutor_link" ).parent().removeClass("active");
     $( "#home" ).hide( "fast");
-    $( "#tutor" ).hide( "fast");
-    $( "#why_us" ).show( "fast");
+    $( "#assist_student" ).hide( "fast");
+    $( "#verify_tutor" ).hide( "fast");
+    $( "#setting" ).show( "fast");
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
