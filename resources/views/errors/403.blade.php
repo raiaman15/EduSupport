@@ -14,7 +14,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_X</a>
+      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_403</a>
     </div>
     <!--/.Collapse content-->
   </big>
