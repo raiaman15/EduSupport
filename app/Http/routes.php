@@ -68,4 +68,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('getCancel', ['as'=>'getCancel','uses'=>'PaypalController@getCancel']);
 });
 Route::get('admin_dashboard', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@dashboard']);
+Route::get('approve_tutor/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@approve_tutor']);
+Route::get('delete_tutor/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@delete_tutor']);
 

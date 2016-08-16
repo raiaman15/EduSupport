@@ -125,7 +125,7 @@ class HomeController extends Controller
         return Validator::make($data, [
             'assistance_subject' => 'required',
             'assistance_description' => 'required|min:10|max:1000',
-            'assistance_document.*' => 'mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
+            'assistance_document.*' => 'mimes:pdf,docx,doc,jpeg,png|max:5000',
         ],
         [
             'assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',
@@ -201,7 +201,7 @@ class HomeController extends Controller
         return Validator::make($data, [
             'p_assistance_subject' => 'required',
             'p_assistance_description' => 'required|min:10|max:1000',
-            'p_assistance_document.*' => 'required|mimes:pdf,vnd.openxmlformats-officedocument.wordprocessingml.document,msword,jpeg,png|max:5000',
+            'p_assistance_document.*' => 'required|mimes:pdf,docx,doc,jpeg,png|max:5000',
         ],
         [
             'p_assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',

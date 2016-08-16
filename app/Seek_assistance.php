@@ -14,7 +14,6 @@ class Seek_assistance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'subject', 'description', 'filename', 'file_count', 'country', 'university', 'course',
     ];
 
     /**

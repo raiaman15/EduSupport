@@ -2,7 +2,7 @@
 
 @section('head')
 <style type="text/css">
-  #home,#study,#tutor,#faq,#about_us,#contact_us
+  #home,#assist_student,#verify_tutor,#setting
   {
     padding-bottom:50px;
   }
@@ -37,12 +37,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a title="ASSIST STUDENT" id="assist_student_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-user-plus" aria-hidden="true"></i></small>
+          <a title="LEARNER REQUESTS" id="assist_student_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-user" aria-hidden="true"></i></small>
           </a>
         </li>
         <li class="nav-item">
-          <a title="VERIFY TUTOR" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+          <a title="FACILITATOR VERIFICATION" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-user-secret" aria-hidden="true"></i></small>
           </a>
         </li>
@@ -183,37 +183,77 @@
   <div class="row">
     @if(count($seek_assistances)>0)
       <div class="card">
-        <div class="table-responsive">
-          <table class="table table-bordered table-sm table-hover">
-            <thead>
-              <tr>
-                <th>Sender</th>
-                <th>Institution</th>
-                <th>Subject</th>
-                <th>Message</th>
-                <th>Sent at</th>
-                <th>Assign to</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($seek_assistances as $seek_assistance)
-                <tr>
-                  <td>{{ $seek_assistance->name }}<br/><small class="text-muted">{{ $seek_assistance->email }}</small></td>
-                  <td>{{ $seek_assistance->university }}<br/><small class="text-muted">{{ $seek_assistance->country }}</small></td>
-                  <td>{{ $seek_assistance->subject }}<br/><small class="text-muted">{{ $seek_assistance->course }}</small></td>
-                  <td><small><small>{{ $seek_assistance->description }}</small></small></td>
-                  <td><small>{{ $seek_assistance->updated_at }}</small></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              @endforeach
-              @if($seek_assistances->links())
-                <tr><td colspan="7" align="center"><nav>{{ $seek_assistances->links() }}</nav></td></tr>
-              @endif
-            </tbody>
-          </table>
-        </div>
+        @if(count($seek_assistances) >= 1)
+          <ul class="card list-group">
+            <li class="list-group-item" align="center"><h3 class="card-title" align="center">SEEKED ASSISTANCES</h3></li>
+            @foreach ($seek_assistances as $seek_assistance)
+              <li class="list-group-item" align="justify">
+                <h5 class="list-group-item-heading">{{ $seek_assistance->subject }}</h5>
+                <small>{{ $seek_assistance->description }}</small>
+                @if ($seek_assistance->files !== "")
+                <br/><br/>
+                  <?php $files = explode("|", $seek_assistance->files);$count=0;?>
+                  <h6 class="list-group-item-heading">ATTACHED FILES
+                    @foreach ($files as $file)
+                      @if ($file !== "")
+                        <?php $filepart = explode(":", $file);$count++;?>
+                        <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>{{$count}}</small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
+                      @endif
+                    @endforeach
+                  </h6>
+                @endif
+                <hr/>
+                @if (!$seek_assistance->payment_link_prepared)
+                  <br/>
+                  <div class="md-form">
+                      <input type="text" id="form1" class="form-control">
+                      <label for="form1" class="">PAYMENT PLAN</label>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <br/><br/>
+                @elseif (($seek_assistance->payment_done) and (!$seek_assistance->tutor_assigned))
+                  <br/>
+                  <div class="md-form">
+                      <input type="text" id="form1" class="form-control">
+                      <label for="form1" class="">ASSIGN TUTOR (name/email/subject)</label>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <br/><br/>
+                @elseif (($seek_assistance->feedback_provided) and (!$seek_assistance->tutor_payment_generated))
+                  <br/>
+                  <div class="md-form">
+                      <input type="text" id="form1" class="form-control">
+                      <label for="form1" class="">TUTOR PAYMENT (amount in ₹)</label>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <br/><br/>
+                @elseif (($seek_assistance->tutor_payment_generated) and (!$seek_assistance->tutor_got_payment))
+                  <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-times" aria-hidden="true"></i> TUTOR PAYMENT PENDING</a></span>
+                  <button type="button" class="btn btn-primary btn-sm">ALREADY PAID</button>
+                  <br/><br/>
+                @else
+                  <span class="pull-xs-left"><a href="#" class="btn btn-success-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-check" aria-hidden="true"></i> NO ACTION REQUIRED</a></span>
+                  <br/><br/>
+                @endif
+              </li>
+            @endforeach
+            @if($seek_assistances->links())
+              <li class="list-group-item" align="center"><nav>{{ $seek_assistances->links() }}</nav></li>
+            @endif
+          </ul>
+        @else
+          <div class="card">
+            <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">About Seek Assistance</h4>
+              <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist you with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers value your time and thus try to take less time and deliver quality assistance.</p>
+              <p class="card-text"><small class="text-muted">₹500 - ₹2000 per assistance based on requirement.</small></p>
+            </div>
+          </div>
+        @endif
+        @if($seek_assistances->links())
+          <tr><td colspan="7" align="center"><nav>{{ $seek_assistances->links() }}</nav></td></tr>
+        @endif   
       </div>
     @else
       <div class="card card-block">
@@ -269,12 +309,12 @@
                     @endif
                   </td>
                   <td align="center" style="vertical-align:middle;">
-                    <a title="LOGOUT" class="btn btn-success white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/logout">
+                    <a title="LOGOUT" class="btn btn-success white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/approve_tutor/{{ $provide_assistance->id }}">
                       <small><i class="fa fa-check fa-lg" aria-hidden="true"></i></small>
                     </a>
                   </td>
                   <td align="center" style="vertical-align:middle;">
-                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/logout">
+                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_tutor/{{ $provide_assistance->id }}">
                       <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
                     </a>
                   </td>

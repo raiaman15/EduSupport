@@ -22,6 +22,17 @@ class SeekAssistances extends Migration
             $table->string('country');
             $table->string('university');
             $table->string('course');
+            $table->boolean('payment_link_prepared')->default(false);
+            $table->tinyInteger('payment_plan')->default(null);
+            $table->boolean('payment_done')->default(false);
+            $table->boolean('tutor_assigned')->default(false);
+            $table->string('tutor_email')->default(null);
+            $table->boolean('feedback_provided')->default(false);
+            $table->tinyInteger('tutor_feedback')->default(null);
+            $table->boolean('tutor_payment_generated')->default(false);//
+            $table->float('tutor_payment')->default(0.00);
+            $table->boolean('tutor_got_payment')->default(false);
+            $table->string('status')->default("PAYMENT LINK IS GETTING READY");
             $table->rememberToken();
             $table->timestamps();
         });

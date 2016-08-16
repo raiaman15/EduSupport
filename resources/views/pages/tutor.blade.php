@@ -24,7 +24,7 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDENT</a>
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
@@ -155,17 +155,21 @@
             <li class="list-group-item" align="justify">
               @if ($provided_assistance->admin_approved)
                 <span class="pull-xs-right"><a href="{{ url('/provide_assistance_detail') }}" class="btn btn-primary-outline btn-sm" style="width:30px;height:30px;line-height:10px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;"><i class="fa fa-external-link-square fa-lg" aria-hidden="true"></i></a></span>
-                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">EARN <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+                @if ($provided_assistance->earn_approved)
+                  <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">EARN <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+                @else
+                  <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">EARN <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+                @endif
               @else
                 <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn-sm disabled" style="width:30px;height:30px;line-height:10px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;"><i class="fa fa-exclamation-circle fa-lg" aria-hidden="true"></i></a></span>
               @endif
               <h5 class="list-group-item-heading">{{ $provided_assistance->subject }}</h5>
               <br/>
               <small>{{ substr($provided_assistance->description, 0, 200) }}...</small>
-              <hr/>
+              <br/><br/>
               @if ($provided_assistance->files !== "")
                 <?php $files = explode("|", $provided_assistance->files);$count=0;?>
-                <h6 class="list-group-item-heading">ATTACHED FILES
+                <h6 class="list-group-item-heading">DOCUMENT 
                   @foreach ($files as $file)
                     @if ($file !== "")
                       <?php $filepart = explode(":", $file);$count++;?>
@@ -177,7 +181,9 @@
               <span class="label btn-secondary-outline label-pill pull-xs" style="min-width:100%;">{{ $provided_assistance->status }} </span>
             </li>
           @endforeach
-          <li class="list-group-item" align="center"><nav>{{ $provided_assistances->links() }}</nav></li>
+          @if($provided_assistances->links())
+            <li class="list-group-item" align="center"><nav>{{ $provided_assistances->links() }}</nav></li>
+          @endif
         </ul>
       @else
       <div class="card">

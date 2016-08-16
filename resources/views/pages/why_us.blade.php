@@ -24,7 +24,7 @@
         <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">STUDENT</a>
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
