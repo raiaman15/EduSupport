@@ -28,9 +28,9 @@ class PaypalController extends Controller
 
     }
 
-    public function payPremium()
+    public function payPremium($payplan,$id)
     {
-    	return view('pages.payPremium');
+    	return view('pages.payPremium')->with('payplan', $payplan)->with('id', $id);
     }
 
     public function getCheckout(Request $request)
@@ -44,7 +44,7 @@ class PaypalController extends Controller
 
 	    $transaction = PayPal::Transaction();
 	    $transaction->setAmount($amount);
-	    $transaction->setDescription('Buy Premium '.$request->input('type').' Plan on '.$request->input('pay'));
+	    $transaction->setDescription('Activate your assistance request with assistance ID '.$request->input('assistance_id').' for $'.$request->input('pay'));
 
 	    $redirectUrls = PayPal:: RedirectUrls();
 	    $redirectUrls->setReturnUrl(route('getDone'));
@@ -81,6 +81,6 @@ class PaypalController extends Controller
 
 	public function getCancel()
 	{
-	    return redirect()->route('payPremium');
+	    return redirect('study');
 	}
 }

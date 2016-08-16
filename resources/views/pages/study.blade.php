@@ -154,7 +154,7 @@
           @foreach ($seeked_assistances as $seeked_assistance)
             <li class="list-group-item" align="justify">
               @if (($seeked_assistance->payment_link_prepared) and (!$seeked_assistance->payment_done))
-                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">PAY <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
+                <span class="pull-xs-right"><a href="payPremium/{{ $seeked_assistance->payment_plan }}/{{ $seeked_assistance->id }}" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">PAY ${{$seeked_assistance->payment_plan*5}} <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
               @endif
               @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned))
                 <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">DASHBOARD <i class="fa fa-external-link-square" aria-hidden="true"></i></a></span>

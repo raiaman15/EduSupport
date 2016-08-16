@@ -62,7 +62,7 @@ Route::get('download/{filename}', [
     'uses' => 'HomeController@download'
 ]);
 Route::group(['middleware' => ['web']], function () {
-    Route::get('payPremium', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
+    Route::get('payPremium/{payplan}/{id}', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);
     Route::get('getDone', ['as'=>'getDone','uses'=>'PaypalController@getDone']);
     Route::get('getCancel', ['as'=>'getCancel','uses'=>'PaypalController@getCancel']);
