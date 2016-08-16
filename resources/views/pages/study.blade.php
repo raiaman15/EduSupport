@@ -265,6 +265,7 @@
     $('#help_message_seek_assistance').removeClass("bq-success");
     $('#help_message_seek_assistance').addClass("bq-danger");
     $('#message_seek_assistance').html("You need to complete your profile details in order to use the Seek Assistance service");
+    $('#seek_assistance_card').hide( "fast");
 @endif
   var form = document.getElementById('seek_assistance');
   var request = new XMLHttpRequest();

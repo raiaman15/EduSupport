@@ -266,6 +266,7 @@
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
+    $('#provide_assistance_card').hide( "fast");
 @endif
   var form = document.getElementById('provide_assistance');
   var request = new XMLHttpRequest();
