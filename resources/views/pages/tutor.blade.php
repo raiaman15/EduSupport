@@ -229,24 +229,24 @@
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">G M A T Guide</h4>
-          <p class="card-text">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="justify">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR GMAT GUIDE</a></small></p>
         </div>
       </div>
       <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">G A T E Guide</h4>
-          <p class="card-text">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="justify">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR GATE GUIDE</a></small></p>
         </div>
       </div>
       <div class="card">
         <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
           <h4 class="card-title">C A T Guide</h4>
-          <p class="card-text">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job. <a href="#" class="btn btn-primary-outline btn-sm">ACTIVATE</a></small></p>
+          <p class="card-text" align="justify">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR CAT GUIDE</a></small></p>
         </div>
       </div>
     </div>

@@ -69,7 +69,16 @@ class AdminController extends Controller
             return view('pages.welcome');
     }
 
-    public function assign_tutor_student($id, $tutor_email){
+    public function make_pay_link_student($id, $payment_plan){
+        $seek_assistance = Seek_assistance::where('id', $id)->first();
+        $seek_assistance->payment_link_prepared=true;
+        $seek_assistance->payment_plan=$payment_plan; //an integer
+        $seek_assistance->status="PROCEED WITH PAYMENT TO GET ASSISTANCE";
+        $seek_assistance->save();
+        return redirect('admin_dashboard');
+    }
+
+    public function save_assigned_tutor($id, $tutor_email){
         $seek_assistance = Seek_assistance::where('id', $id)->first();
         if($seek_assistance->payment_done)
         {
@@ -81,16 +90,7 @@ class AdminController extends Controller
         return redirect('admin_dashboard');
     }
 
-    public function make_pay_link_student($id, $payment_plan){
-        $seek_assistance = Seek_assistance::where('id', $id)->first();
-        $seek_assistance->payment_link_prepared=true;
-        $seek_assistance->payment_plan=$payment_plan; //an integer
-        $seek_assistance->status="PROCEED WITH PAYMENT TO GET ASSISTANCE";
-        $seek_assistance->save();
-        return redirect('admin_dashboard');
-    }
-
-    public function generate_tutor_payment($id, $tutor_payment){
+    public function save_tutor_payment($id, $tutor_payment){
         $seek_assistance = Seek_assistance::where('id', $id)->first();
         $seek_assistance->tutor_payment_generated=true;
         $seek_assistance->tutor_payment=$tutor_payment; //an integer

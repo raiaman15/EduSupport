@@ -206,30 +206,30 @@
                 @if (!$seek_assistance->payment_link_prepared)
                   <br/>
                   <div class="md-form">
-                      <input type="text" id="form1" class="form-control">
+                      <input id="input_payment_plan" type="text" id="form1" class="form-control">
                       <label for="form1" class="">PAYMENT PLAN</label>
                   </div>
-                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <a id="save_payment_plan" href="/save_payment_plan/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->payment_done) and (!$seek_assistance->tutor_assigned))
                   <br/>
                   <div class="md-form">
-                      <input type="text" id="form1" class="form-control">
+                      <input id="input_assigned_tutor" type="text" id="form1" class="form-control">
                       <label for="form1" class="">ASSIGN TUTOR (name/email/subject)</label>
                   </div>
-                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <a id="save_assigned_tutor" href="/save_assigned_tutor/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->feedback_provided) and (!$seek_assistance->tutor_payment_generated))
                   <br/>
                   <div class="md-form">
-                      <input type="text" id="form1" class="form-control">
+                      <input id="input_tutor_payment" type="text" id="form1" class="form-control">
                       <label for="form1" class="">TUTOR PAYMENT (amount in ₹)</label>
                   </div>
-                  <button type="button" class="btn btn-primary btn-sm">SAVE</button>
+                  <a id="save_tutor_payment" href="/save_tutor_payment/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->tutor_payment_generated) and (!$seek_assistance->tutor_got_payment))
-                  <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-times" aria-hidden="true"></i> TUTOR PAYMENT PENDING</a></span>
-                  <button type="button" class="btn btn-primary btn-sm">ALREADY PAID</button>
+                  <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-times" aria-hidden="true"></i> TUTOR PAYMENT PENDING : ₹{{ $seek_assistance->tutor_payment }}</a></span>
+                  <a href="/tutor_got_payment/{{ $seek_assistance->id }}" class="btn btn-primary btn-sm">ARLEADY PAID</a>
                   <br/><br/>
                 @else
                   <span class="pull-xs-left"><a href="#" class="btn btn-success-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-check" aria-hidden="true"></i> NO ACTION REQUIRED</a></span>
@@ -414,6 +414,18 @@
     if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
             $('.navbar-toggler').click();
         }
+  });
+
+  $('#save_payment_plan').click(function() {
+    this.href = this.href + $('#input_payment_plan').val();
+  });
+
+  $('#save_assigned_tutor').click(function() {
+    this.href = this.href + $('#input_assigned_tutor').val();
+  });
+
+  $('#save_tutor_payment').click(function() {
+    this.href = this.href + $('#input_tutor_payment').val();
   });
 </script>
 @stop
