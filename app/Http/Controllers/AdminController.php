@@ -61,8 +61,8 @@ class AdminController extends Controller
             ]);
 
             $tokens = Token::paginate(5);
-            $seek_assistances = Seek_assistance::where('payment_link_prepared', false)->orWhere('tutor_assigned', false)->orWhere('tutor_payment_generated', false)->orWhere('tutor_got_payment', false)->paginate(5);
-            $provide_assistances = Provide_assistance::where('admin_approved', false)->paginate(5);
+            $seek_assistances = Seek_assistance::where('payment_link_prepared', false)->orWhere('tutor_assigned', false)->orWhere('tutor_payment_generated', false)->orWhere('tutor_got_payment', false)->orderBy('updated_at', 'desc')->paginate(5);
+            $provide_assistances = Provide_assistance::where('admin_approved', false)->orderBy('updated_at', 'desc')->paginate(5);
             return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances);
         }
         else
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $seek_assistance = Seek_assistance::where('id', $id)->first();
         $seek_assistance->payment_link_prepared=true;
         $seek_assistance->payment_plan=$payment_plan; //an integer
-        $seek_assistance->status="PROCEED WITH PAYMENT TO GET ASSISTANCE";
+        $seek_assistance->status="PROCEED WITH PAYMENT";
         $seek_assistance->save();
         return redirect('admin_dashboard');
     }
@@ -84,7 +84,7 @@ class AdminController extends Controller
         {
             $seek_assistance->tutor_assigned=true;
             $seek_assistance->tutor_email=$tutor_email; 
-            $seek_assistance->status="TUTOR ASSIGNED, CHECK YOUR EMAIL AND GO TO DASHBOARD";
+            $seek_assistance->status="TUTOR ASSIGNED : ".$tutor_email;
             $seek_assistance->save();
         }
         return redirect('admin_dashboard');
@@ -92,17 +92,24 @@ class AdminController extends Controller
 
     public function save_tutor_payment($id, $tutor_payment){
         $seek_assistance = Seek_assistance::where('id', $id)->first();
-        $seek_assistance->tutor_payment_generated=true;
-        $seek_assistance->tutor_payment=$tutor_payment; //an integer
-        $seek_assistance->status="TUTOR PAYMENT GENERATED BASED ON YOUR FEEDBACK";
-        $seek_assistance->save();
-        return redirect('admin_dashboard');
+        if($tutor_payment<($seek_assistance->payment_plan*5))
+        {
+            $seek_assistance->tutor_payment_generated=true;
+            $seek_assistance->tutor_payment=$tutor_payment; //an integer
+            $seek_assistance->status="TUTOR PAYMENT GENERATED";
+            $seek_assistance->save();
+            return redirect('admin_dashboard');
+        }
+        else
+        {
+            dd("PAYING MORE THAN MAXIMUM AMOUNT");
+        }
     }
 
     public function tutor_got_payment($id){
         $seek_assistance = Seek_assistance::where('id', $id)->first();
         $seek_assistance->tutor_got_payment=true;
-        $seek_assistance->status="TUTOR GOT HIS PAYMENT";
+        $seek_assistance->status="TUTOR GOT PAYMENT";
         $seek_assistance->save();
         return redirect('admin_dashboard');
     }
@@ -110,7 +117,7 @@ class AdminController extends Controller
     public function approve_tutor($id){
         $provide_assistance = Provide_assistance::where('id', $id)->first();
         $provide_assistance->admin_approved=true;
-        $provide_assistance->status="PROFILE ACTIVATED : FINDING STUDENT FOR YOU";
+        $provide_assistance->status="PROFILE ACTIVATED. FINDING STUDENT";
         $provide_assistance->save();
         return redirect('admin_dashboard');
     }

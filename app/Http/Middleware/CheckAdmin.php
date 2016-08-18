@@ -17,8 +17,8 @@ class CheckAdmin
     {
         if(!isset($request->user()))
             abort(403, 'Unauthorized action.');
-        //Add more security (email logging and email him warming.)
-        if(!($request->user()->email=="raiaman15@gmail.com")) //Use hashed value (github is open), try env
+        if(!(($request->user()->email=="raiaman15@gmail.com")||($request->user()->email=="sharmaprateek28@gmail.com")||($request->user()->email=="sharmayush17@gmail.com")||($request->user()->email=="bharadwaj.tejasv21@gmail.com"))) 
+        //Use hashed value (github is open, so delete me too), try env 
             {return redirect('logout');}
         return $next($request);
 

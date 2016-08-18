@@ -222,13 +222,13 @@
                 @elseif (($seek_assistance->feedback_provided) and (!$seek_assistance->tutor_payment_generated))
                   <br/>
                   <div class="md-form">
-                      <input id="input_tutor_payment" type="text" id="form1" class="form-control">
-                      <label for="form1" class="">TUTOR PAYMENT (amount in ₹)</label>
+                      <input id="input_tutor_payment" type="text" id="form1" class="form-control" value="{{ ($seek_assistance->payment_plan*4)+($seek_assistance->payment_plan*($seek_assistance->tutor_feedback/10)) }}" max="{{ ($seek_assistance->payment_plan*5) }}">
+                      <label for="form1" class="">TUTOR PAYMENT (FROM : {{ ($seek_assistance->payment_plan*5) }}$)</label>
                   </div>
                   <a id="save_tutor_payment" href="/save_tutor_payment/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->tutor_payment_generated) and (!$seek_assistance->tutor_got_payment))
-                  <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-times" aria-hidden="true"></i> TUTOR PAYMENT PENDING : ₹{{ $seek_assistance->tutor_payment }}</a></span>
+                  <span class="pull-xs-right"><a href="#" class="btn btn-danger-outline btn disabled" style="padding-top:0;padding-bottom:0;"><i class="fa fa-times" aria-hidden="true"></i> TUTOR PAYMENT PENDING : {{ $seek_assistance->tutor_payment }}$</a></span>
                   <a href="/tutor_got_payment/{{ $seek_assistance->id }}" class="btn btn-primary btn-sm">ARLEADY PAID</a>
                   <br/><br/>
                 @else

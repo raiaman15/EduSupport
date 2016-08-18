@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function display_study()
     {
         if (Auth::check()) {
-            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->paginate(3);
+            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(3);
             return view('pages.study')->with('seeked_assistances',$seek_assistances);
         }
         else
@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function display_tutor()
     {
         if (Auth::check()) {
-            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->paginate(3);
+            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(3);
             return view('pages.tutor')->with('provided_assistances',$provide_assistances);
         }
         else
@@ -276,5 +276,14 @@ class HomeController extends Controller
         $mime = Storage::mimeType($filename);
         $file = Storage::get($filename);
         return (\Response($file, 200))->header('Content-Type', $mime);
+    }
+
+    public function save_tutor_feedback($id, $tutor_rating){
+        $seek_assistance = Seek_assistance::where('id', $id)->first();
+        $seek_assistance->feedback_provided=true;
+        $seek_assistance->tutor_feedback=$tutor_rating; //an integer
+        $seek_assistance->status="GENERATING TUTOR PAYMENT";
+        $seek_assistance->save();
+        return redirect('study');
     }
 }

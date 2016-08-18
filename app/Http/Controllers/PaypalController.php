@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Paypal;
+use Auth;
+use App\Seek_assistance;
 
 class PaypalController extends Controller
 {
@@ -30,7 +32,15 @@ class PaypalController extends Controller
 
     public function payPremium($payplan,$id)
     {
-    	return view('pages.payPremium')->with('payplan', $payplan)->with('id', $id);
+    	$seek_assistance = Seek_assistance::where('id', $id)->firstorfail();
+    	if($seek_assistance->email===Auth::user()->email)
+    	{
+    		return view('pages.payPremium')->with('payplan', $seek_assistance->payment_plan)->with('id', $id);
+    	}
+    	else
+    	{
+    		return redirect('logout');
+    	}
     }
 
     public function getCheckout(Request $request)
@@ -74,9 +84,38 @@ class PaypalController extends Controller
 
 	    $paymentExecution->setPayerId($payer_id);
 	    $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
+	    $temp = $executePayment->getTransactions()[0]->getDescription();
+	    $data=[];
+	    preg_match_all('!\d+!', $temp, $data);
+	    $seek_assistance = Seek_assistance::where('id', $data[0][0])->firstorfail();
+	    //dd($data);
+    	if($seek_assistance->email===Auth::user()->email)
+    	{
+    		if($data[0][1]==(($seek_assistance->payment_plan)*5))
+			{
+				//PAYMENT SUCCESSFUL
+				$seek_assistance->payment_done = true;
+				$seek_assistance->status="WAITING FOR ADMIN TO ASSIGN A TUTOR";
+				$seek_assistance->save();
+				return redirect('study');
+			}
+    		else
+    		{
+    			//NOT PAID CORRECT MONEY/PLAN
+    			var_dump($seek_assistance->id);
+    			var_dump($data[0][1]);
+    			var_dump(($seek_assistance->payment_plan)*5);
+    			dd("PAYMENT AMOUNT DOES NOT MATCH YOUR PLAN. CONTACT WEBMASTER.");
+    		}
 
-	    
-	    dd($executePayment);
+    	}
+    	else
+    	{
+    		//PAYMENT FAILED
+    		dd("CONTACT WEBMASTER.");
+    	}
+
+	    return redirect('study');
 	}
 
 	public function getCancel()

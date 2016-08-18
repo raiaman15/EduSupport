@@ -28,7 +28,7 @@ class SeekAssistances extends Migration
             $table->boolean('tutor_assigned')->default(false);
             $table->string('tutor_email')->default(null);
             $table->boolean('feedback_provided')->default(false);
-            $table->tinyInteger('tutor_feedback')->default(null);
+            $table->tinyInteger('tutor_feedback')->default(0);
             $table->boolean('tutor_payment_generated')->default(false);//
             $table->float('tutor_payment')->default(0.00);
             $table->boolean('tutor_got_payment')->default(false);

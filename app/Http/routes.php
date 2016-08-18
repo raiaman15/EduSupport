@@ -61,6 +61,10 @@ Route::get('download/{filename}', [
     'middleware' => 'auth',
     'uses' => 'HomeController@download'
 ]);
+Route::get('tutor_feedback/{id}/{rating}', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@save_tutor_feedback'
+]);
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium/{payplan}/{id}', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);

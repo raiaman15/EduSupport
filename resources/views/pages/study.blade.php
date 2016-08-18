@@ -10,6 +10,8 @@
       transform:scale(0.70);
   }
 </style>
+<!-- Your custom styles (optional) -->
+<link href="{{ asset('css/star-rating.min.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -48,7 +50,6 @@
     </big>
   </div>
 </nav>
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -157,10 +158,11 @@
                 <span class="pull-xs-right"><a href="payPremium/{{ $seeked_assistance->payment_plan }}/{{ $seeked_assistance->id }}" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">PAY ${{$seeked_assistance->payment_plan*5}} <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
               @endif
               @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned))
-                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">DASHBOARD <i class="fa fa-external-link-square" aria-hidden="true"></i></a></span>
+                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">ACTIVATED <i class="fa fa-check" aria-hidden="true"></i></a></span>
               @endif
               <h5 class="list-group-item-heading">{{ $seeked_assistance->subject }}</h5>
               <br/>
+              <span class="label btn-primary-outline label-pill pull-xs" style="min-width:100%;">{{ $seeked_assistance->status }}</span>
               <hr/>
               <small>{{ substr($seeked_assistance->description, 0, 200) }}...</small>
               <hr/>
@@ -175,7 +177,17 @@
                   @endforeach
                 </h6>
               @endif
-              <span class="label btn-secondary-outline label-pill pull-xs" style="min-width:100%;">{{ $seeked_assistance->status }}</span>
+              <hr/>
+              @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned) and (!$seeked_assistance->tutor_payment_generated))
+                <span class="pull-xs">
+                <input type="text" class="kv-fa" data-size="xxs" value="{{ ($seeked_assistance->tutor_feedback)/2 }}" name="{{ $seeked_assistance->id }}" title="" style="display:none;">
+                </span>
+                <h5 class="list-group-item-heading"><small><small class="red-text">GIVE FEEDBACK ONLY AFTER COMPLETION</small></small></h5>
+              @endif
+              @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned) and ($seeked_assistance->tutor_payment_generated))
+                <h5 class="list-group-item-heading"><small>YOUR FEEDBACK WAS : {{ $seeked_assistance->tutor_feedback }} / 10</small></h5>
+              @endif
+              
             </li>
           @endforeach
           @if($seeked_assistances->links())
@@ -257,7 +269,22 @@
 
 @section('script')
 <!-- SCRIPTS -->
+<!-- STAR RATING -->
+<script type="text/javascript" src="{{ URL::asset('js/star-rating.min.js')}}"></script>
 <script>
+$('.kv-fa').rating({
+    theme: 'krajee-fa',
+    filledStar: '<i class="fa fa-star"></i>',
+    emptyStar: '<i class="fa fa-star-o"></i>',
+    clearButton: '<i class="fa fa-times-circle-o fa-lg"></i>'
+});
+$('.kv-fa').on('change', function () 
+  {
+    //alert("/tutor_feedback/" + $(this).attr( "name" ) + "/" + $(this).val()*2);
+    //console.log('Rating selected: ' + $(this).val());
+    window.location.href = "/tutor_feedback/" + $(this).attr( "name" ) + "/" + $(this).val()*2;
+  });
+
 {{ ((empty(Auth::user()->DOB))||(empty(Auth::user()->country))||(empty(Auth::user()->contact))||(empty(Auth::user()->university))||(empty(Auth::user()->course))||(empty(Auth::user()->referred_by))) ? $show=1 : $show=0 }}
 @if ($show === 1)
     $("#add_more_info").trigger("click");
