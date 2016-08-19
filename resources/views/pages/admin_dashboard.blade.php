@@ -159,8 +159,8 @@
                 @foreach ($tokens as $token)
                   <tr><td>{{ $token->name }}<br/><small class="text-muted">{{ $token->email }}</small></td><td><small><small>{{ $token->description }}</small></small></td><td><small>{{ $token->updated_at }}</small></td><td></td></tr>
                 @endforeach
-                @if($token->links())
-                <tr><td colspan="7" align="center"><nav>{{ $token->links() }}</nav></td></tr>
+                @if($tokens->links())
+                <tr><td colspan="7" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
               @endif
               </tbody>
             </table>
