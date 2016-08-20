@@ -32,36 +32,35 @@
       <!--Links-->
       <ul class="nav navbar-nav">
         <li class="nav-item active">
-          <a title="HOME" id="home_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-home" aria-hidden="true"></i></small>
+          <a title="HOME" id="home_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-home" aria-hidden="true"></i> HOME</small>
           </a>
         </li>
         <li class="nav-item">
-          <a title="LEARNER REQUESTS" id="assist_student_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-user" aria-hidden="true"></i></small>
+          <a title="LEARNER REQUESTS" id="assist_student_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-user" aria-hidden="true"></i> LEARNER</small>
           </a>
         </li>
         <li class="nav-item">
-          <a title="FACILITATOR VERIFICATION" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-user-secret" aria-hidden="true"></i></small>
+          <a title="FACILITATOR VERIFICATION" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-user-secret" aria-hidden="true"></i> FACILITATOR</small>
           </a>
         </li>
         <li class="nav-item">
-          <a title="SETTINGS" id="setting_link" class="nav-link btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-gears" aria-hidden="true"></i></small>
+          <a title="SETTINGS" id="setting_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-gears" aria-hidden="true"></i> SETTINGS</small>
           </a>
         </li>
       </ul>
-      <!--Search form-->
-      <form class="form-inline">
-          <button title="EDIT PROFILE" type="button" id="add_more_info" class="btn unique-color" data-toggle="modal" data-target="#myModal" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-              <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
-          </button>
-          <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
-            <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
-          </a>    
-      </form>
-
+      <!--Side Buttons-->
+      <span class="pull-xs-right">
+        <button title="EDIT PROFILE" type="button" id="add_more_info" class="btn unique-color" data-toggle="modal" data-target="#myModal" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
+        </button>
+        <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
+          <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
+        </a>
+      </span>
     </div>
     <!--/.Collapse content-->
   </big>
