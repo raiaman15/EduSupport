@@ -65,6 +65,22 @@ Route::get('tutor_feedback/{id}/{rating}', [
     'middleware' => 'auth',
     'uses' => 'HomeController@save_tutor_feedback'
 ]);
+Route::any('autocomplete/country', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@autocomplete_country'
+]);
+Route::any('autocomplete/university', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@autocomplete_university'
+]);
+Route::any('autocomplete/course', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@autocomplete_course'
+]);
+Route::any('autocomplete/subject', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@autocomplete_subject'
+]);
 Route::group(['middleware' => ['web']], function () {
     Route::get('payPremium/{payplan}/{id}', ['as'=>'payPremium','uses'=>'PaypalController@payPremium']);
     Route::post('getCheckout', ['as'=>'getCheckout','uses'=>'PaypalController@getCheckout']);

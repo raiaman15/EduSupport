@@ -341,9 +341,30 @@ $('.kv-fa').on('change', function ()
   }
   $(function()
   {
-     $( "#assistance_subject" ).autocomplete({
-      source: "search/autocomplete",
-      minLength: 3,
+    $( "#user_country" ).autocomplete({
+      source: "autocomplete/country",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_country').val(ui.item.value);
+      }
+    });
+    $( "#user_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_university').val(ui.item.value);
+      }
+    });
+    $( "#user_course" ).autocomplete({
+      source: "user_country/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_course').val(ui.item.value);
+      }
+    });
+    $( "#assistance_subject" ).autocomplete({
+      source: "autocomplete/subject",
+      minLength: 2,
       select: function(event, ui) {
         $('#assistance_subject').val(ui.item.value);
       }

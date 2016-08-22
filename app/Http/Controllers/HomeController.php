@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Storage;
 use Validator;
@@ -285,5 +286,53 @@ class HomeController extends Controller
         $seek_assistance->status="GENERATING TUTOR PAYMENT";
         $seek_assistance->save();
         return redirect('study');
+    }
+
+    public function autocomplete_country(Request $request){
+        $term = $request->input('term');
+        $data=DB::table("countries")->distinct()->select("name")->where("name", "LIKE", $term."%")->groupBy("name")->take(5)->get();
+        if($data)
+        {
+            foreach ($data as $value) {
+            $return_array[] = array("value" => $value->name);
+            }
+        }
+        return \Response::json($return_array);
+    }
+
+    public function autocomplete_university(Request $request){
+        $term = $request->input('term');
+        $data=DB::table("universities")->distinct()->select("name")->where("name", "LIKE", $term."%")->groupBy("name")->take(5)->get();
+        if($data)
+        {
+            foreach ($data as $value) {
+            $return_array[] = array("value" => $value->name);
+            }
+        }
+        return \Response::json($return_array);
+    }
+
+    public function autocomplete_course(Request $request){
+        $term = $request->input('term');
+        $data=DB::table("courses")->distinct()->select("name")->where("name", "LIKE", $term."%")->groupBy("name")->take(5)->get();
+        if($data)
+        {
+            foreach ($data as $value) {
+            $return_array[] = array("value" => $value->name);
+            }
+        }
+        return \Response::json($return_array);
+    }
+
+    public function autocomplete_subject(Request $request){
+        $term = $request->input('term');
+        $data=DB::table("subjects")->distinct()->select("name")->where("name", "LIKE", $term."%")->groupBy("name")->take(5)->get();
+        if($data)
+        {
+            foreach ($data as $value) {
+            $return_array[] = array("value" => $value->name);
+            }
+        }
+        return \Response::json($return_array);
     }
 }

@@ -20,6 +20,9 @@
         <!-- Your custom styles (optional) -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+        <!-- JQuery UI -->
+        <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+
         @yield('head')
     
     </head>
