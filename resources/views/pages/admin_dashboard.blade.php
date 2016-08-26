@@ -487,7 +487,7 @@
   });
 
   $('#save_assigned_tutor').click(function() {
-    this.href = this.href + $('#input_assigned_tutor').val();
+    this.href = this.href + $('#input_assign_tutor').val();
   });
 
   $('#save_tutor_payment').click(function() {
