@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Provide_assistance extends Model
+class Subject extends Model
 {
-    protected $table = 'provide_assistances';
+    protected $table = 'subjects';
 
     /**
      * The attributes that are mass assignable.

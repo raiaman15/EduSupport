@@ -21,7 +21,7 @@
   <div class="container">
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-        <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
+        <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
@@ -63,32 +63,32 @@
         <div class="modal-body">
           <div class="md-form">
             <i class="fa fa-calendar prefix"></i>
-            <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
+            <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}" autocomplete="off">
             <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
           </div>
           <div class="md-form">
             <i class="fa fa-globe prefix"></i>
-            <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
+            <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}" autocomplete="off">
             <label for="user_country">Your country</label>
           </div>
           <div class="md-form">
             <i class="fa fa-phone prefix"></i>
-            <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
+            <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}" autocomplete="off">
             <label for="user_contact">Your contact number </label>
           </div>
           <div class="md-form">
             <i class="fa fa-university prefix"></i>
-            <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
+            <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}" autocomplete="off">
             <label for="user_university">Your university </label>
           </div>
           <div class="md-form">
             <i class="fa fa-book prefix"></i>
-            <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
+            <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
             <label for="user_course">Your course </label>
           </div>
           <div class="md-form">
             <i class="fa fa-hand-o-right prefix"></i>
-            <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
+            <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}" autocomplete="off">
             <label for="user_referred_by">Where did you heard about us?</label>
           </div>
           
@@ -123,7 +123,7 @@
             </div>
             <div class="md-form">
               <i class="fa fa-pencil prefix"></i>
-              <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea"></textarea>
+              <textarea type="text" id="new_token_description" name="new_token_description" class="md-textarea" autocomplete="off"></textarea>
               <label for="new_token_description">How may we assist you?</label>
               <div>
                 @if ($errors->has('new_token_description'))
@@ -174,5 +174,29 @@
 @if ($show === 1)
     $("#add_more_info").trigger("click");
 @endif
+$(function()
+  {
+    $( "#user_country" ).autocomplete({
+      source: "autocomplete/country",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_country').val(ui.item.value);
+      }
+    });
+    $( "#user_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_university').val(ui.item.value);
+      }
+    });
+    $( "#user_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_course').val(ui.item.value);
+      }
+    });
+  });
 </script>
 @stop

@@ -14,7 +14,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_X</a>
+      <a class="navbar-brand" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
     </div>
     <!--/.Collapse content-->
   </big>
@@ -47,7 +47,7 @@
                         <!--Email validation-->
                         <div class="md-form">
                             <i class="fa fa-envelope prefix"></i>
-                            <input type="email" id="email" class="form-control validate" name="email" value="{{ old('email') }}">
+                            <input type="email" id="email" class="form-control validate" name="email" value="{{ old('email') }}" autocomplete="off">
                             <label for="email" data-error="wrong format">Registered email ID</label>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}"></div>
                             <div>    
@@ -62,7 +62,7 @@
                         <!--Password validation-->
                         <div class="md-form">
                             <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="password" class="form-control validate" name="password">
+                            <input type="password" id="password" class="form-control validate" name="password" autocomplete="off">
                             <label for="password" data-error="wrong format">Password</label>
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}"></div>
                             <div> 

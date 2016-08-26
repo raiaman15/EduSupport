@@ -14,7 +14,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_402</a>
+      <a class="navbar-brand" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
     </div>
     <!--/.Collapse content-->
   </big>

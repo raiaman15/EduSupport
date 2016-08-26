@@ -28,7 +28,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in"><big>ADMIN_PROJECT_X</big></a>
+      <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
       <!--Links-->
       <ul class="nav navbar-nav">
         <li class="nav-item active">
@@ -87,32 +87,32 @@
             <!-- Main Form -->
             <div class="md-form">
                 <i class="fa fa-calendar prefix"></i>
-                <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
+                <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}" autocomplete="off">
                 <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
             </div>
             <div class="md-form">
                 <i class="fa fa-globe prefix"></i>
-                <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
+                <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}" autocomplete="off">
                 <label for="user_country">Your country</label>
             </div>
             <div class="md-form">
                 <i class="fa fa-phone prefix"></i>
-                <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
+                <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}" autocomplete="off">
                 <label for="user_contact">Your contact number </label>
             </div>
             <div class="md-form">
                 <i class="fa fa-university prefix"></i>
-                <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
+                <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}" autocomplete="off">
                 <label for="user_university">Your university </label>
             </div>
             <div class="md-form">
                 <i class="fa fa-book prefix"></i>
-                <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
+                <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
                 <label for="user_course">Your course </label>
             </div>
             <div class="md-form">
                 <i class="fa fa-hand-o-right prefix"></i>
-                <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
+                <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}" autocomplete="off">
                 <label for="user_referred_by">Where did you heard about us?</label>
             </div>
           
@@ -150,13 +150,24 @@
                 <tr>
                   <th>Sender</th>
                   <th>Message</th>
-                  <th>Sent at</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($tokens as $token)
-                  <tr><td>{{ $token->name }}<br/><small class="text-muted">{{ $token->email }}</small></td><td><small><small>{{ $token->description }}</small></small></td><td><small>{{ $token->updated_at }}</small></td><td></td></tr>
+                  <tr>
+                    <td>
+                      {{ $token->name }}<br/>
+                      <small class="text-muted">{{ $token->email }}<br/>
+                      <small>{{ $token->updated_at }}</small></small>
+                    </td>
+                    <td><small><small>{{ $token->description }}</small></small></td>
+                    <td align="center" style="vertical-align:middle;">
+                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_token/{{ $token->id }}">
+                      <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
+                    </a>
+                  </td>
+                  </tr>
                 @endforeach
                 @if($tokens->links())
                 <tr><td colspan="7" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
@@ -167,7 +178,7 @@
         </div>
       @else
         <div class="card card-block">
-          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <h3 class="card-title">Sorry <big class="red-text">{{ Auth::user()->name }},</big></h3>
           <p class="card-text">
             No one tried to contact us. 
           </p>
@@ -205,24 +216,24 @@
                 @if (!$seek_assistance->payment_link_prepared)
                   <br/>
                   <div class="md-form">
-                      <input id="input_payment_plan" type="text" id="form1" class="form-control">
-                      <label for="form1" class="">PAYMENT PLAN</label>
+                      <input id="input_payment_plan" type="text" class="form-control" autocomplete="off">
+                      <label for="input_payment_plan" class="">PAYMENT PLAN</label>
                   </div>
                   <a id="save_payment_plan" href="/save_payment_plan/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->payment_done) and (!$seek_assistance->tutor_assigned))
                   <br/>
                   <div class="md-form">
-                      <input id="input_assigned_tutor" type="text" id="form1" class="form-control">
-                      <label for="form1" class="">ASSIGN TUTOR (name/email/subject)</label>
+                      <input id="input_assign_tutor" type="text" class="form-control" autocomplete="off">
+                      <label for="input_assign_tutor" class="">ASSIGN TUTOR (name/email/subject)</label>
                   </div>
                   <a id="save_assigned_tutor" href="/save_assigned_tutor/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
                 @elseif (($seek_assistance->feedback_provided) and (!$seek_assistance->tutor_payment_generated))
                   <br/>
                   <div class="md-form">
-                      <input id="input_tutor_payment" type="text" id="form1" class="form-control" value="{{ ($seek_assistance->payment_plan*4)+($seek_assistance->payment_plan*($seek_assistance->tutor_feedback/10)) }}" max="{{ ($seek_assistance->payment_plan*5) }}">
-                      <label for="form1" class="">TUTOR PAYMENT (FROM : {{ ($seek_assistance->payment_plan*5) }}$)</label>
+                      <input id="input_tutor_payment" type="text" class="form-control" value="{{ ($seek_assistance->payment_plan*4)+($seek_assistance->payment_plan*($seek_assistance->tutor_feedback/10)) }}" max="{{ ($seek_assistance->payment_plan*5) }}" autocomplete="off">
+                      <label for="input_tutor_payment" class="">TUTOR PAYMENT (FROM : {{ ($seek_assistance->payment_plan*5) }}$)</label>
                   </div>
                   <a id="save_tutor_payment" href="/save_tutor_payment/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
@@ -256,7 +267,7 @@
       </div>
     @else
       <div class="card card-block">
-          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <h3 class="card-title">Sorry <big class="red-text">{{ Auth::user()->name }},</big></h3>
           <p class="card-text">
             No one seeked for assistance. 
           </p>
@@ -328,7 +339,7 @@
       </div>
     @else
       <div class="card card-block">
-          <h3 class="card-title">Sorry {{ Auth::user()->name }}</h3>
+          <h3 class="card-title">Sorry <big class="red-text">{{ Auth::user()->name }},</big></h3>
           <p class="card-text">
             No one applied as tutor. 
           </p>
@@ -341,10 +352,66 @@
 <div class="container" id="setting" style="display:none;">
   <div class="row">
     <div class="card card-block">
-      <h3 class="card-title">Welcome {{ Auth::user()->name }}</h3>
+      <h3 class="card-title">Make changes, <big class="red-text">carefully...</big></h3>
       <p class="card-text">
-      Some text here
+        Making any changes here will effect the entire web site.
       </p>
+    </div>
+    <div class="card-group">
+      <div class="card card-block">
+        <h3 class="card-title">ADD <big class="red-text">country</big></h3>
+        <p class="card-text">
+          <div class="md-form">
+              <input id="input_add_country" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_country" class="">Enter Country Name</label>
+          </div>
+          <a id="add_country" href="/add_country/" class="btn btn-primary btn-sm">ADD</a>
+        </p>
+      </div>
+      <div class="card card-block">
+        <h3 class="card-title">ADD <big class="red-text">university</big></h3>
+        <p class="card-text">
+          <div class="md-form">
+              <input id="input_add_university" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_university" class="">Enter University Name</label>
+          </div>
+          <a id="add_university" href="/add_university/" class="btn btn-primary btn-sm">ADD</a>
+        </p>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="card card-block">
+        <h3 class="card-title">ADD <big class="red-text">courses</big></h3>
+        <p class="card-text">
+          <div class="md-form">
+              <input id="input_add_course" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_course" class="">Enter Course Name</label>
+          </div>
+          <div class="md-form">
+              <input id="input_add_course_university" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_course_university" class="">Enter Course University Name</label>
+          </div>
+          <a id="add_course" href="/add_course/" class="btn btn-primary btn-sm">ADD</a>
+        </p>
+      </div>
+      <div class="card card-block">
+        <h3 class="card-title">ADD <big class="red-text">subjects</big></h3>
+        <p class="card-text">
+          <div class="md-form">
+              <input id="input_add_subject" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_subject" class="">Enter Subject Name</label>
+          </div>
+          <div class="md-form">
+              <input id="input_add_subject_course" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_subject_course" class="">Enter Subject Course Name</label>
+          </div>
+          <div class="md-form">
+              <input id="input_add_subject_university" type="text" class="form-control" autocomplete="off">
+              <label for="input_add_subject_university" class="">Enter Subject University Name</label>
+          </div>
+          <a id="add_subject" href="/add_subject/" class="btn btn-primary btn-sm">ADD</a>
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -425,6 +492,103 @@
 
   $('#save_tutor_payment').click(function() {
     this.href = this.href + $('#input_tutor_payment').val();
+  });
+
+  $('#add_country').click(function() {
+    this.href = this.href + $('#input_add_country').val();
+  });
+
+  $('#add_university').click(function() {
+    this.href = this.href + $('#input_add_university').val();
+  });
+
+  $('#add_course').click(function() {
+    this.href = this.href + $('#input_add_course').val() + '/' + $('#input_add_course_university').val();
+  });
+
+  $('#add_subject').click(function() {
+    this.href = this.href + $('#input_add_subject').val() + '/' + $('#input_add_subject_course').val() + '/' + $('#input_add_subject_university').val();
+  });
+
+  $(function()
+  {
+    $( "#user_country" ).autocomplete({
+      source: "autocomplete/country",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_country').val(ui.item.value);
+      }
+    });
+    $( "#user_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_university').val(ui.item.value);
+      }
+    });
+    $( "#user_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_course').val(ui.item.value);
+      }
+    });
+    $( "#input_add_country" ).autocomplete({
+      source: "autocomplete/country",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_country').val(ui.item.value);
+      }
+    });
+    $( "#input_add_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_university').val(ui.item.value);
+      }
+    });
+    $( "#input_add_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_course').val(ui.item.value);
+      }
+    });
+    $( "#input_add_course_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_course_university').val(ui.item.value);
+      }
+    });
+    $( "#input_add_subject" ).autocomplete({
+      source: "autocomplete/subject",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_subject').val(ui.item.value);
+      }
+    });
+    $( "#input_add_subject_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_subject_course').val(ui.item.value);
+      }
+    });
+    $( "#input_add_subject_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_add_subject_university').val(ui.item.value);
+      }
+    });
+    $( "#input_assign_tutor" ).autocomplete({
+      source: "autocomplete/assign_tutor",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#input_assign_tutor').val(ui.item.value);
+      }
+    });
   });
 </script>
 @stop

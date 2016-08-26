@@ -21,7 +21,7 @@
   <div class="container">
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-        <a class="navbar-brand" href="http://nehruplace-store.in"><big>PROJECT_X</big></a>
+        <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
@@ -63,32 +63,32 @@
         <div class="modal-body">
           <div class="md-form">
             <i class="fa fa-calendar prefix"></i>
-            <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}">
+            <input type="text" id="user_DOB" class="form-control" name="DOB" value="{{ Auth::user()->DOB }}" autocomplete="off">
             <label for="user_DOB">Date of birth (DD/MM/YYYY)</label>
           </div>
           <div class="md-form">
             <i class="fa fa-globe prefix"></i>
-            <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}">
+            <input type="text" id="user_country" class="form-control" name="country" value="{{ Auth::user()->country }}" autocomplete="off">
             <label for="user_country">Your country</label>
           </div>
           <div class="md-form">
             <i class="fa fa-phone prefix"></i>
-            <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}">
+            <input type="text" id="user_contact" class="form-control" name="contact" value="{{ Auth::user()->contact }}" autocomplete="off">
             <label for="user_contact">Your contact number </label>
           </div>
           <div class="md-form">
             <i class="fa fa-university prefix"></i>
-            <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}">
+            <input type="text" id="user_university" class="form-control" name="university" value="{{ Auth::user()->university }}" autocomplete="off">
             <label for="user_university">Your university </label>
           </div>
           <div class="md-form">
             <i class="fa fa-book prefix"></i>
-            <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}">
+            <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
             <label for="user_course">Your course </label>
           </div>
           <div class="md-form">
             <i class="fa fa-hand-o-right prefix"></i>
-            <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}">
+            <input type="text" id="user_referred_by" class="form-control" name="referred_by" value="{{ Auth::user()->referred_by }}" autocomplete="off">
             <label for="user_referred_by">Where did you heard about us?</label>
           </div>
           
@@ -129,12 +129,12 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="text" id="p_assistance_subject" name="p_assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required">
+              <input type="text" id="p_assistance_subject" name="p_assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required" autocomplete="off">
               <label for="p_assistance_subject">Subject in which you provide assistance</label>
             </div>
             <div class="md-form">
               <i class="fa fa-pencil prefix"></i>
-              <textarea type="text" id="p_assistance_description" name="p_assistance_description" class="md-textarea"></textarea>
+              <textarea type="text" id="p_assistance_description" name="p_assistance_description" class="md-textarea" autocomplete="off"></textarea>
               <label for="p_assistance_description">What is your qualification?</label>
             </div>
             <div class="md-form" style="padding-bottom:20px;">
@@ -142,6 +142,7 @@
               <input type="file" name="p_assistance_document[]" id="p_assistance_document" multiple>
               <label for="p_assistance_document" style="margin-top:10px;"><small>Upload your <b>resume</b> and <b>highest degrees certificate</b> (pdf/doc/docx/jpg/png format only)</small></label>
             </div>
+            <br/>
             <div class="md-form" align="center">
               <button type="submit" class="btn unique-color">ENROLL</button>
             </div>
@@ -204,7 +205,7 @@
         <div class="card-block">
           <h4 class="card-title">Course Guide</h4>
           <p class="card-text" align="justify">Our course guides will keep suggesting various details related to client's course. They might suggest client which extra knowledge they should have based on your course. They might also suggest various short term courses based on client's main course to further enhance their knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR COURSE GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -212,7 +213,7 @@
         <div class="card-block">
           <h4 class="card-title">Career Guide</h4>
           <p class="card-text" align="justify">Our career guides will keep suggesting various details related to client's career. They might suggest client which extra skills they should have based on their current course or career. They might also suggest various short term or long term courses based on client's main career to further enhance their skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR CAREER GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -220,7 +221,7 @@
         <div class="card-block">
           <h4 class="card-title">Job Guide</h4>
           <p class="card-text" align="justify">Our job guides will keep suggesting various details related to client's job. They might suggest client which extra certifications they should have based on their career or current job. They might also suggest various short term or long term or certification courses based on client's job profile to enhance their productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR JOB GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
     </div>
@@ -230,7 +231,7 @@
         <div class="card-block">
           <h4 class="card-title">G M A T Guide</h4>
           <p class="card-text" align="justify">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR GMAT GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -238,7 +239,7 @@
         <div class="card-block">
           <h4 class="card-title">G A T E Guide</h4>
           <p class="card-text" align="justify">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR GATE GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
@@ -246,7 +247,7 @@
         <div class="card-block">
           <h4 class="card-title">C A T Guide</h4>
           <p class="card-text" align="justify">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY FOR CAT GUIDE</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
     </div>
@@ -318,7 +319,28 @@
   }
   $(function()
   {
-     $( "#p_assistance_subject" ).autocomplete({
+    $( "#user_country" ).autocomplete({
+      source: "autocomplete/country",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_country').val(ui.item.value);
+      }
+    });
+    $( "#user_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_university').val(ui.item.value);
+      }
+    });
+    $( "#user_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#user_course').val(ui.item.value);
+      }
+    });
+    $( "#p_assistance_subject" ).autocomplete({
       source: "search/autocomplete",
       minLength: 3,
       select: function(event, ui) {

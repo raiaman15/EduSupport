@@ -94,4 +94,9 @@ Route::get('save_tutor_payment/{id}/{tutor_payment}', ['middleware' => 'CheckAdm
 Route::get('tutor_got_payment/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@tutor_got_payment']);
 Route::get('approve_tutor/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@approve_tutor']);
 Route::get('delete_tutor/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@delete_tutor']);
-
+Route::get('delete_token/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@delete_token']);
+Route::get('add_country/{name}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_country']);
+Route::get('add_university/{name}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_university']);
+Route::get('add_course/{name}/{university}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_course']);
+Route::get('add_subject/{name}/{course}/{university}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_subject']);
+Route::any('autocomplete/assign_tutor', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@autocomplete_assign_tutor']);

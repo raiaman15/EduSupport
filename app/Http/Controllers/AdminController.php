@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Mail;
 use App\Token;
 use App\Seek_assistance;
 use App\Provide_assistance;
+use App\Country;
+use App\University;
+use App\Course;
+use App\Subject;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -117,7 +122,7 @@ class AdminController extends Controller
     public function approve_tutor($id){
         $provide_assistance = Provide_assistance::where('id', $id)->first();
         $provide_assistance->admin_approved=true;
-        $provide_assistance->status="PROFILE ACTIVATED. FINDING STUDENT";
+        $provide_assistance->status="PROFILE ACTIVATED";
         $provide_assistance->save();
         return redirect('admin_dashboard');
     }
@@ -131,5 +136,77 @@ class AdminController extends Controller
             $m->to($mailto)->subject('PROJECT_X Provide Assistance Not Approved');
         });
         return redirect('admin_dashboard');
+    }
+
+    public function delete_token($id){
+        $token = Token::where('id', $id)->first();
+        $token->delete();
+        return redirect('admin_dashboard');
+    }
+
+    public function add_country($name){
+        //Add country
+        $c = Country::where('name', $name)->first();
+        if(!$c)
+        {
+            $c = new Country;
+            $c->name = $name;
+            $c->save();
+        }
+        return redirect('admin_dashboard');
+    }
+
+    public function add_university($name){
+        //Add university
+        $u = University::where('name', $name)->first();
+        if(!$u)
+        {
+            $u = new University;
+            $u->name = $name;
+            $u->save();
+        }
+        return redirect('admin_dashboard');
+    }
+
+    public function add_course($name, $university){
+        //Add course
+        $c = Course::where('name', $name)->where('university', $university)->first();
+        if(!$c)
+        {
+            $this->add_university($university);
+            $c = new Course;
+            $c->name = $name;
+            $c->university = $university;
+            $c->save();
+        }
+        return redirect('admin_dashboard');
+    }
+
+    public function add_subject($name, $course, $university){
+        //Add subject
+        $s = Subject::where('name', $name)->where('course', $course)->where('university', $university)->first();
+        if(!$s)
+        {
+            $this->add_university($university);
+            $this->add_course($course, $university);
+            $s = new Subject;
+            $s->name = $name;
+            $s->course = $course;
+            $s->university = $university;
+            $s->save();
+        }
+        return redirect('admin_dashboard');
+    }
+
+    public function autocomplete_assign_tutor(Request $request){
+        $term = $request->input('term');
+        $data = DB::table("provide_assistances")->distinct()->select("email")->where("email", "LIKE", $term."%")->orWhere("name", "LIKE", $term."%")->orWhere("subject", "LIKE", $term."%")->groupBy("created_at")->take(5)->get();
+        if($data)
+        {
+            foreach ($data as $value) {
+            $return_array[] = array("value" => $value->email);
+            }
+        }
+        return \Response::json($return_array);
     }
 }

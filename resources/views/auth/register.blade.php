@@ -22,7 +22,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="http://nehruplace-store.in">PROJECT_X</a>
+      <a class="navbar-brand" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
     </div>
     <!--/.Collapse content-->
   </big>
@@ -43,7 +43,7 @@
                         <br/>
                         <div class="md-form">
                             <i class="fa fa-user prefix"></i>
-                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" required="required">
+                            <input type="text" id="name" class="form-control" name="name" value="{{ old('name') }}" required="required" autocomplete="off">
                             <label for="name">Complete name</label>
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}"></div>
                             <div>
@@ -57,7 +57,7 @@
                         <br/>
                         <div class="md-form">
                             <i class="fa fa-envelope prefix"></i>
-                            <input type="email" id="email" class="form-control validate" name="email" value="{{ old('email') }}" required="required">
+                            <input type="email" id="email" class="form-control validate" name="email" value="{{ old('email') }}" required="required" autocomplete="off">
                             <label for="email" data-error="wrong format">Your email ID</label>
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}"></div>
                             <div>
@@ -71,7 +71,7 @@
                         <br/>
                         <div class="md-form">
                             <i class="fa fa-key prefix"></i>
-                            <input type="password" id="password" class="form-control validate" name="password" value="{{ old('email') }}" required="required">
+                            <input type="password" id="password" class="form-control validate" name="password" value="{{ old('email') }}" required="required" autocomplete="off">
                             <label for="password" data-error="wrong format">Password</label>
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}"></div>
                             <div>

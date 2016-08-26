@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>PROJECT_X</title>
+        <title>{{ env('APP_NAME') }}</title>
 
         <!-- Fontawesome icons -->
         <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
@@ -22,6 +22,10 @@
 
         <!-- JQuery UI -->
         <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+
+        <style type="text/css">
+            .ui-autocomplete { z-index:2147483647; }
+        </style>
 
         @yield('head')
     
