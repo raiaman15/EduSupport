@@ -108,30 +108,49 @@
     <div class="card-group">
       <div class="card">
           <div class="card-block">
-              <h4 class="card-title">Our Aim</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h4 class="card-title"><u>Our Aim</u></h4>
+              <p class="card-text">Every professional course comes with a lot of complications involved. Not everyone finds it easy to understand the complex concepts. Some find it difficult to prepare for exams while some are not even good with basic concepts. Whatever your problem may be, our services can help you out with facilitators for wide range of courses across numerous universities. Each and every facilitator is examined by our team to ensure the validity of his/her academic qualifications.</p>
+              <p class="card-text">These professionals can help you in various ways. Let it be your assignments, your doubts, your examination preparation or even complete subject tution. Our facilitators are there to assist you so that you can learn better. Let learning be fun!</p>
           </div>
       </div>
     </div>
     <div class="card-group">
       <div class="card">
-          <div class="card-block">
-              <h4 class="card-title">Pros</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class="card-block" style="padding-left:0;padding-right:0;padding-bottom:0;">
+              <h4 class="card-title"><u>For Students</u></h4>
+              <p class="card-text">
+                <ul class="list-group">
+                  <li class="list-group-item">Quality assistance anytime</li>
+                  <li class="list-group-item">Requirement based payment</li>
+                  <li class="list-group-item">Wide variety of assistance</li>
+                  <li class="list-group-item">Your feedback matters most</li>
+                </ul>
+              </p>
           </div>
       </div>
       <div class="card">
-          <div class="card-block">
-              <h4 class="card-title">Cons</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class="card-block" style="padding-left:0;padding-right:0;padding-bottom:0;">
+              <h4 class="card-title"><u>For Teachers</u></h4>
+              <p class="card-text">
+                <ul class="list-group">
+                  <li class="list-group-item">Provide assistance and earn</li>
+                  <li class="list-group-item">Your qualification matters</li>
+                  <li class="list-group-item">Wide variety of assistance</li>
+                  <li class="list-group-item">Better teaching better pay</li>
+                </ul>
+              </p>
           </div>
       </div>
     </div>
     <div class="card-group">
       <div class="card">
-          <div class="card-block">
-              <h4 class="card-title">Services we offer</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class="card-block" style="padding-left:0;padding-right:0;padding-bottom:0;">
+              <h4 class="card-title"><u>Services we offer</u></h4>
+              <ul class="list-group">
+                <li class="list-group-item">Domain specific guides/experts</li>
+                <li class="list-group-item">Help regarding CAT, GATE & GMAT preparation</li>
+                <li class="list-group-item">Custom support for academics</li>
+              </ul>
           </div>
       </div>
     </div>
