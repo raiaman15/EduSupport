@@ -130,7 +130,7 @@
             </div>
             <div class="md-form">
               <i class="fa fa-book prefix"></i>
-              <input type="text" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME (SUBJECT CODE)" required="required" autocomplete="off">
+              <input type="text" id="assistance_subject" name="assistance_subject" class="form-control validate" placeholder="SUBJECT NAME" required="required" autocomplete="off">
               <label for="assistance_subject">Subject in which you need assistance</label>
             </div>
             <div class="md-form">
