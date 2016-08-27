@@ -82,7 +82,7 @@
             <label for="user_university">Your university </label>
           </div>
           <div class="md-form">
-            <i class="fa fa-book prefix"></i>
+            <i class="fa fa-graduation-cap prefix"></i>
             <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
             <label for="user_course">Your course </label>
           </div>
@@ -133,6 +133,16 @@
               <label for="p_assistance_subject">Subject in which you provide assistance</label>
             </div>
             <div class="md-form">
+              <i class="fa fa-graduation-cap prefix"></i>
+              <input type="text" id="p_assistance_subject_course" name="p_assistance_subject_course" class="form-control validate" placeholder="SUBJECT COURSE NAME" required="required" autocomplete="off">
+              <label for="p_assistance_subject_course">Course name for the above subject</label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-university prefix"></i>
+              <input type="text" id="p_assistance_subject_university" name="p_assistance_subject_university" class="form-control validate" placeholder="COURSE UNIVERSITY NAME" required="required" autocomplete="off">
+              <label for="p_assistance_subject_university">University name for the above course</label>
+            </div>
+            <div class="md-form">
               <i class="fa fa-pencil prefix"></i>
               <textarea type="text" id="p_assistance_description" name="p_assistance_description" class="md-textarea" autocomplete="off"></textarea>
               <label for="p_assistance_description">What is your qualification?</label>
@@ -140,7 +150,10 @@
             <div class="md-form" style="padding-bottom:20px;">
               <i class="fa fa-file-text prefix"></i>
               <input type="file" name="p_assistance_document[]" id="p_assistance_document" multiple>
-              <label for="p_assistance_document" style="margin-top:10px;"><small>Upload your <b>resume</b> and <b>highest degrees certificate</b> (pdf/doc/docx/jpg/png format only)</small></label>
+              <label for="p_assistance_document" style="margin-top:10px;">
+                <small>Upload your <b>resume</b> and <b>highest degrees certificate</b> (pdf/doc/docx/jpg/png format only)</small>
+                <div id="file_upload_status" style="display:none;"><i class="fa fa-upload fa-2x" aria-hidden="true"></i><span id="file_upload_percentage"></span></div>
+              </label>
             </div>
             <br/>
             <div class="md-form" align="center">
@@ -151,7 +164,7 @@
       </div>
       @if (count($provided_assistances) >= 1)
         <ul class="card list-group">
-          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Previous Assistances</h3></li>
+          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Your Assistances</h3></li>
           @foreach ($provided_assistances as $provided_assistance)
             <li class="list-group-item" align="justify">
               @if ($provided_assistance->admin_approved)
@@ -282,14 +295,14 @@
       request.addEventListener("load", provideTransferComplete);
       request.onprogress = function (e) {
           if (e.lengthComputable) {
-              console.log(e.loaded+  " / " + e.total)
+              $('#file_upload_percentage').html((e.loaded/e.total)*100 + "%");
           }
       }
       request.onloadstart = function (e) {
-          console.log("start")
+          $('#file_upload_status').show("fast");
       }
       request.onloadend = function (e) {
-          console.log("end")
+          $('#file_upload_status').hide("fast");
       }
       request.send(formdata);
   });
@@ -341,10 +354,24 @@
       }
     });
     $( "#p_assistance_subject" ).autocomplete({
-      source: "search/autocomplete",
-      minLength: 3,
+      source: "autocomplete/subject",
+      minLength: 2,
       select: function(event, ui) {
         $('#p_assistance_subject').val(ui.item.value);
+      }
+    });
+    $( "#p_assistance_subject_course" ).autocomplete({
+      source: "autocomplete/course",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#p_assistance_subject_course').val(ui.item.value);
+      }
+    });
+    $( "#p_assistance_subject_university" ).autocomplete({
+      source: "autocomplete/university",
+      minLength: 2,
+      select: function(event, ui) {
+        $('#p_assistance_subject_university').val(ui.item.value);
       }
     });
   });

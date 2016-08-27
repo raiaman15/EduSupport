@@ -10,6 +10,7 @@ use App\User;
 use App\Token;
 use App\Seek_assistance;
 use App\Provide_assistance;
+use App\Subject;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class HomeController extends Controller
     public function display_study()
     {
         if (Auth::check()) {
-            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(3);
+            $seek_assistances = Seek_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(2);
             return view('pages.study')->with('seeked_assistances',$seek_assistances);
         }
         else
@@ -43,7 +44,7 @@ class HomeController extends Controller
     public function display_tutor()
     {
         if (Auth::check()) {
-            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(3);
+            $provide_assistances = Provide_assistance::where('email', Auth::user()->email)->orderBy('created_at', 'desc')->paginate(2);
             return view('pages.tutor')->with('provided_assistances',$provide_assistances);
         }
         else
@@ -129,7 +130,7 @@ class HomeController extends Controller
             'assistance_document.*' => 'mimes:pdf,docx,doc,jpeg,png|max:5000',
         ],
         [
-            'assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',
+            'assistance_subject.required' => 'Please fill SUBJECT NAME.',
             'assistance_description.required' => 'Please fill How may we assist you?',
             'assistance_description.min' => 'Kindly elaborate How may we assist you? Minimum 10 charecters required.',
             'assistance_description.max' => 'Kindly shorten How may we assist you? Maximum 1000 charecters allowed.',
@@ -147,6 +148,11 @@ class HomeController extends Controller
         $validator = $this->validator_seek_assistance($request->all());
         if ($validator->fails()) {
             return \Response::json(array('success' => false , 'message' => $validator->messages()->toJson()));
+        }
+        $sub = Subject::where('name', $request->input('assistance_subject'))->first();
+        if(!$sub)
+        {
+            return \Response::json(array('success' => false , 'message' => "{\"assistance_subject\":[\"We currently do not have a tutor for the subject you specified. If you know a tutor of this subject, kindly <a href=".url('/contact_us').">contact us.</a>\"]}"));
         }
         $seek = new Seek_assistance;
         $seek->name=Auth::user()->name;
@@ -201,11 +207,15 @@ class HomeController extends Controller
     {
         return Validator::make($data, [
             'p_assistance_subject' => 'required',
+            'p_assistance_subject_course' => 'required',
+            'p_assistance_subject_university' => 'required',
             'p_assistance_description' => 'required|min:10|max:1000',
             'p_assistance_document.*' => 'required|mimes:pdf,docx,doc,jpeg,png|max:5000',
         ],
         [
-            'p_assistance_subject.required' => 'Please fill SUBJECT NAME (SUBJECT CODE).',
+            'p_assistance_subject.required' => 'Please fill SUBJECT NAME.',
+            'p_assistance_subject_course.required' => 'Please fill SUBJECT COURSE NAME.',
+            'p_assistance_subject_university.required' => 'Please fill COURSE UNIVERSITY NAME.',
             'p_assistance_description.required' => 'Please fill What is your qualification?',
             'p_assistance_description.min' => 'Kindly elaborate What is your qualification? Minimum 10 charecters required.',
             'p_assistance_description.max' => 'Kindly shorten What is your qualification? Maximum 1000 charecters allowed.',
@@ -230,8 +240,8 @@ class HomeController extends Controller
         $provide->subject=$request->input('p_assistance_subject');
         $provide->description=$request->input('p_assistance_description');
         $provide->country=Auth::user()->country;
-        $provide->university=Auth::user()->university;
-        $provide->course=Auth::user()->course;
+        $provide->university=$request->input('p_assistance_subject_university');
+        $provide->course=$request->input('p_assistance_subject_course');
         $provide->save();
         $provide1 = Provide_assistance::where('email', Auth::user()->email)->get()->last();
         $count=0;

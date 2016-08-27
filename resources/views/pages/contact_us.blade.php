@@ -82,7 +82,7 @@
             <label for="user_university">Your university </label>
           </div>
           <div class="md-form">
-            <i class="fa fa-book prefix"></i>
+            <i class="fa fa-graduation-cap prefix"></i>
             <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
             <label for="user_course">Your course </label>
           </div>

@@ -38,12 +38,12 @@
         </li>
         <li class="nav-item">
           <a title="LEARNER REQUESTS" id="assist_student_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-user" aria-hidden="true"></i> LEARNER</small>
+            <small><i class="fa fa-user" aria-hidden="true"></i> LEARNER [ {{$learner_notification_count}} ]</small>
           </a>
         </li>
         <li class="nav-item">
           <a title="FACILITATOR VERIFICATION" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-user-secret" aria-hidden="true"></i> FACILITATOR</small>
+            <small><i class="fa fa-user-secret" aria-hidden="true"></i> FACILITATOR [ {{$facilitator_notification_count}} ]</small>
           </a>
         </li>
         <li class="nav-item">
@@ -106,7 +106,7 @@
                 <label for="user_university">Your university </label>
             </div>
             <div class="md-form">
-                <i class="fa fa-book prefix"></i>
+                <i class="fa fa-graduation-cap prefix"></i>
                 <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
                 <label for="user_course">Your course </label>
             </div>
@@ -195,7 +195,7 @@
       <div class="card">
         @if(count($seek_assistances) >= 1)
           <ul class="card list-group">
-            <li class="list-group-item" align="center"><h3 class="card-title" align="center">SEEKED ASSISTANCES</h3></li>
+            <li class="list-group-item" align="center"><h3 class="card-title" align="center">LEARNER'S NOTIFICATIONS</h3></li>
             @foreach ($seek_assistances as $seek_assistance)
               <li class="list-group-item" align="justify">
                 <h5 class="list-group-item-heading">{{ $seek_assistance->subject }}</h5>
@@ -220,6 +220,7 @@
                       <label for="input_payment_plan" class="">PAYMENT PLAN</label>
                   </div>
                   <a id="save_payment_plan" href="/save_payment_plan/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
+                  <span class="pull-xs-right"><a class="btn btn-secondary-outline btn-sm">PLAN X = $ (5*X)</a></span>
                   <br/><br/>
                 @elseif (($seek_assistance->payment_done) and (!$seek_assistance->tutor_assigned))
                   <br/>
@@ -319,12 +320,12 @@
                     @endif
                   </td>
                   <td align="center" style="vertical-align:middle;">
-                    <a title="LOGOUT" class="btn btn-success white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/approve_tutor/{{ $provide_assistance->id }}">
+                    <a title="APPROVE" class="btn btn-success white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/approve_tutor/{{ $provide_assistance->id }}">
                       <small><i class="fa fa-check fa-lg" aria-hidden="true"></i></small>
                     </a>
                   </td>
                   <td align="center" style="vertical-align:middle;">
-                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_tutor/{{ $provide_assistance->id }}">
+                    <a title="DELETE" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_tutor/{{ $provide_assistance->id }}">
                       <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
                     </a>
                   </td>

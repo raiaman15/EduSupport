@@ -83,7 +83,7 @@
             <label for="user_university">Your university </label>
           </div>
           <div class="md-form">
-            <i class="fa fa-book prefix"></i>
+            <i class="fa fa-graduation-cap prefix"></i>
             <input type="text" id="user_course" class="form-control" name="course" value="{{ Auth::user()->course }}" autocomplete="off">
             <label for="user_course">Your course </label>
           </div>
@@ -141,7 +141,10 @@
             <div class="md-form" style="padding-bottom:20px;">
               <i class="fa fa-file-text prefix"></i>
               <input type="file" name="assistance_document[]" id="assistance_document" multiple>
-              <label for="assistance_document" style="margin-top:10px;"><small>Upload supporting documents (pdf/doc/docx/jpg/png format only)</small></label>
+              <label for="assistance_document" style="margin-top:10px;">
+                <small>Upload supporting documents (pdf/doc/docx/jpg/png format only)</small>
+                <div id="file_upload_status" style="display:none;"><i class="fa fa-upload fa-2x" aria-hidden="true"></i><span id="file_upload_percentage"></span></div>
+              </label>
             </div>
             <br/>
             <div class="md-form" align="center">
@@ -152,14 +155,17 @@
       </div>
       @if (count($seeked_assistances) >= 1)
         <ul class="card list-group">
-          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Previous Assistances</h3></li>
+          <li class="list-group-item" align="center"><h3 class="card-title" align="center">Your Assistances</h3></li>
           @foreach ($seeked_assistances as $seeked_assistance)
             <li class="list-group-item" align="justify">
               @if (($seeked_assistance->payment_link_prepared) and (!$seeked_assistance->payment_done))
                 <span class="pull-xs-right"><a href="payPremium/{{ $seeked_assistance->payment_plan }}/{{ $seeked_assistance->id }}" class="btn btn-primary-outline btn-sm" style="padding-top:0;padding-bottom:0;">PAY ${{$seeked_assistance->payment_plan*5}} <i class="fa fa-paypal" aria-hidden="true"></i></a></span>
               @endif
-              @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned))
-                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">ACTIVATED <i class="fa fa-check" aria-hidden="true"></i></a></span>
+              @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned) and (!$seeked_assistance->tutor_payment_generated))
+                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">ONGOING <i class="fa fa-check" aria-hidden="true"></i></a></span>
+              @endif
+              @if (($seeked_assistance->payment_done) and ($seeked_assistance->tutor_assigned) and ($seeked_assistance->tutor_payment_generated))
+                <span class="pull-xs-right"><a href="#" class="btn btn-primary-outline btn-sm disabled" style="padding-top:0;padding-bottom:0;">COMPLETED <i class="fa fa-check" aria-hidden="true"></i></a></span>
               @endif
               <h5 class="list-group-item-heading">{{ $seeked_assistance->subject }}</h5>
               <br/>
@@ -304,14 +310,14 @@ $('.kv-fa').on('change', function ()
       request.addEventListener("load", seekTransferComplete);
       request.onprogress = function (e) {
           if (e.lengthComputable) {
-              console.log(e.loaded+  " / " + e.total)
+              $('#file_upload_percentage').html((e.loaded/e.total)*100 + "%");
           }
       }
       request.onloadstart = function (e) {
-          console.log("start")
+          $('#file_upload_status').show("fast");
       }
       request.onloadend = function (e) {
-          console.log("end")
+          $('#file_upload_status').hide("fast");
       }
       request.send(formdata);
   });

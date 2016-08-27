@@ -67,8 +67,10 @@ class AdminController extends Controller
 
             $tokens = Token::paginate(5);
             $seek_assistances = Seek_assistance::where('payment_link_prepared', false)->orWhere('tutor_assigned', false)->orWhere('tutor_payment_generated', false)->orWhere('tutor_got_payment', false)->orderBy('updated_at', 'desc')->paginate(5);
+            $seek_assistances_count = Seek_assistance::where('payment_link_prepared', false)->orWhere('tutor_assigned', false)->orWhere('tutor_payment_generated', false)->orWhere('tutor_got_payment', false)->orderBy('updated_at', 'desc')->count();
             $provide_assistances = Provide_assistance::where('admin_approved', false)->orderBy('updated_at', 'desc')->paginate(5);
-            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances);
+            $provide_assistances_count = Provide_assistance::where('admin_approved', false)->orderBy('updated_at', 'desc')->count();
+            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances)->with('learner_notification_count', $seek_assistances_count)->with('facilitator_notification_count', $provide_assistances_count);
         }
         else
             return view('pages.welcome');
@@ -121,6 +123,7 @@ class AdminController extends Controller
 
     public function approve_tutor($id){
         $provide_assistance = Provide_assistance::where('id', $id)->first();
+        $this->add_subject($provide_assistance->subject, $provide_assistance->course, $provide_assistance->university);
         $provide_assistance->admin_approved=true;
         $provide_assistance->status="PROFILE ACTIVATED";
         $provide_assistance->save();
@@ -133,7 +136,7 @@ class AdminController extends Controller
         $mailto=$provide_assistance->email;
         $provide_assistance->delete();
         Mail::send('email.provide_assistance_not_approved',['subject' => $subject], function ($m) use ($mailto) {
-            $m->to($mailto)->subject('PROJECT_X Provide Assistance Not Approved');
+            $m->to($mailto)->subject( env('APP_NAME').' : Provide Assistance Not Approved' );
         });
         return redirect('admin_dashboard');
     }
