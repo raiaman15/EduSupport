@@ -21,12 +21,13 @@
 <div class="container-fluid">
     <div class="row">
         <!--Carousel Wrapper-->
-        <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
             <!--Indicators-->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-2" data-slide-to="1"></li>
-                <li data-target="#carousel-example-2" data-slide-to="2"></li>
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+                <li data-target="#carousel" data-slide-to="3"></li>
             </ol>
             <!--/.Indicators-->
 
@@ -36,15 +37,15 @@
                 <div class="carousel-item active">
                     <!--Mask color-->
                     <div class="view hm-black-light">
-                        <img src="http://mdbootstrap.com/images/slides/slide%20(11).jpg" class="img-fluid" alt="">
+                        <img src="{{ asset('img/background/front1.jpg') }}" class="img-fluid" style="min-width:100%;">
                         <div class="full-bg-img">
                         </div>
                     </div>
                     <!--Caption-->
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
-                            <h3 class="h3-responsive">Learn everything, better</h3>
-                            <p>Quality professionals to assist you anytime. With custom assistance, you pay only for what you need.</p>
+                            <h3 class="h3-responsive">LEARN BETTER</h3>
+                            <p><small>QUALITY ASSISTANCE ANYTIME</small></p>
                         </div>
                     </div>
                     <!--Caption-->
@@ -54,16 +55,16 @@
                 <!--Second slide-->
                 <div class="carousel-item">
                     <!--Mask color-->
-                    <div class="view hm-black-strong">
-                        <img src="http://mdbootstrap.com/images/slides/slide%20(15).jpg" class="img-fluid" alt="">
+                    <div class="view hm-black-light">
+                        <img src="{{ asset('img/background/front2.jpg') }}" class="img-fluid" style="min-width:100%;">
                         <div class="full-bg-img">
                         </div>
                     </div>
                     <!--Caption-->
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
-                            <h3 class="h3-responsive">Teach and earn</h3>
-                            <p>If you can teach well, you can earn well. With a wide range of subjects, courses and universities, you can surely contribute.</p>
+                            <h3 class="h3-responsive">TEACH & EARN</h3>
+                            <p><small>YOU TEACH WELL, YOU EARN WELL</small></p>
                         </div>
                     </div>
                     <!--Caption-->
@@ -73,30 +74,49 @@
                 <!--Third slide-->
                 <div class="carousel-item">
                     <!--Mask color-->
-                    <div class="view hm-black-slight">
-                        <img src="http://mdbootstrap.com/images/slides/slide%20(13).jpg" class="img-fluid" alt="">
+                    <div class="view hm-black-light">
+                        <img src="{{ asset('img/background/front3.jpg') }}" class="img-fluid" style="min-width:100%;">
                         <div class="full-bg-img">
                         </div>
                     </div>
                     <!--Caption-->
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
-                            <h3 class="h3-responsive">Quality comes first</h3>
-                            <p>User feedback is directly proportional to the facilitator's payment. In case of complaints, we do listen.</p>
+                            <h3 class="h3-responsive">QUALITY IS PRIORITY</h3>
+                            <p><small>YOUR FEEDBACK MATTERS MOST</small></p>
                         </div>
                     </div>
                     <!--Caption-->
                 </div>
                 <!--/Third slide-->
+
+                <!--Fourth slide-->
+                <div class="carousel-item">
+                    <!--Mask color-->
+                    <div class="view hm-black-strong">
+                        <img src="{{ asset('img/background/front4.jpg') }}" class="img-fluid" style="min-width:100%;">
+                        <div class="full-bg-img">
+                        </div>
+                    </div>
+                    <!--Caption-->
+                    <div class="carousel-caption">
+                        <div class="animated fadeInDown">
+                            <h3 class="h3-responsive">EARN PART-TIME</h3>
+                            <p><small>MERIT HOLDERS CAN TEACH HERE</small></p>
+                        </div>
+                    </div>
+                    <!--Caption-->
+                </div>
+                <!--/Fourth slide-->
             </div>
             <!--/.Slides-->
 
             <!--Controls-->
-            <a class="left carousel-control" href="#carousel-example-2" role="button" data-slide="prev">
+            <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
                 <span class="icon-prev" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="right carousel-control" href="#carousel-example-2" role="button" data-slide="next">
+            <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
                 <span class="icon-next" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
