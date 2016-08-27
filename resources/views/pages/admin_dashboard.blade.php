@@ -358,6 +358,38 @@
         Making any changes here will effect the entire web site.
       </p>
     </div>
+    @if($subject_syllabus_count>0)
+      <div class="card card-block">
+        <h3 class="card-title">ADD <big class="red-text">syllabus [{{$subject_syllabus_count}}]</big></h3>
+        <p class="card-text">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>UNIVERSITY</th>
+                  <th>COURSE</th>
+                  <th>SUBJECT</th>
+                  <th>SYLLABUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($subject_syllabus as $ss)
+                  <tr>
+                    <td>{{ $ss->university }}</td>
+                    <td>{{ $ss->course }}</td>
+                    <td>{{ $ss->name }}</td>
+                    <td></td>
+                  </tr>
+                @endforeach
+                @if($tokens->links())
+                  <tr><td colspan="7" align="center"><nav>{{ $provide_assistances->links() }}</nav></td></tr>
+                @endif
+              </tbody>
+            </table>
+          </div>
+        </p>
+      </div>
+    @endif
     <div class="card-group">
       <div class="card card-block">
         <h3 class="card-title">ADD <big class="red-text">country</big></h3>

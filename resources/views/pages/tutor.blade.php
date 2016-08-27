@@ -183,11 +183,15 @@
               <br/><br/>
               @if ($provided_assistance->files !== "")
                 <?php $files = explode("|", $provided_assistance->files);$count=0;?>
-                <h6 class="list-group-item-heading">DOCUMENT 
+                <h6 class="list-group-item-heading">
+                  <a href="#" target="_blank">
+                    <small><small>SYLLABUS</small></small>
+                    <i class="fa fa-file-text fa-lg" aria-hidden="true"></i>
+                  </a>
                   @foreach ($files as $file)
                     @if ($file !== "")
                       <?php $filepart = explode(":", $file);$count++;?>
-                      <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>{{$count}}</small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
+                      <a href="/download/{{ $filepart[0] }}" target="_blank"><small><small>DOC{{$count}} </small></small><i class="fa {{ $filepart[1] }} fa-lg" aria-hidden="true"></i></a>
                     @endif
                   @endforeach
                 </h6>
@@ -201,66 +205,59 @@
         </ul>
       @else
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">About Provide Assistance</h4>
+          <h4 class="card-title">About Provide Assistance</h4><hr/>
           <p class="card-text" align="justify">This is a premium service in which we assign a well educated trainer to assist our student clients with a particular subject. The assistance could be foundation strengthening, doubt clearance, exam preparation, homework or assignment assistance, etc. The trainers is bound to value client's time and thus try to take less time and deliver quality assistance.</p>
         </div>
         <div class="card-footer default-color-dark white-text" style="border-radius:0;">
-            <p class="card-text"><small>Earn ₹400 to ₹1600 per assistance based on client's requirement.</small></p>
+            <p class="card-text"><small>Earn $16 to $40 per assistance based on client's requirement.</small></p>
         </div>
       </div>
       @endif
     </div>
     <div class="card-group">
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">Course Guide</h4>
+          <h4 class="card-title">Course Guide</h4><hr/>
           <p class="card-text" align="justify">Our course guides will keep suggesting various details related to client's course. They might suggest client which extra knowledge they should have based on your course. They might also suggest various short term courses based on client's main course to further enhance their knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn $40 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">Career Guide</h4>
+          <h4 class="card-title">Career Guide</h4><hr/>
           <p class="card-text" align="justify">Our career guides will keep suggesting various details related to client's career. They might suggest client which extra skills they should have based on their current course or career. They might also suggest various short term or long term courses based on client's main career to further enhance their skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn $40 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">Job Guide</h4>
+          <h4 class="card-title">Job Guide</h4><hr/>
           <p class="card-text" align="justify">Our job guides will keep suggesting various details related to client's job. They might suggest client which extra certifications they should have based on their career or current job. They might also suggest various short term or long term or certification courses based on client's job profile to enhance their productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Earn ₹4000 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Earn $40 for one client.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
     </div>
     <div class="card-group">
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(63).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">G M A T Guide</h4>
+          <h4 class="card-title">G M A T Guide</h4><hr/>
           <p class="card-text" align="justify">Our course guides will keep suggesting you various details related to your course. They might suggest you which extra knowledge you should have based on your course. They might also suggest various short term courses based on your main course to further enhance your knowledge.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹5000 for your course.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay $40 for your course.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(62).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">G A T E Guide</h4>
+          <h4 class="card-title">G A T E Guide</h4><hr/>
           <p class="card-text" align="justify">Our career guides will keep suggesting you various details related to your career. They might suggest you which extra skills you should have based on your current course or career. They might also suggest various short term or long term courses based on your main career to further enhance your skills.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹7500 for your career.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay $40 for your career.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
       <div class="card">
-        <img class="img-fluid" src="http://mdbootstrap.com/images/reg/reg%20(64).jpg" alt="Card image cap">
         <div class="card-block">
-          <h4 class="card-title">C A T Guide</h4>
+          <h4 class="card-title">C A T Guide</h4><hr/>
           <p class="card-text" align="justify">Our job guides will keep suggesting you various details related to your job. They might suggest you which extra certifications you should have based on your career or current job. They might also suggest various short term or long term or certification courses based on your job profile to enhance your productivity.</p>
-          <p class="card-text" align="right"><small class="text-muted">Pay ₹10000 for your job.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
+          <p class="card-text" align="right"><small class="text-muted">Pay $40 for your job.<br/><a href="#" class="btn btn-primary-outline btn-sm">APPLY</a></small></p>
         </div>
       </div>
     </div>

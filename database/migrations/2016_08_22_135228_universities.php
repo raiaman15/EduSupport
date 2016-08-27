@@ -15,7 +15,6 @@ class Universities extends Migration
         Schema::create('universities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

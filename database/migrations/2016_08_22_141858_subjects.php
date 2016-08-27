@@ -17,7 +17,7 @@ class Subjects extends Migration
             $table->string('name');
             $table->string('course');
             $table->string('university');
-            $table->rememberToken();
+            $table->string('syllabus');
             $table->timestamps();
         });
     }

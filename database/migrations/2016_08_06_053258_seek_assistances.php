@@ -33,7 +33,6 @@ class SeekAssistances extends Migration
             $table->float('tutor_payment')->default(0.00);
             $table->boolean('tutor_got_payment')->default(false);
             $table->string('status')->default("PAYMENT LINK IS GETTING READY");
-            $table->rememberToken();
             $table->timestamps();
         });
     }

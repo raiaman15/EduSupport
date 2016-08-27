@@ -17,7 +17,6 @@ class CreateTokensTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('description');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

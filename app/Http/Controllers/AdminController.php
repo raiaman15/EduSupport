@@ -70,7 +70,9 @@ class AdminController extends Controller
             $seek_assistances_count = Seek_assistance::where('payment_link_prepared', false)->orWhere('tutor_assigned', false)->orWhere('tutor_payment_generated', false)->orWhere('tutor_got_payment', false)->orderBy('updated_at', 'desc')->count();
             $provide_assistances = Provide_assistance::where('admin_approved', false)->orderBy('updated_at', 'desc')->paginate(5);
             $provide_assistances_count = Provide_assistance::where('admin_approved', false)->orderBy('updated_at', 'desc')->count();
-            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances)->with('learner_notification_count', $seek_assistances_count)->with('facilitator_notification_count', $provide_assistances_count);
+            $subject_syllabus = Subject::where('syllabus', "")->paginate(5);
+            $subject_syllabus_count = Subject::where('syllabus', "")->count();
+            return view("pages.admin_dashboard")->with('tokens',$tokens)->with('seek_assistances',$seek_assistances)->with('provide_assistances',$provide_assistances)->with('subject_syllabus',$subject_syllabus)->with('learner_notification_count', $seek_assistances_count)->with('facilitator_notification_count', $provide_assistances_count)->with('subject_syllabus_count',$subject_syllabus_count);
         }
         else
             return view('pages.welcome');

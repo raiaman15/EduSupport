@@ -26,7 +26,6 @@ class ProvideAssistances extends Migration
             $table->boolean('earn_approved')->default(false);
             $table->string('status')->default("WAITING FOR ADMIN APPROVAL");
             $table->double('earn_amount', 10, 2)->default(0.00);; // 1 Crore max
-            $table->rememberToken();
             $table->timestamps();
         });
     }
