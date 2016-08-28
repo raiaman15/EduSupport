@@ -9,10 +9,33 @@
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
         <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
+        @if (Auth::guest()) 
+        @else
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact_us_link" href="{{ url('/contact_us') }}">CONTACT US</a>
+          </li>
+        </ul>
+        @endif
         <form class="form-inline">
-          <a title="LOG IN" class="btn unique-color-dark white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/login">
-            <small><i class="fa fa-key" aria-hidden="true"></i></small>
-          </a>    
+            @if (Auth::guest())
+                <a title="LOG IN" class="btn unique-color-dark white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/login">
+                  <small><i class="fa fa-key" aria-hidden="true"></i></small>
+                </a> 
+            @else
+                <a title="LOG OUT" class="btn unique-color-dark white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
+                  <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
+                </a> 
+            @endif
         </form>
       </div>
     </big>
