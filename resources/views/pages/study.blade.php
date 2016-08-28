@@ -24,7 +24,7 @@
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
         <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav pull-right">
           <li class="nav-item active">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
           </li>
@@ -37,15 +37,34 @@
           <li class="nav-item">
             <a class="nav-link" id="contact_us_link" href="{{ url('/contact_us') }}">CONTACT US</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link"> </a>
+          </li>
+          @if (Auth::guest())
+          <li class="nav-item">
+              <a title="SIGN UP" class="nav-link" href="/login">
+                <i class="fa fa-user-plus" aria-hidden="true"></i> SIGN UP
+              </a>
+          </li>
+          <li class="nav-item">
+              <a title="SIGN IN" class="nav-link" href="/login">
+                <i class="fa fa-sign-in" aria-hidden="true"></i> SIGN IN
+              </a>
+          </li>
+        @else
+          
+          <li class="nav-item">
+              <a title="EDIT PROFILE" type="button" id="add_more_info" class="nav-link" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-user" aria-hidden="true"></i> PROFILE
+              </a>
+          </li>
+          <li class="nav-item">
+              <a title="SIGN OUT" class="nav-link" href="/login">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> SIGN OUT
+              </a>
+          </li>
+        @endif
         </ul>
-        <form class="form-inline">
-          <button title="EDIT PROFILE" type="button" id="add_more_info" class="btn unique-color" data-toggle="modal" data-target="#myModal" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-pencil" aria-hidden="true"></i></small>
-          </button>
-          <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
-            <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
-          </a>    
-        </form>
       </div>
     </big>
   </div>

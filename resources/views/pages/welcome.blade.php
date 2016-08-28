@@ -11,7 +11,7 @@
         <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
         @if (Auth::guest()) 
         @else
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav pull-right">
           <li class="nav-item">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
           </li>
@@ -24,19 +24,26 @@
           <li class="nav-item">
             <a class="nav-link" id="contact_us_link" href="{{ url('/contact_us') }}">CONTACT US</a>
           </li>
-        </ul>
         @endif
-        <form class="form-inline">
-            @if (Auth::guest())
-                <a title="LOG IN" class="btn unique-color-dark white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/login">
-                  <small><i class="fa fa-key" aria-hidden="true"></i></small>
-                </a> 
-            @else
-                <a title="LOG OUT" class="btn unique-color-dark white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
-                  <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>
-                </a> 
-            @endif
-        </form>
+        @if (Auth::guest())
+          <li class="nav-item">
+              <a title="SIGN UP" class="nav-link" href="/login">
+                <i class="fa fa-user-plus" aria-hidden="true"></i> SIGN UP
+              </a>
+          </li>
+          <li class="nav-item">
+              <a title="SIGN IN" class="nav-link" href="/login">
+                <i class="fa fa-sign-in" aria-hidden="true"></i> SIGN IN
+              </a>
+          </li>
+        @else
+          <li class="nav-item">
+              <a title="SIGN OUT" class="nav-link" href="/login">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> SIGN OUT
+              </a>
+          </li>
+        @endif
+        </ul>
       </div>
     </big>
   </div>
