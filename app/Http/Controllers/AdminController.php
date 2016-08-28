@@ -138,7 +138,7 @@ class AdminController extends Controller
         $mailto=$provide_assistance->email;
         $provide_assistance->delete();
         Mail::send('email.provide_assistance_not_approved',['subject' => $subject], function ($m) use ($mailto) {
-            $m->to($mailto)->subject( env('APP_NAME').' : Provide Assistance Not Approved' );
+            $m->to($mailto)->subject( env('APP_NAME').': Provide Assistance Not Approved' );
         });
         return redirect('admin_dashboard');
     }
