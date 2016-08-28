@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages.welcome');
-});
+Route::get('/', [
+    'uses' => 'GuestController@welcome'
+]);
 
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
@@ -61,6 +61,10 @@ Route::get('download/{filename}', [
     'middleware' => 'auth',
     'uses' => 'HomeController@download'
 ]);
+Route::get('download_syllabus/{university}/{course}/{subject}', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@download_syllabus'
+]);
 Route::get('tutor_feedback/{id}/{rating}', [
     'middleware' => 'auth',
     'uses' => 'HomeController@save_tutor_feedback'
@@ -99,4 +103,5 @@ Route::get('add_country/{name}', ['middleware' => 'CheckAdmin', 'uses' => 'Admin
 Route::get('add_university/{name}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_university']);
 Route::get('add_course/{name}/{university}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_course']);
 Route::get('add_subject/{name}/{course}/{university}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_subject']);
-Route::any('autocomplete/assign_tutor', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@autocomplete_assign_tutor']);
+Route::any('autocomplete/assign_tutor/{id}', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@autocomplete_assign_tutor']);
+Route::post('add_subject_syllabus', ['middleware' => 'CheckAdmin', 'uses' => 'AdminController@add_subject_syllabus']);

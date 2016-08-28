@@ -121,6 +121,21 @@ return [
     |
     */
 
+    //MISCELLANEOUS
+    'app_name' => env('APP_NAME'),
+    'mailgun_domain' => env('MAILGUN_DOMAIN'),
+    'mailgun_secret' => env('MAILGUN_SECRET'),
+    'mail_sender' => env('MAIL_SENDER'),
+    'mailer_name' => env('MAILER_NAME'),
+    'nocaptcha_secret' => env('NOCAPTCHA_SECRET'),
+    'nocaptcha_sitekey' => env('NOCAPTCHA_SITEKEY'),
+    'paypal_client_id' => env('PAYPAL_CLIENT_ID'),
+    'paypal_secret' => env('PAYPAL_SECRET'),
+    'admin_1' => env('ADMIN_1'),
+    'admin_2' => env('ADMIN_2'),
+    'admin_3' => env('ADMIN_3'),
+    'admin_4' => env('ADMIN_4'),
+
     'providers' => [
 
         /*

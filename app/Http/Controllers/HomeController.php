@@ -31,6 +31,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function display_study()
     {
         if (Auth::check()) {
@@ -74,10 +75,10 @@ class HomeController extends Controller
         if (Auth::check()) {
             $user = User::where('email', Auth::user()->email)->first();
             if(!empty($request->DOB)){$user->DOB = $request->DOB;}
-            if(!empty($request->country)){$user->country = $request->country;}
+            if(!empty($request->country)){$user->country = strtoupper($request->country);}
             if(!empty($request->contact)){$user->contact = $request->contact;}
-            if(!empty($request->university)){$user->university = $request->university;}
-            if(!empty($request->course)){$user->course = $request->course;}
+            if(!empty($request->university)){$user->university = strtoupper($request->university);}
+            if(!empty($request->course)){$user->course = strtoupper($request->course);}
             if(!empty($request->referred_by)){$user->referred_by = $request->referred_by;}
             $user->save();
             return redirect('/study');
@@ -149,7 +150,11 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return \Response::json(array('success' => false , 'message' => $validator->messages()->toJson()));
         }
-        $sub = Subject::where('name', $request->input('assistance_subject'))->first();
+        $sub = Provide_assistance::where('university', Auth::User()->university)
+                    ->where('course', Auth::User()->course)
+                    ->where('subject', $request->input('assistance_subject'))
+                    ->where('admin_approved', true)
+                    ->first();
         if(!$sub)
         {
             return \Response::json(array('success' => false , 'message' => "{\"assistance_subject\":[\"We currently do not have a tutor for the subject you specified. If you know a tutor of this subject, kindly <a href=".url('/contact_us').">contact us.</a>\"]}"));
@@ -157,7 +162,7 @@ class HomeController extends Controller
         $seek = new Seek_assistance;
         $seek->name=Auth::user()->name;
         $seek->email=Auth::user()->email;
-        $seek->subject=$request->input('assistance_subject');
+        $seek->subject=strtoupper($request->input('assistance_subject'));
         $seek->description=$request->input('assistance_description');
         $seek->country=Auth::user()->country;
         $seek->university=Auth::user()->university;
@@ -237,11 +242,11 @@ class HomeController extends Controller
         $provide = new Provide_assistance;
         $provide->name=Auth::user()->name;
         $provide->email=Auth::user()->email;
-        $provide->subject=$request->input('p_assistance_subject');
+        $provide->subject=strtoupper($request->input('p_assistance_subject'));
         $provide->description=$request->input('p_assistance_description');
         $provide->country=Auth::user()->country;
-        $provide->university=$request->input('p_assistance_subject_university');
-        $provide->course=$request->input('p_assistance_subject_course');
+        $provide->university=strtoupper($request->input('p_assistance_subject_university'));
+        $provide->course=strtoupper($request->input('p_assistance_subject_course'));
         $provide->save();
         $provide1 = Provide_assistance::where('email', Auth::user()->email)->get()->last();
         $count=0;
@@ -291,10 +296,20 @@ class HomeController extends Controller
 
     public function save_tutor_feedback($id, $tutor_rating){
         $seek_assistance = Seek_assistance::where('id', $id)->first();
-        $seek_assistance->feedback_provided=true;
-        $seek_assistance->tutor_feedback=$tutor_rating; //an integer
-        $seek_assistance->status="GENERATING TUTOR PAYMENT";
-        $seek_assistance->save();
+        if($tutor_rating==0)
+        {
+            $seek_assistance->feedback_provided=false;
+            $seek_assistance->tutor_feedback=$tutor_rating; //an integer
+            $seek_assistance->status="TUTOR ASSIGNED : ".$seek_assistance->tutor_email;
+            $seek_assistance->save();
+        }
+        else
+        {
+            $seek_assistance->feedback_provided=true;
+            $seek_assistance->tutor_feedback=$tutor_rating; //an integer
+            $seek_assistance->status="GENERATING TUTOR PAYMENT";
+            $seek_assistance->save();
+        }
         return redirect('study');
     }
 
@@ -344,5 +359,14 @@ class HomeController extends Controller
             }
         }
         return \Response::json($return_array);
+    }
+
+    public function download_syllabus($university, $course, $subject){
+        $subject = Subject::where('university', $university)->where('course', $course)->where('name', $subject)->first();
+        if(!$subject->syllabus)
+            {dd("Syllabus is currently not available for this subject. Kindly provide your syllabus to your tutor so that we can add it here.");}
+        $mime = Storage::mimeType($subject->syllabus);
+        $file = Storage::get($subject->syllabus);
+        return (\Response($file, 200))->header('Content-Type', $mime);
     }
 }

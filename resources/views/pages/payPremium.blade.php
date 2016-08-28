@@ -21,7 +21,7 @@
   <div class="container">
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-        <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
+        <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
         <form class="form-inline">
           <a title="LOGOUT" class="btn unique-color white-text" style="width:30px;height:30px;line-height:20px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;margin:5px 5px 5px 5px;" href="/logout">
             <small><i class="fa fa-sign-out" aria-hidden="true"></i></small>

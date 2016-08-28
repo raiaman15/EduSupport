@@ -13,7 +13,7 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="{{ env('APP_URL') }}">{{ env('APP_NAME') }}</a>
+      <a class="navbar-brand" href="{{ config('app.url') }}">{{ config('app.app_name') }}</a>
     </div>
     <!--/.Collapse content-->
   </big>

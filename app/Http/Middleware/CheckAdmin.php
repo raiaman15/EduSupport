@@ -17,7 +17,11 @@ class CheckAdmin
     {
         if(!isset($request->user()))
             abort(403, 'Unauthorized action.');
-        if(!(($request->user()->email=="raiaman15@gmail.com")||($request->user()->email=="sharmaprateek28@gmail.com")||($request->user()->email=="sharmayush17@gmail.com")||($request->user()->email=="bharadwaj.tejasv21@gmail.com"))) 
+        if( !(($request->user()->email==config("app.admin_1"))
+            ||($request->user()->email==config("app.admin_2"))
+            ||($request->user()->email==config("app.admin_3"))
+            ||($request->user()->email==config("app.admin_4")))
+          ) 
         //Use hashed value (github is open, so delete me too), try env 
             {return redirect('logout');}
         return $next($request);

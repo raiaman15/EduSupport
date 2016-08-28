@@ -28,15 +28,10 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx2">
       <!--Navbar Brand-->
-      <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
+      <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
       <!--Links-->
       <ul class="nav navbar-nav">
         <li class="nav-item active">
-          <a title="HOME" id="home_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
-            <small><i class="fa fa-home" aria-hidden="true"></i> HOME</small>
-          </a>
-        </li>
-        <li class="nav-item">
           <a title="LEARNER REQUESTS" id="assist_student_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-user" aria-hidden="true"></i> LEARNER [ {{$learner_notification_count}} ]</small>
           </a>
@@ -44,6 +39,11 @@
         <li class="nav-item">
           <a title="FACILITATOR VERIFICATION" id="verify_tutor_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
             <small><i class="fa fa-user-secret" aria-hidden="true"></i> FACILITATOR [ {{$facilitator_notification_count}} ]</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a title="HOME" id="home_link" class="nav-link btn unique-color white-text" style="padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+            <small><i class="fa fa-home" aria-hidden="true"></i> HOME</small>
           </a>
         </li>
         <li class="nav-item">
@@ -128,68 +128,9 @@
     </div>
 </div>
 <!-- /.Live preview-->
-<!-- HOME -->
-<div class="container" id="home">
-  <div class="row">
-    <div class="card-group">
-      <div class="card">
-        <div class="card-block" align="center">
-            <p class="card-text">
-              <div id="temps_div" align="center"></div>
-              @gaugechart('Temps', 'temps_div')
-            </p>
-        </div>
-      </div>
-    </div>
-    <div class="card-group">
-      @if(count($tokens)>0)
-        <div class="card">
-          <div class="table-responsive">
-            <table class="table table-bordered table-sm table-hover">
-              <thead>
-                <tr>
-                  <th>Sender</th>
-                  <th>Message</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($tokens as $token)
-                  <tr>
-                    <td>
-                      {{ $token->name }}<br/>
-                      <small class="text-muted">{{ $token->email }}<br/>
-                      <small>{{ $token->updated_at }}</small></small>
-                    </td>
-                    <td><small><small>{{ $token->description }}</small></small></td>
-                    <td align="center" style="vertical-align:middle;">
-                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_token/{{ $token->id }}">
-                      <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
-                    </a>
-                  </td>
-                  </tr>
-                @endforeach
-                @if($tokens->links())
-                <tr><td colspan="7" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
-              @endif
-              </tbody>
-            </table>
-          </div>  
-        </div>
-      @else
-        <div class="card card-block">
-          <h3 class="card-title">Sorry <big class="red-text">{{ Auth::user()->name }},</big></h3>
-          <p class="card-text">
-            No one tried to contact us. 
-          </p>
-        </div>
-      @endif
-    </div>
-  </div>
-</div>
 
 <!-- ASSIST STUDENT -->
-<div class="container" id="assist_student" style="display:none;">
+<div class="container" id="assist_student">
   <div class="row">
     @if(count($seek_assistances)>0)
       <div class="card">
@@ -225,8 +166,9 @@
                 @elseif (($seek_assistance->payment_done) and (!$seek_assistance->tutor_assigned))
                   <br/>
                   <div class="md-form">
+                      <input id="input_assign_tutor_id" type="hidden" value="{{$seek_assistance->id}}" disabled>
                       <input id="input_assign_tutor" type="text" class="form-control" autocomplete="off">
-                      <label for="input_assign_tutor" class="">ASSIGN TUTOR (name/email/subject)</label>
+                      <label for="input_assign_tutor" class="">ASSIGN TUTOR (type email directly or paste subject name from above)</label>
                   </div>
                   <a id="save_assigned_tutor" href="/save_assigned_tutor/{{ $seek_assistance->id }}/" class="btn btn-primary btn-sm">SAVE</a>
                   <br/><br/>
@@ -261,10 +203,7 @@
               <p class="card-text"><small class="text-muted">₹500 - ₹2000 per assistance based on requirement.</small></p>
             </div>
           </div>
-        @endif
-        @if($seek_assistances->links())
-          <tr><td colspan="7" align="center"><nav>{{ $seek_assistances->links() }}</nav></td></tr>
-        @endif   
+        @endif 
       </div>
     @else
       <div class="card card-block">
@@ -349,6 +288,66 @@
   </div>
 </div>
 
+<!-- MESSEGES -->
+<div class="container" id="home" style="display:none;">
+  <div class="row">
+    <div class="card-group">
+      <div class="card">
+        <div class="card-block" align="center">
+            <p class="card-text">
+              <div id="temps_div" align="center"></div>
+              @gaugechart('Temps', 'temps_div')
+            </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      @if(count($tokens)>0)
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>Sender</th>
+                  <th>Message</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($tokens as $token)
+                  <tr>
+                    <td>
+                      {{ $token->name }}<br/>
+                      <small class="text-muted">{{ $token->email }}<br/>
+                      <small>{{ $token->updated_at }}</small></small>
+                    </td>
+                    <td><small><small>{{ $token->description }}</small></small></td>
+                    <td align="center" style="vertical-align:middle;">
+                    <a title="LOGOUT" class="btn btn-danger white-text" style="width:30px;height:30px;line-height:17px;border-radius: 50%;text-align:center;padding:5px 0px 5px 0px;" href="/delete_token/{{ $token->id }}">
+                      <small><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></small>
+                    </a>
+                  </td>
+                  </tr>
+                @endforeach
+                @if($tokens->links())
+                <tr><td colspan="7" align="center"><nav>{{ $tokens->links() }}</nav></td></tr>
+              @endif
+              </tbody>
+            </table>
+          </div>  
+        </div>
+      @else
+        <div class="card card-block">
+          <h3 class="card-title">Sorry <big class="red-text">{{ Auth::user()->name }},</big></h3>
+          <p class="card-text">
+            No one tried to contact us. 
+          </p>
+        </div>
+      @endif
+    </div>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="container" id="setting" style="display:none;">
   <div class="row">
@@ -378,7 +377,16 @@
                     <td>{{ $ss->university }}</td>
                     <td>{{ $ss->course }}</td>
                     <td>{{ $ss->name }}</td>
-                    <td></td>
+                    <td>
+                      <form id="add_subject_syllabus" class="form-horizontal" role="form" method="POST" action="{{ url('/add_subject_syllabus') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="hidden" value="{{ $ss->id }}" name="subject_id">
+                        <input type="file" name="subject_syllabus" id="subject_syllabus">
+                        <small><small>(pdf/doc/docx/jpg/png format only)</small></small>
+                        <button type="submit" class="btn btn-primary btn-sm">SAVE</button>
+                      </form>
+                      <div id="file_upload_status" style="display:none;"><i class="fa fa-upload fa-2x" aria-hidden="true"></i><span id="file_upload_percentage"></span></div>
+                    </td>
                   </tr>
                 @endforeach
                 @if($tokens->links())
@@ -459,20 +467,6 @@
 @section('script')
 <!-- SCRIPTS -->
 <script>
-  $( "#home_link" ).click(function() {
-    $( "#home_link" ).parent().addClass( "active" );
-    $( "#assist_student_link" ).parent().removeClass("active");
-    $( "#verify_tutor_link" ).parent().removeClass("active");
-    $( "#setting_link" ).parent().removeClass("active");
-    $( "#assist_student" ).hide( "fast");
-    $( "#verify_tutor" ).hide( "fast");
-    $( "#setting" ).hide( "fast");
-    $( "#home" ).show( "fast");
-    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
-            $('.navbar-toggler').click();
-        }
-  });
-  
   $( "#assist_student_link" ).click(function() {
     $( "#assist_student_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
@@ -501,6 +495,20 @@
         }
   });
   
+  $( "#home_link" ).click(function() {
+    $( "#home_link" ).parent().addClass( "active" );
+    $( "#assist_student_link" ).parent().removeClass("active");
+    $( "#verify_tutor_link" ).parent().removeClass("active");
+    $( "#setting_link" ).parent().removeClass("active");
+    $( "#assist_student" ).hide( "fast");
+    $( "#verify_tutor" ).hide( "fast");
+    $( "#setting" ).hide( "fast");
+    $( "#home" ).show( "fast");
+    if ($(".navbar-toggleable-xs").hasClass("collapse in") === true) {
+            $('.navbar-toggler').click();
+        }
+  });
+
   $( "#setting_link" ).click(function() {
     $( "#setting_link" ).parent().addClass( "active" );
     $( "#home_link" ).parent().removeClass("active");
@@ -616,12 +624,47 @@
       }
     });
     $( "#input_assign_tutor" ).autocomplete({
-      source: "autocomplete/assign_tutor",
+      source: "autocomplete/assign_tutor/" + $('#input_assign_tutor_id').val(),
       minLength: 2,
       select: function(event, ui) {
         $('#input_assign_tutor').val(ui.item.value);
       }
     });
   });
+
+  var form = document.getElementById('add_subject_syllabus');
+  var request = new XMLHttpRequest();
+  form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(form);
+      request.open('post', '/add_subject_syllabus');
+      request.addEventListener("load", seekTransferComplete);
+      request.onprogress = function (e) {
+          if (e.lengthComputable) {
+              $('#file_upload_percentage').html((e.loaded/e.total)*100 + "%");
+          }
+      }
+      request.onloadstart = function (e) {
+          $("#add_subject_syllabus").hide();
+          $('#file_upload_status').show();
+      }
+      request.onloadend = function (e) {
+          $('#file_upload_percentage').html("Uploaded Successfully");
+      }
+      request.send(formdata);
+  });
+  function seekTransferComplete(data){
+      var response = JSON.parse(data.currentTarget.response);
+      if(response.success)
+      {
+          $("#add_subject_syllabus").hide();
+          $('#file_upload_percentage').html("Sent to server");
+      }
+      else 
+      {
+          $("#add_subject_syllabus").hide();
+          $('#file_upload_percentage').html("Upload Failed");
+      }
+  }
 </script>
 @stop

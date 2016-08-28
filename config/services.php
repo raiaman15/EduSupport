@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => config('app.mailgun_domain'),
+        'secret' => config('app.mailgun_secret'),
     ],
 
     'ses' => [
@@ -36,8 +36,8 @@ return [
     ],
 
     'paypal' => [
-        'client_id' => env('PAYPAL_CLIENT_ID'),
-        'secret' => env('PAYPAL_SECRET'),
+        'client_id' => config('app.paypal_client_id'),
+        'secret' => config('app.paypal_secret'),
     ],
 
 ];

@@ -21,7 +21,7 @@
   <div class="container">
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-        <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
+        <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>

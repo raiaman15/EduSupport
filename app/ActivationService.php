@@ -33,7 +33,7 @@ class ActivationService
         $link = route('user.activate', $token);
 
         $this->mailer->send('auth.emails.activation',['link' => $link], function (Message $m) use ($user) {
-            $m->to($user->email)->subject(env('APP_NAME').': Account Activation');
+            $m->to($user->email)->subject(config('app.app_name').': Account Activation');
         });
 
 

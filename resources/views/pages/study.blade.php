@@ -23,7 +23,7 @@
   <div class="container">
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
-        <a class="navbar-brand" href="{{ env('APP_URL') }}"><big>{{ env('APP_NAME') }}</big></a>
+        <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
         <ul class="nav navbar-nav">
           <li class="nav-item active">
             <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
@@ -176,7 +176,7 @@
               @if ($seeked_assistance->files !== "")
                 <?php $files = explode("|", $seeked_assistance->files);$count=0;?>
                 <h6 class="list-group-item-heading">
-                  <a href="#" target="_blank">
+                  <a href="/download_syllabus/{{$seeked_assistance->university}}/{{$seeked_assistance->course}}/{{$seeked_assistance->subject}}" target="_blank">
                     <small><small>SYLLABUS</small></small>
                     <i class="fa fa-file-text fa-lg" aria-hidden="true"></i>
                   </a>
