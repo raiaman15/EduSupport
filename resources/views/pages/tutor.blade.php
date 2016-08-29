@@ -40,7 +40,7 @@
           </li>
           @if (Auth::guest())
           <li class="nav-item">
-              <a title="SIGN UP" class="nav-link" href="/login">
+              <a title="SIGN UP" class="nav-link" href="/register">
                 <i class="fa fa-user-plus" aria-hidden="true"></i> SIGN UP
               </a>
           </li>
@@ -57,7 +57,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a title="SIGN OUT" class="nav-link" href="/login">
+              <a title="SIGN OUT" class="nav-link" href="/logout">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> SIGN OUT
               </a>
           </li>

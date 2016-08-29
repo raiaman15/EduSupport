@@ -9,23 +9,8 @@
     <big>
       <div class="collapse navbar-toggleable-xs" id="collapseEx2">
         <a class="navbar-brand" href="{{ config('app.url') }}"><big>{{ config('app.app_name') }}</big></a>
-        @if (Auth::guest()) 
-        @else
         <ul class="nav navbar-nav pull-right">
-          <li class="nav-item">
-            <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="contact_us_link" href="{{ url('/contact_us') }}">CONTACT US</a>
-          </li>
-        @endif
-        @if (Auth::guest())
+        @if (Auth::guest()) 
           <li class="nav-item">
               <a title="SIGN UP" class="nav-link" href="/login">
                 <i class="fa fa-user-plus" aria-hidden="true"></i> SIGN UP
@@ -38,11 +23,26 @@
           </li>
         @else
           <li class="nav-item">
-              <a title="SIGN OUT" class="nav-link" href="/login">
+            <a class="nav-link" id="study_link" href="{{ url('/study') }}">LEARNER</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tutor_link" href="{{ url('/tutor') }}">FACILITATOR</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="why_us_link" href="{{ url('/why_us') }}">WHY US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact_us_link" href="{{ url('/contact_us') }}">CONTACT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"> </a>
+          </li>
+          <li class="nav-item">
+              <a title="SIGN OUT" class="nav-link" href="/logout">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> SIGN OUT
               </a>
           </li>
-        @endif
+          @endif
         </ul>
       </div>
     </big>
